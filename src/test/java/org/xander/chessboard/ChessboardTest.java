@@ -84,4 +84,48 @@ public class ChessboardTest {
 
         chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawABoard());
     }
+
+    @Test
+    public void calculateAreaOfTheKnightAttackTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "......\n" +
+                            "......\n" +
+                            "..n...\n" +
+                            "......\n" +
+                            "......\n" +
+                            "......\n";
+        String expectedBoard = ".x.x..\n" +
+                               "x...x.\n" +
+                               "..n...\n" +
+                               "x...x.\n" +
+                               ".x.x..\n" +
+                               "......\n";
+        String actualBoard = chessboard.calculateKnightAttackPlaces(board);
+        assertEquals(expectedBoard, actualBoard);
+    }
+
+    @Test
+    public void calculateAreaOfTheKnightAttackOnBorderTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "......\n" +
+                       "..n...\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n";
+        String expectedBoard = "x...x.\n" +
+                               "..n...\n" +
+                               "x...x.\n" +
+                               ".x.x..\n" +
+                               "......\n" +
+                               "......\n";
+        String actualBoard = chessboard.calculateKnightAttackPlaces(board);
+//        System.out.println(actualBoard);
+        assertEquals(expectedBoard, actualBoard);
+    }
+
 }

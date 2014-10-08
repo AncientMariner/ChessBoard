@@ -143,4 +143,45 @@ public class Chessboard {
         }
         return chessBoardWithFigures.toString();
     }
+
+    public String calculateKnightAttackPlaces(String board) {
+        StringBuilder chessBoardWithFigures = new StringBuilder();
+        char[] boardElements = board.toCharArray();
+        for (int i = 0 ; i < boardElements.length; i++) {
+            if (boardElements[i] == 'n') {
+                //place right
+                if (i % dimension + 2 < dimension) {
+                    if(i + (dimension + 1) < boardElements.length)
+                        boardElements[i + dimension + 1 + 2] = 'x';
+                    if(i - (dimension + 1) >= 0)
+                        boardElements[i - dimension - 1 + 2] = 'x';
+                }
+                //place below
+                if(i + (dimension + 1) * 2 < boardElements.length){
+                    if((i % dimension + 1) < dimension)
+                        boardElements[i + (dimension + 1) * 2 + 1] = 'x';
+                    if((i % dimension - 1) >= 0)
+                        boardElements[i + (dimension + 1) * 2 - 1] = 'x';
+                }
+                //place left
+                if (i % dimension - 2 >= 0) {
+                    if(i + (dimension + 1) < boardElements.length)
+                        boardElements[i + dimension + 1 - 2] = 'x';
+                    if(i - (dimension + 1) >= 0)
+                        boardElements[i - dimension - 1 - 2] = 'x';
+                }
+                //place top
+                if(i - (dimension + 1) * 2 >= 0){
+                    if((i % dimension + 1) < dimension)
+                        boardElements[i - (dimension + 1) * 2 + 1] = 'x';
+                    if((i % dimension - 1) >= 0)
+                        boardElements[i - (dimension + 1) * 2 - 1] = 'x';
+                }
+            }
+        }
+        for (char element : boardElements) {
+            chessBoardWithFigures.append(element);
+        }
+        return chessBoardWithFigures.toString();
+    }
 }
