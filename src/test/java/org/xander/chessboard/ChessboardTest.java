@@ -93,38 +93,81 @@ public class ChessboardTest {
         String board = "......\n" +
                             "......\n" +
                             "..n...\n" +
-                            "......\n" +
+                            "....n.\n" +
                             "......\n" +
                             "......\n";
         String expectedBoard = ".x.x..\n" +
-                               "x...x.\n" +
+                               "x..xxx\n" +
                                "..n...\n" +
-                               "x...x.\n" +
-                               ".x.x..\n" +
-                               "......\n";
+                               "x...n.\n" +
+                               ".xxx..\n" +
+                               "...x.x\n";
+        String actualBoard = chessboard.calculateKnightAttackPlaces(board);
+        System.out.println(actualBoard);
+        assertEquals(expectedBoard, actualBoard);
+    }
+
+    @Test
+    public void calculateAreaOfTheKnightAttackOnBorderAndMiddleTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "n....n\n" +
+                       "......\n" +
+                       "..nn..\n" +
+                       "..nn..\n" +
+                       "......\n" +
+                       "n....n\n";
+        String expectedBoard = "nxxxxn\n" +
+                               "xxxxxx\n" +
+                               "xxnnxx\n" +
+                               "xxnnxx\n" +
+                               "xxxxxx\n" +
+                               "nxxxxn\n";
         String actualBoard = chessboard.calculateKnightAttackPlaces(board);
         assertEquals(expectedBoard, actualBoard);
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackOnBorderTest() {
+    public void calculateAreaOfTheKnightAttackOnVerticalBorderTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
-        String board = "......\n" +
-                       "..n...\n" +
-                       "......\n" +
-                       "......\n" +
-                       "......\n" +
-                       "......\n";
-        String expectedBoard = "x...x.\n" +
-                               "..n...\n" +
-                               "x...x.\n" +
-                               ".x.x..\n" +
-                               "......\n" +
-                               "......\n";
+        String board = "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n";
+        String expectedBoard = "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n";
         String actualBoard = chessboard.calculateKnightAttackPlaces(board);
-//        System.out.println(actualBoard);
+        System.out.println(actualBoard);
+        assertEquals(expectedBoard, actualBoard);
+    }
+
+    @Test
+    public void calculateAreaOfTheKnightAttackOnHorizontalBorderTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "nnnnnn\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "nnnnnn\n";
+        String expectedBoard = "nnnnnn\n" +
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "nnnnnn\n";
+        String actualBoard = chessboard.calculateKnightAttackPlaces(board);
         assertEquals(expectedBoard, actualBoard);
     }
 
