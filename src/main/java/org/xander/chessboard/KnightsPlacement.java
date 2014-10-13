@@ -7,17 +7,17 @@ public class KnightsPlacement {
         this.chessboard = chessboard;
     }
 
-    public String placeNumberOfKnightsOnBoard(int numberOfKnights, String emptyBoard) {
-        String boardWithKnights = emptyBoard;
+    public String placeNumberOfKnightsOnBoard(int numberOfKnights, String board) {
+        String boardWithKnights = board;
         while (numberOfKnights > 0) {
-            boardWithKnights = placeKnightOnBoardSequentially(boardWithKnights);
+            boardWithKnights = placeOneKnightOnBoardSequentially(boardWithKnights);
             boardWithKnights = calculateKnightAttackPlaces(boardWithKnights);
             numberOfKnights--;
         }
         return boardWithKnights;
     }
 
-    public String placeKnightOnBoardSequentially(String emptyBoard) {
+    public String placeOneKnightOnBoardSequentially(String emptyBoard) {
         StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = emptyBoard.toCharArray();
         for (int i = 0 ; i < boardElements.length; i++) {
@@ -52,47 +52,47 @@ public class KnightsPlacement {
         return chessBoardWithFigures.toString();
     }
 
-    private void placeTop(char[] boardElements, int i, int dimension) {
-        if (i - dimension * 2 >= 0) {
-            if (i % dimension + 1 < dimension)
-                if (boardElements[i - dimension * 2 + 1] == '.')
-                    boardElements[i - dimension * 2 + 1] = 'x';
-            if (i % dimension - 1 >= 0)
-                if (boardElements[i - dimension * 2 - 1] == '.')
-                    boardElements[i - dimension * 2 - 1] = 'x';
+    private void placeTop(char[] boardElements, int position, int dimension) {
+        if (position - dimension * 2 >= 0) {
+            if (position % dimension + 1 < dimension)
+                if (boardElements[position - dimension * 2 + 1] == '.')
+                    boardElements[position - dimension * 2 + 1] = 'x';
+            if (position % dimension - 1 >= 0)
+                if (boardElements[position - dimension * 2 - 1] == '.')
+                    boardElements[position - dimension * 2 - 1] = 'x';
         }
     }
 
-    private void placeLeft(char[] boardElements, int i, int dimension) {
-        if (i % dimension - 2 >= 0) {
-            if (i + dimension < boardElements.length)
-                if (boardElements[i + dimension - 2] == '.')
-                    boardElements[i + dimension - 2] = 'x';
-            if (i - dimension >= 0)
-                if (boardElements[i - dimension - 2] == '.')
-                    boardElements[i - dimension - 2] = 'x';
+    private void placeLeft(char[] boardElements, int position, int dimension) {
+        if (position % dimension - 2 >= 0) {
+            if (position + dimension < boardElements.length)
+                if (boardElements[position + dimension - 2] == '.')
+                    boardElements[position + dimension - 2] = 'x';
+            if (position - dimension >= 0)
+                if (boardElements[position - dimension - 2] == '.')
+                    boardElements[position - dimension - 2] = 'x';
         }
     }
 
-    private void placeBelow(char[] boardElements, int i, int dimension) {
-        if (i + dimension * 2 < boardElements.length) {
-            if (i % dimension + 1 < dimension)
-                if (boardElements[i + dimension * 2 + 1] == '.')
-                    boardElements[i + dimension * 2 + 1] = 'x';
-            if (i % dimension - 1 >= 0)
-                if (boardElements[i + dimension * 2 - 1] == '.')
-                    boardElements[i + dimension * 2 - 1] = 'x';
+    private void placeBelow(char[] boardElements, int position, int dimension) {
+        if (position + dimension * 2 < boardElements.length) {
+            if (position % dimension + 1 < dimension)
+                if (boardElements[position + dimension * 2 + 1] == '.')
+                    boardElements[position + dimension * 2 + 1] = 'x';
+            if (position % dimension - 1 >= 0)
+                if (boardElements[position + dimension * 2 - 1] == '.')
+                    boardElements[position + dimension * 2 - 1] = 'x';
         }
     }
 
-    private void placeRight(char[] boardElements, int i, int dimension) {
-        if (i % dimension + 2 < dimension) {
-            if (i + dimension < boardElements.length)
-                if (boardElements[i + dimension + 2] == '.')
-                    boardElements[i + dimension + 2] = 'x';
-            if (i - dimension >= 0)
-                if (boardElements[i - dimension + 2] == '.')
-                    boardElements[i - dimension + 2] = 'x';
+    private void placeRight(char[] boardElements, int position, int dimension) {
+        if (position % dimension + 2 < dimension) {
+            if (position + dimension < boardElements.length)
+                if (boardElements[position + dimension + 2] == '.')
+                    boardElements[position + dimension + 2] = 'x';
+            if (position - dimension >= 0)
+                if (boardElements[position - dimension + 2] == '.')
+                    boardElements[position - dimension + 2] = 'x';
         }
     }
 }

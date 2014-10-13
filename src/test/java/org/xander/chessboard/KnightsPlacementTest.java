@@ -113,7 +113,7 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String actual = knightsPlacement.placeKnightOnBoardSequentially(chessboard.drawABoard());
+        String actual = knightsPlacement.placeOneKnightOnBoardSequentially(chessboard.drawABoard());
 
         assertEquals("n....\n" +
                      ".....\n" +

@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Chessboard {
     private final KnightsPlacement knightsPlacement = new KnightsPlacement(this);
+    private final RooksPlacement rooksPlacement = new RooksPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -54,7 +55,7 @@ public class Chessboard {
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
-        String boardWithKnights = knightsPlacement.placeKnightOnBoardSequentially(emptyBoard);
+        String boardWithKnights = knightsPlacement.placeOneKnightOnBoardSequentially(emptyBoard);
 
 
 //        String boardWithKnightsAndRooks = placeRooks(numberOfRooks, boardWithKnights);
