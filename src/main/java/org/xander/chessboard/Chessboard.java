@@ -3,6 +3,7 @@ package org.xander.chessboard;
 import java.util.*;
 
 public class Chessboard {
+    private final KnightsPlacement knightsPlacement = new KnightsPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -53,13 +54,15 @@ public class Chessboard {
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
-        String boardWithKnights = placeKnights(numberOfKnights, emptyBoard);
-        String boardWithKnightsAndRooks = placeRooks(numberOfRooks, boardWithKnights);
-        String boardWithKnightsRooksAndBishops = placeBishops(numberOfBishops, boardWithKnightsAndRooks);
-        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
-        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
+        String boardWithKnights = knightsPlacement.placeKnightOnBoardSequentially(emptyBoard);
 
-        return boardWithAllFigures;
+
+//        String boardWithKnightsAndRooks = placeRooks(numberOfRooks, boardWithKnights);
+//        String boardWithKnightsRooksAndBishops = placeBishops(numberOfBishops, boardWithKnightsAndRooks);
+//        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
+//        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
+
+        return boardWithKnights;
     }
 
     private int extractA(String figure, Map<String, Integer> figureQuantityMap) {
@@ -67,21 +70,6 @@ public class Chessboard {
             return figureQuantityMap.get(figure);
         }
         return 0;
-    }
-
-    private String placeKnights(int numberOfKnights, String emptyBoard) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
-        char[] boardElements = emptyBoard.toCharArray();
-
-        for (char element : boardElements) {
-            if (element != '\n' && element == '.' && numberOfKnights != 0) {
-                chessBoardWithFigures.append("n");
-                numberOfKnights--;
-            } else {
-                chessBoardWithFigures.append(element);
-            }
-        }
-        return chessBoardWithFigures.toString();
     }
 
     private String placeRooks(int numberOfRooks, String boardWithKnights) {
@@ -140,56 +128,6 @@ public class Chessboard {
             } else {
                 chessBoardWithFigures.append(element);
             }
-        }
-        return chessBoardWithFigures.toString();
-    }
-
-    public String calculateKnightAttackPlaces(String board) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
-        char[] boardElements = board.toCharArray();
-        for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == 'n') {
-                //place right
-                int dimension = this.dimension + 1;
-                if (i % dimension + 2 < dimension) {
-                    if (i + dimension < boardElements.length)
-                        if (boardElements[i + dimension + 2] == '.')
-                            boardElements[i + dimension + 2] = 'x';
-                    if (i - dimension >= 0)
-                        if (boardElements[i - dimension + 2] == '.')
-                            boardElements[i - dimension + 2] = 'x';
-                }
-                //place below
-                if (i + dimension * 2 < boardElements.length) {
-                    if (i % dimension + 1 < dimension)
-                        if (boardElements[i + dimension * 2 + 1] == '.')
-                            boardElements[i + dimension * 2 + 1] = 'x';
-                    if (i % dimension - 1 >= 0)
-                        if (boardElements[i + dimension * 2 - 1] == '.')
-                            boardElements[i + dimension * 2 - 1] = 'x';
-                }
-                //place left
-                if (i % dimension - 2 >= 0) {
-                    if (i + dimension < boardElements.length)
-                        if (boardElements[i + dimension - 2] == '.')
-                            boardElements[i + dimension - 2] = 'x';
-                    if (i - dimension >= 0)
-                        if (boardElements[i - dimension - 2] == '.')
-                            boardElements[i - dimension - 2] = 'x';
-                }
-                //place top
-                if (i - dimension * 2 >= 0) {
-                    if (i % dimension + 1 < dimension)
-                        if (boardElements[i - dimension * 2 + 1] == '.')
-                            boardElements[i - dimension * 2 + 1] = 'x';
-                    if (i % dimension - 1 >= 0)
-                        if (boardElements[i - dimension * 2 - 1] == '.')
-                            boardElements[i - dimension * 2 - 1] = 'x';
-                }
-            }
-        }
-        for (char element : boardElements) {
-            chessBoardWithFigures.append(element);
         }
         return chessBoardWithFigures.toString();
     }
