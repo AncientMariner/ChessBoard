@@ -87,7 +87,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void placeThreeKnightsOnBoardTest() {
+    public void placeThreeRooksOnBoardTest() {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
@@ -99,5 +99,4 @@ public class RooksPlacementTest {
                 "xxx..\n" +
                 "xxx..\n", result);
     }
-
 }

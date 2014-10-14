@@ -65,7 +65,8 @@ public class RooksPlacement {
             int leftPosition = 1;
             while (position % dimension - leftPosition >= 0) {
 
-                if (boardElements[position - leftPosition] != '\n' && boardElements[position - leftPosition] == '.') {
+                if (boardElements[position - leftPosition] != '\n'
+                        && boardElements[position - leftPosition] == '.') {
                 boardElements[position - leftPosition] = 'x';
                 }
                 leftPosition++;
@@ -75,24 +76,24 @@ public class RooksPlacement {
 
     private void placeVertically(char[] boardElements, int position, int dimension) {
         if (position + dimension < boardElements.length) {
-            int positionBelow = 1;
-            while (position + dimension * positionBelow < boardElements.length) {
-                if (boardElements[position + dimension * positionBelow] != '\n'
-                        && boardElements[position + dimension * positionBelow] == '.') {
-                    boardElements[position + dimension * positionBelow] = 'x';
+            int numberOfLinesBelow = 1;
+            while (position + dimension * numberOfLinesBelow < boardElements.length) {
+                if (boardElements[position + dimension * numberOfLinesBelow] != '\n'
+                        && boardElements[position + dimension * numberOfLinesBelow] == '.') {
+                    boardElements[position + dimension * numberOfLinesBelow] = 'x';
                 }
-                positionBelow++;
+                numberOfLinesBelow++;
             }
         }
 
         if (position - dimension >= 0) {
-            int positionAbove = 1;
-            while (position - dimension * positionAbove >= 0) {
-                if (boardElements[position - dimension * positionAbove] != '\n'
-                        && boardElements[position - dimension * positionAbove] == '.') {
-                    boardElements[position - dimension * positionAbove] = 'x';
+            int numberOfLinesAbove = 1;
+            while (position - dimension * numberOfLinesAbove >= 0) {
+                if (boardElements[position - dimension * numberOfLinesAbove] != '\n'
+                        && boardElements[position - dimension * numberOfLinesAbove] == '.') {
+                    boardElements[position - dimension * numberOfLinesAbove] = 'x';
                 }
-                positionAbove++;
+                numberOfLinesAbove++;
             }
         }
     }
