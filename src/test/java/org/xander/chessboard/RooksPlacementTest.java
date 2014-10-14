@@ -7,12 +7,12 @@ import static org.junit.Assert.assertEquals;
 
 public class RooksPlacementTest {
     Chessboard chessboard;
-    RooksPlacement rooksPlacement;
+    FiguresPlacement figuresPlacement;
 
     @Before
     public void setUp() {
         chessboard = new Chessboard();
-        rooksPlacement = new RooksPlacement(chessboard);
+        figuresPlacement = new RooksPlacement(chessboard);
     }
 
     @Test
@@ -34,9 +34,9 @@ public class RooksPlacementTest {
                        "......\n" +
                        "......\n";
 
-        String actual = rooksPlacement.placeOneRookSequentially(chessboard.drawABoard());
+        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawABoard());
         assertEquals(expectedBoard, actual);
-        String actualWithTwoRooks = rooksPlacement.placeOneRookSequentially(actual);
+        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
         assertEquals(expectedBoardWithTwoRooks, actualWithTwoRooks);
     }
 
@@ -59,7 +59,7 @@ public class RooksPlacementTest {
                 "xrxxxx\n" +
                 "rxxxxx\n";
 
-        String actual = rooksPlacement.calculateRookAttackPlaces(board);
+        String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
     }
 
@@ -82,7 +82,7 @@ public class RooksPlacementTest {
                 "...x..\n" +
                 "...x..\n";
 
-        String actual = rooksPlacement.calculateRookAttackPlaces(board);
+        String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
     }
 
@@ -91,8 +91,7 @@ public class RooksPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String result = rooksPlacement.placeNumberOfRooksOnBoard(3, chessboard.drawABoard());
-        System.out.println(result);
+        String result = figuresPlacement.placeNumberOfFiguressOnBoard(3, chessboard.drawABoard());
         assertEquals("rxxxx\n" +
                 "xrxxx\n" +
                 "xxrxx\n" +

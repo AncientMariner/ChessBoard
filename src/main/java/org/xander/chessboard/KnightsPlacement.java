@@ -1,38 +1,21 @@
 package org.xander.chessboard;
 
-public class KnightsPlacement {
+public class KnightsPlacement extends FiguresPlacement {
     private final Chessboard chessboard;
 
     public KnightsPlacement(Chessboard chessboard) {
         this.chessboard = chessboard;
     }
 
-    public String placeNumberOfKnightsOnBoard(int numberOfKnights, String board) {
-        String boardWithKnights = board;
-        while (numberOfKnights > 0) {
-            boardWithKnights = placeOneKnightOnBoardSequentially(boardWithKnights);
-            boardWithKnights = calculateKnightAttackPlaces(boardWithKnights);
-            numberOfKnights--;
-        }
-        return boardWithKnights;
+    @Override
+    public String placeOneFigureOnBoardSequentially(String board) {
+        char figure = 'n';
+
+        return placeFigureOnBoard(figure, board);
     }
 
-    public String placeOneKnightOnBoardSequentially(String emptyBoard) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
-        char[] boardElements = emptyBoard.toCharArray();
-        for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] != '\n' && boardElements[i] == '.') {
-                boardElements[i] = 'n';
-                break;
-            }
-        }
-        for (char element : boardElements) {
-            chessBoardWithFigures.append(element);
-        }
-        return chessBoardWithFigures.toString();
-    }
-
-    public String calculateKnightAttackPlaces(String board) {
+    @Override
+    public String calculateAttackPlaces(String board) {
         StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = board.toCharArray();
         //mind the '\n' character

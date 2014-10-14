@@ -1,38 +1,21 @@
 package org.xander.chessboard;
 
-public class RooksPlacement {
+public class RooksPlacement extends FiguresPlacement{
     Chessboard chessboard;
 
     public RooksPlacement(Chessboard chessboard) {
         this.chessboard = chessboard;
     }
 
-    public String placeNumberOfRooksOnBoard(int numberOfRooks, String board) {
-        String boardWithRooks = board;
-        while (numberOfRooks > 0) {
-            boardWithRooks = placeOneRookSequentially(boardWithRooks);
-            boardWithRooks = calculateRookAttackPlaces(boardWithRooks);
-            numberOfRooks--;
-        }
-        return boardWithRooks;
+    @Override
+    public String placeOneFigureOnBoardSequentially(String board) {
+        char figure = 'r';
+
+        return placeFigureOnBoard(figure, board);
     }
 
-    public String placeOneRookSequentially(String board) {
-        StringBuilder chessboardWithFigures = new StringBuilder();
-        char[] boardElements = board.toCharArray();
-        for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] != '\n' && boardElements[i] == '.') {
-                boardElements[i] = 'r';
-                break;
-            }
-        }
-        for (char element : boardElements) {
-            chessboardWithFigures.append(element);
-        }
-        return chessboardWithFigures.toString();
-    }
-
-    public String calculateRookAttackPlaces(String board) {
+    @Override
+    public String calculateAttackPlaces(String board) {
         StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = board.toCharArray();
         //mind the '\n' character

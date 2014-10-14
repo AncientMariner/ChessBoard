@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class KnightsPlacementTest {
     Chessboard chessboard;
-    KnightsPlacement knightsPlacement;
+    FiguresPlacement knightsPlacement;
 
     @Before
     public void setUp() {
@@ -26,7 +26,7 @@ public class KnightsPlacementTest {
                        ".....n\n" +
                        "......\n" +
                        "......\n";
-        String actualBoard = knightsPlacement.calculateKnightAttackPlaces(board);
+        String actualBoard = knightsPlacement.calculateAttackPlaces(board);
         assertEquals(".x.x..\n" +
                      "x...x.\n" +
                      "..nx..\n" +
@@ -46,7 +46,7 @@ public class KnightsPlacementTest {
                        "..nn..\n" +
                        "......\n" +
                        "n....n\n";
-        String actualBoard = knightsPlacement.calculateKnightAttackPlaces(board);
+        String actualBoard = knightsPlacement.calculateAttackPlaces(board);
         assertEquals("nxxxxn\n" +
                      "xxxxxx\n" +
                      "xxnnxx\n" +
@@ -66,7 +66,7 @@ public class KnightsPlacementTest {
                        "n....n\n" +
                        "n....n\n" +
                        "n....n\n";
-        String actualBoard = knightsPlacement.calculateKnightAttackPlaces(board);
+        String actualBoard = knightsPlacement.calculateAttackPlaces(board);
         assertEquals("nxxxxn\n" +
                      "nxxxxn\n" +
                      "nxxxxn\n" +
@@ -86,7 +86,7 @@ public class KnightsPlacementTest {
                        "......\n" +
                        "......\n" +
                        "nnnnnn\n";
-        String actualBoard = knightsPlacement.calculateKnightAttackPlaces(board);
+        String actualBoard = knightsPlacement.calculateAttackPlaces(board);
         assertEquals("nnnnnn\n" +
                      "xxxxxx\n" +
                      "xxxxxx\n" +
@@ -100,7 +100,7 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String result = knightsPlacement.placeNumberOfKnightsOnBoard(3, chessboard.drawABoard());
+        String result = knightsPlacement.placeNumberOfFiguressOnBoard(3, chessboard.drawABoard());
         assertEquals("nnn..\n" +
                 "x.xxx\n" +
                 "xxxx.\n" +
@@ -113,8 +113,7 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String actual = knightsPlacement.placeOneKnightOnBoardSequentially(chessboard.drawABoard());
-
+        String actual = knightsPlacement.placeOneFigureOnBoardSequentially(chessboard.drawABoard());
         assertEquals("n....\n" +
                      ".....\n" +
                      ".....\n" +
