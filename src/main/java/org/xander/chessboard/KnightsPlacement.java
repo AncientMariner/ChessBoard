@@ -2,6 +2,7 @@ package org.xander.chessboard;
 
 public class KnightsPlacement extends FiguresPlacement {
     private final Chessboard chessboard;
+    private final char figure = 'n';
 
     public KnightsPlacement(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -9,8 +10,6 @@ public class KnightsPlacement extends FiguresPlacement {
 
     @Override
     public String placeOneFigureOnBoardSequentially(String board) {
-        char figure = 'n';
-
         return placeFigureOnBoard(figure, board);
     }
 
@@ -22,7 +21,7 @@ public class KnightsPlacement extends FiguresPlacement {
         int dimension = chessboard.getDimension() + 1;
 
         for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == 'n') {
+            if (boardElements[i] == figure) {
                 placeRight(boardElements, i, dimension);
                 placeBelow(boardElements, i, dimension);
                 placeLeft(boardElements, i, dimension);

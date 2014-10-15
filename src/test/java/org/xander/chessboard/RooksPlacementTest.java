@@ -91,7 +91,7 @@ public class RooksPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String result = figuresPlacement.placeNumberOfFiguressOnBoard(3, chessboard.drawABoard());
+        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawABoard());
         assertEquals("rxxxx\n" +
                 "xrxxx\n" +
                 "xxrxx\n" +

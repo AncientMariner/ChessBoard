@@ -1,7 +1,7 @@
 package org.xander.chessboard;
 
 public abstract class FiguresPlacement {
-    public String placeNumberOfFiguressOnBoard(int numberOfFigures, String board) {
+    public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
         String boardWithFigures = board;
         while (numberOfFigures > 0) {
             boardWithFigures = placeOneFigureOnBoardSequentially(boardWithFigures);
