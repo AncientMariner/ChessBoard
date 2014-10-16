@@ -2,7 +2,6 @@ package org.xander.chessboard;
 
 public class RooksPlacement extends FiguresPlacement{
     private final Chessboard chessboard;
-    private final char figure = 'r';
 
     public RooksPlacement(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -10,7 +9,7 @@ public class RooksPlacement extends FiguresPlacement{
 
     @Override
     public String placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoard(figure, board);
+        return placeFigureOnBoard(rook, board);
     }
 
     @Override
@@ -24,7 +23,7 @@ public class RooksPlacement extends FiguresPlacement{
         }
 
         for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == figure) {
+            if (boardElements[i] == rook) {
                 placeHorizontally(boardElements, i, dimension);
                 placeVertically(boardElements, i, dimension);
             }
