@@ -19,6 +19,9 @@ public class RooksPlacement extends FiguresPlacement{
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = chessboard.getDimension() + 1;
+        if (board.isEmpty() || board.length() % dimension != 0) {
+            throw new IllegalStateException("There is something wrong with your board");
+        }
 
         for (int i = 0 ; i < boardElements.length; i++) {
             if (boardElements[i] == figure) {

@@ -73,21 +73,6 @@ public class Chessboard {
         return 0;
     }
 
-    private String placeBishops(int numberOfBishops, String boardWithKnightsAndRooks) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
-        char[] boardElements = boardWithKnightsAndRooks.toCharArray();
-
-        for (char element : boardElements) {
-            if (element != '\n' && element == '.' && numberOfBishops != 0) {
-                chessBoardWithFigures.append("b");
-                numberOfBishops--;
-            } else {
-                chessBoardWithFigures.append(element);
-            }
-        }
-        return chessBoardWithFigures.toString();
-    }
-
     private String placeQueens(int numberOfQueens, String boardWithKnightsRooksAndBishops) {
         StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = boardWithKnightsRooksAndBishops.toCharArray();

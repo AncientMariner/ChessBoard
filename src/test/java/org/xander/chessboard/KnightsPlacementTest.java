@@ -16,6 +16,26 @@ public class KnightsPlacementTest {
     }
 
     @Test
+    public void calculateAreaOfTheKnightAttackCornersTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "n....n\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "n....n\n";
+        String actualBoard = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals("n....n\n" +
+                     "..xx..\n" +
+                     ".x..x.\n" +
+                     ".x..x.\n" +
+                     "..xx..\n" +
+                     "n....n\n", actualBoard);
+    }
+
+    @Test
     public void calculateAreaOfTheKnightAttackTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
@@ -23,16 +43,16 @@ public class KnightsPlacementTest {
         String board = "......\n" +
                        "......\n" +
                        "..n...\n" +
-                       ".....n\n" +
+                       ".n...n\n" +
                        "......\n" +
                        "......\n";
         String actualBoard = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(".x.x..\n" +
-                     "x...x.\n" +
+                     "x.x.x.\n" +
                      "..nx..\n" +
-                     "x...xn\n" +
+                     "xn..xn\n" +
                      ".x.x..\n" +
-                     "....x.\n", actualBoard);
+                     "x.x.x.\n", actualBoard);
     }
 
     @Test
@@ -102,10 +122,10 @@ public class KnightsPlacementTest {
 
         String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawABoard());
         assertEquals("nnn..\n" +
-                "x.xxx\n" +
-                "xxxx.\n" +
-                ".....\n" +
-                ".....\n", result);
+                     "x.xxx\n" +
+                     "xxxx.\n" +
+                     ".....\n" +
+                     ".....\n", result);
     }
 
     @Test
@@ -119,5 +139,34 @@ public class KnightsPlacementTest {
                      ".....\n" +
                      ".....\n" +
                      ".....\n", actual);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateAreaOfTheKnightAttackNegativeTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = ".\n" +
+                ".....\n" +
+                "..n...\n" +
+                ".n...n\n" +
+                "...\n" +
+                ".....\n";
+        figuresPlacement.calculateAttackPlaces(board);
+    }
+
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateAreaOfTheKnightAttackNegativeBigBoardTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = ".......\n" +
+                ".......\n" +
+                "..n....\n" +
+                ".n.....\n" +
+                ".......\n" +
+                ".......\n";
+        figuresPlacement.calculateAttackPlaces(board);
     }
 }
