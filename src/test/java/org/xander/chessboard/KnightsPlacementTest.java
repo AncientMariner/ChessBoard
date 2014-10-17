@@ -147,14 +147,13 @@ public class KnightsPlacementTest {
         chessboard.setDimension(dimension);
 
         String board = ".\n" +
-                ".....\n" +
-                "..n...\n" +
-                ".n...n\n" +
-                "...\n" +
-                ".....\n";
+                       ".....\n" +
+                       "..n...\n" +
+                       ".n...n\n" +
+                       "...\n" +
+                       ".....\n";
         figuresPlacement.calculateAttackPlaces(board);
     }
-
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheKnightAttackNegativeBigBoardTest() {
@@ -162,11 +161,11 @@ public class KnightsPlacementTest {
         chessboard.setDimension(dimension);
 
         String board = ".......\n" +
-                ".......\n" +
-                "..n....\n" +
-                ".n.....\n" +
-                ".......\n" +
-                ".......\n";
+                       ".......\n" +
+                       "..n....\n" +
+                       ".n.....\n" +
+                       ".......\n" +
+                       ".......\n";
         figuresPlacement.calculateAttackPlaces(board);
     }
 }

@@ -16,7 +16,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void placeOneBishopTest() {
+    public void placeBishopTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -39,7 +39,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackLeftCornerTest() {
+    public void calculateAreaOfBishopAttackTopLeftCornerTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -57,25 +57,31 @@ public class BishopsPlacementTest {
                                ".....x\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoard, actual);
-
-        String board1 = "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "b.....\n";
-        String expectedBoard1 = ".....x\n" +
-                                "....x.\n" +
-                                "...x..\n" +
-                                "..x...\n" +
-                                ".x....\n" +
-                                "b.....\n";
-        String actual1 = figuresPlacement.calculateAttackPlaces(board1);
-        assertEquals(expectedBoard1, actual1);
     }
 
     @Test
-    public void calculateAreaOfBishopAttackRightCornerTest() {
+    public void calculateAreaOfBishopAttackBottomLeftCornerTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "b.....\n";
+        String expectedBoard = ".....x\n" +
+                               "....x.\n" +
+                               "...x..\n" +
+                               "..x...\n" +
+                               ".x....\n" +
+                               "b.....\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void calculateAreaOfBishopAttackTopRightCornerTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -93,21 +99,27 @@ public class BishopsPlacementTest {
                                "x.....\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoard, actual);
+    }
 
-        String board1 = "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        ".....b\n";
-        String expectedBoard1 = "x.....\n" +
-                                ".x....\n" +
-                                "..x...\n" +
-                                "...x..\n" +
-                                "....x.\n" +
-                                ".....b\n";
-        String actual1 = figuresPlacement.calculateAttackPlaces(board1);
-        assertEquals(expectedBoard1, actual1);
+    @Test
+    public void calculateAreaOfBishopAttackBottomRightCornerTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       ".....b\n";
+        String expectedBoard = "x.....\n" +
+                               ".x....\n" +
+                               "..x...\n" +
+                               "...x..\n" +
+                               "....x.\n" +
+                               ".....b\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoard, actual);
     }
 
     @Test
@@ -152,8 +164,29 @@ public class BishopsPlacementTest {
         assertEquals(expectedBoard, actual);
     }
 
+    @Test
+    public void calculateAreaOfTheKingAttackBorderTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board =  "bbbbbb\n" +
+                        "b....b\n" +
+                        "b....b\n" +
+                        "b....b\n" +
+                        "b....b\n" +
+                        "bbbbbb\n";
+        String expectedBoardWithBishops = "bbbbbb\n" +
+                                          "bxxxxb\n" +
+                                          "bxxxxb\n" +
+                                          "bxxxxb\n" +
+                                          "bxxxxb\n" +
+                                          "bbbbbb\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoardWithBishops, actual);
+    }
+
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeSmallBoardTest() {
+    public void calculateAreaOfTheBishopAttackNegativeSmallBoardTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -167,7 +200,7 @@ public class BishopsPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheBishopAttackNegativeBigBoardTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

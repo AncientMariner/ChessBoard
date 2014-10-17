@@ -48,7 +48,6 @@ public class RooksPlacement extends FiguresPlacement{
         if (position % dimension > 0 && position % dimension <= dimension) {
             int leftPosition = 1;
             while (position % dimension - leftPosition >= 0) {
-
                 if (boardElements[position - leftPosition] != '\n'
                         && boardElements[position - leftPosition] == '.') {
                 boardElements[position - leftPosition] = 'x';

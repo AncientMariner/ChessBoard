@@ -16,7 +16,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void placeOneRookTest() {
+    public void placeRookTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -82,7 +82,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackOnCornersTest() {
+    public void calculateAreaOfTheRookAttackOnCornersTopRightBottomLeftTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
         String board = ".....r\n" +
@@ -99,21 +99,26 @@ public class RooksPlacementTest {
                                            "rxxxxx\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
-        String board1 = "r.....\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        ".....r\n";
-        String expectedBoardWithTwoRooks1 = "rxxxxx\n" +
-                                            "x....x\n" +
-                                            "x....x\n" +
-                                            "x....x\n" +
-                                            "x....x\n" +
-                                            "xxxxxr\n";
+    }
 
-        String actual1 = figuresPlacement.calculateAttackPlaces(board1);
-        assertEquals(expectedBoardWithTwoRooks1, actual1);
+    @Test
+    public void calculateAreaOfTheRookAttackOnCornersTopLeftBottomRightTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+        String board = "r.....\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       ".....r\n";
+        String expectedBoardWithTwoRooks = "rxxxxx\n" +
+                                           "x....x\n" +
+                                           "x....x\n" +
+                                           "x....x\n" +
+                                           "x....x\n" +
+                                           "xxxxxr\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoardWithTwoRooks, actual);
     }
 
     @Test
@@ -134,20 +139,48 @@ public class RooksPlacementTest {
                                            ".x..x.\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
-        String board1 = "......\n" +
-                        "......\n" +
-                        "..r...\n" +
-                        "...r..\n" +
-                        "......\n" +
-                        "......\n";
-        String expectedBoardWithTwoRooks1 = "..xx..\n" +
-                                            "..xx..\n" +
-                                            "xxrxxx\n" +
-                                            "xxxrxx\n" +
-                                            "..xx..\n" +
-                                            "..xx..\n";
-        String actual1 = figuresPlacement.calculateAttackPlaces(board1);
-        assertEquals(expectedBoardWithTwoRooks1, actual1);
+    }
+
+    @Test
+    public void calculateAreaOfTheRookAttackAnotherMixTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "......\n" +
+                       "......\n" +
+                       "..r...\n" +
+                       "...r..\n" +
+                       "......\n" +
+                       "......\n";
+        String expectedBoardWithTwoRooks = "..xx..\n" +
+                                           "..xx..\n" +
+                                           "xxrxxx\n" +
+                                           "xxxrxx\n" +
+                                           "..xx..\n" +
+                                           "..xx..\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoardWithTwoRooks, actual);
+    }
+
+    @Test
+    public void calculateAreaOfTheRookAttackBorderTest() {
+        int dimension = 6;
+        chessboard.setDimension(dimension);
+
+        String board = "rrrrrr\n" +
+                       "r....r\n" +
+                       "r....r\n" +
+                       "r....r\n" +
+                       "r....r\n" +
+                       "rrrrrr\n";
+        String expectedBoardWithRooks = "rrrrrr\n" +
+                                        "rxxxxr\n" +
+                                        "rxxxxr\n" +
+                                        "rxxxxr\n" +
+                                        "rxxxxr\n" +
+                                        "rrrrrr\n";
+        String actual = figuresPlacement.calculateAttackPlaces(board);
+        assertEquals(expectedBoardWithRooks, actual);
     }
 
     @Test
@@ -163,7 +196,7 @@ public class RooksPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeTest() {
+    public void calculateAreaOfTheRookAttackNegativeTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -177,7 +210,7 @@ public class RooksPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheRookAttackNegativeBigBoardTest() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
