@@ -31,7 +31,7 @@ public class QueensPlacement extends FiguresPlacement {
                 placeDiagonallyBelow(boardElements, i, dimension);
             }
         }
-        return transformArrayToStringBuilder(boardElements);
+        return boardUtils.transformArrayToStringBuilder(boardElements);
     }
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {

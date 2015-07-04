@@ -31,7 +31,7 @@ public class KnightsPlacement extends FiguresPlacement {
                 placeTop(boardElements, i, dimension);
             }
         }
-        return transformArrayToStringBuilder(boardElements);
+        return boardUtils.transformArrayToStringBuilder(boardElements);
     }
 
     private void placeTop(char[] boardElements, int position, int dimension) {
