@@ -16,7 +16,6 @@ public class KnightsPlacement extends FiguresPlacement {
 
     @Override
     public String calculateAttackPlaces(String board) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = chessboard.getDimension() + 1;
@@ -32,10 +31,7 @@ public class KnightsPlacement extends FiguresPlacement {
                 placeTop(boardElements, i, dimension);
             }
         }
-        for (char element : boardElements) {
-            chessBoardWithFigures.append(element);
-        }
-        return chessBoardWithFigures.toString();
+        return transformArrayToStringBuilder(boardElements);
     }
 
     private void placeTop(char[] boardElements, int position, int dimension) {

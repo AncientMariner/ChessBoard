@@ -16,7 +16,6 @@ public class QueensPlacement extends FiguresPlacement {
 
     @Override
     public String calculateAttackPlaces(String board) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = chessboard.getDimension() + 1;
@@ -32,10 +31,7 @@ public class QueensPlacement extends FiguresPlacement {
                 placeDiagonallyBelow(boardElements, i, dimension);
             }
         }
-        for (char element : boardElements) {
-            chessBoardWithFigures.append(element);
-        }
-        return chessBoardWithFigures.toString();
+        return transformArrayToStringBuilder(boardElements);
     }
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {

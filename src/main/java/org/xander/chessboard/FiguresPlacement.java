@@ -26,4 +26,13 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         }
         return chessboardWithFigures.toString();
     }
+
+    protected String transformArrayToStringBuilder(char[] boardElements) {
+        StringBuilder chessBoardWithFigures = new StringBuilder();
+
+        for (char element : boardElements) {
+            chessBoardWithFigures.append(element);
+        }
+        return chessBoardWithFigures.toString();
+    }
 }
