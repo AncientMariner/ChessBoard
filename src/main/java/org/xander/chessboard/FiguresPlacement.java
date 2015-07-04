@@ -1,13 +1,6 @@
 package org.xander.chessboard;
 
 public abstract class FiguresPlacement {
-    // to avoid a conflict with king in names - knight is taken by 'n' char
-    protected final char knight = 'n';
-    protected final char rook = 'r';
-    protected final char bishop = 'b';
-    protected final char queen = 'q';
-    protected final char king = 'k';
-
 
     public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
         String boardWithFigures = board;

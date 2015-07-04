@@ -1,5 +1,7 @@
 package org.xander.chessboard;
 
+import static org.xander.chessboard.Figure.QUEEN;
+
 public class QueensPlacement extends FiguresPlacement {
     private final Chessboard chessboard;
 
@@ -9,7 +11,7 @@ public class QueensPlacement extends FiguresPlacement {
 
     @Override
     public String placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoard(queen, board);
+        return placeFigureOnBoard(QUEEN.getFigure(), board);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class QueensPlacement extends FiguresPlacement {
         }
 
         for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == queen) {
+            if (boardElements[i] == QUEEN.getFigure()) {
                 placeHorizontally(boardElements, i, dimension);
                 placeVertically(boardElements, i, dimension);
                 placeDiagonallyAbove(boardElements, i, dimension);
