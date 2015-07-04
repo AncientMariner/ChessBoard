@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BishopsPlacementTest {
     Chessboard chessboard;
-    FiguresPlacement figuresPlacement;
+    PlacementBehavior figuresPlacement;
 
     @Before
     public void setUp() {

@@ -3,8 +3,8 @@ package org.xander.chessboard;
 import java.util.*;
 
 public class Chessboard {
-    private final FiguresPlacement knightsPlacement = new KnightsPlacement(this);
-    private final FiguresPlacement rooksPlacement = new RooksPlacement(this);
+    private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);
+    private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap = new HashMap<>();

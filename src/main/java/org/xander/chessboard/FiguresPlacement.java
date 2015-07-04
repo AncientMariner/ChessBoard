@@ -1,6 +1,6 @@
 package org.xander.chessboard;
 
-public abstract class FiguresPlacement {
+public abstract class FiguresPlacement implements PlacementBehavior {
 
     public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
         String boardWithFigures = board;
@@ -26,8 +26,4 @@ public abstract class FiguresPlacement {
         }
         return chessboardWithFigures.toString();
     }
-
-    public abstract String calculateAttackPlaces(String boardWithFigures);
-
-    public abstract String placeOneFigureOnBoardSequentially(String boardWithFigures);
 }
