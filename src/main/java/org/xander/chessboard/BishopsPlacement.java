@@ -19,7 +19,7 @@ public class BishopsPlacement extends FiguresPlacement {
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = chessboard.getDimension() + 1;
-        checkBoard(board, dimension);
+        chessboard.checkBoard(board, dimension);
 
         for (int i = 0 ; i < boardElements.length; i++) {
             if (boardElements[i] == BISHOP.getFigure()) {
@@ -28,12 +28,6 @@ public class BishopsPlacement extends FiguresPlacement {
             }
         }
         return boardUtils.transformArrayToStringBuilder(boardElements);
-    }
-
-    private void checkBoard(String board, int dimension) {
-        if (board.isEmpty() || board.length() % dimension != 0) {
-            throw new IllegalStateException("There is something wrong with your board");
-        }
     }
 
     private void placeDiagonallyAbove(char[] boardElements, int position, int dimension) {

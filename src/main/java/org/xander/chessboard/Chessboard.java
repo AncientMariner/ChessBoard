@@ -72,4 +72,10 @@ public class Chessboard {
         }
         return 0;
     }
+
+    public void checkBoard(String board, int dimension) {
+        if (board.isEmpty() || board.length() % dimension != 0) {
+            throw new IllegalStateException("There is something wrong with your board");
+        }
+    }
 }
