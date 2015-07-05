@@ -32,7 +32,7 @@ public class RooksPlacementTest {
                                            "......\n" +
                                            "......\n" +
                                            "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawABoard());
+        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
         assertEquals(expectedBoard, actual);
         String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
         assertEquals(expectedBoardWithTwoRooks, actualWithTwoRooks);
@@ -187,7 +187,7 @@ public class RooksPlacementTest {
     public void placeThreeRooksOnBoardTest() {
         int dimension = 5;
         chessboard.setDimension(dimension);
-        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawABoard());
+        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
         assertEquals("rxxxx\n" +
                      "xrxxx\n" +
                      "xxrxx\n" +

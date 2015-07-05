@@ -32,7 +32,7 @@ public class KingPlacementTest {
                                            "......\n" +
                                            "......\n" +
                                            "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawABoard());
+        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
         assertEquals(expectedBoard, actual);
         String actualWithTwoKings = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
         assertEquals(expectedBoardWithTwoKings, actualWithTwoKings);

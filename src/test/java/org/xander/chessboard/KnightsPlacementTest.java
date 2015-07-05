@@ -120,7 +120,7 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawABoard());
+        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
         assertEquals("nnn..\n" +
                      "x.xxx\n" +
                      "xxxx.\n" +
@@ -133,7 +133,7 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawABoard());
+        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
         assertEquals("n....\n" +
                      ".....\n" +
                      ".....\n" +

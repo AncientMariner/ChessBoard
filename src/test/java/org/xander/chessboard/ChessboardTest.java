@@ -37,7 +37,6 @@ public class ChessboardTest {
         figureQuantityMap.put(ROOK.toString(), 5);
         figureQuantityMap.put(KNIGHT.toString(), 6);
         chessboard.setFigureQuantityMap(figureQuantityMap);
-
         assertTrue(figureQuantityMap.equals(chessboard.getFigureQuantityMap()));
     }
 
@@ -46,7 +45,7 @@ public class ChessboardTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String emptyBoard = chessboard.drawABoard();
+        String emptyBoard = chessboard.drawEmptyBoard();
         assertEquals(".....\n" +
                      ".....\n" +
                      ".....\n" +
@@ -60,6 +59,20 @@ public class ChessboardTest {
         figureQuantityMap.put(KING.toString(), 2);
         chessboard.setFigureQuantityMap(figureQuantityMap);
 
-        chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawABoard());
+        chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawEmptyBoard());
     }
+
+    @Test
+    public void testMultipleFigures() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(ROOK.toString(), 2);
+        chessboard.setFigureQuantityMap(figureQuantityMap);
+        chessboard.setDimension(8);
+
+
+        chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawEmptyBoard());
+
+    }
+
 }
