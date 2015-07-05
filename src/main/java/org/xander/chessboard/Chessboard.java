@@ -7,6 +7,7 @@ import static org.xander.chessboard.Figure.*;
 public class Chessboard {
     private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);
     private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
+    private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -27,7 +28,7 @@ public class Chessboard {
         this.figureQuantityMap = figureQuantityMap;
     }
 
-    public String drawABoard() {
+    public String drawEmptyBoard() {
         int xDimension = dimension;
         int yDimension = dimension;
         calculateBoardSize(xDimension, yDimension);
@@ -58,10 +59,15 @@ public class Chessboard {
             throw new IllegalStateException("There are more figures than places to put them");
         }
         String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
+//        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
 
+//        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);
+        //todo: in this situation rook should not be standing at the first line
+//        String boardWithKaRaAP = rooksPlacement.calculateAttackPlaces(boardWithKnightsAndRooks);
 
-//        String boardWithKnightsAndRooks = placeRooks(numberOfRooks, boardWithKnights);
-//        String boardWithKnightsRooksAndBishops = placeBishops(numberOfBishops, boardWithKnightsAndRooks);
+//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeOneFigureOnBoardSequentially(boardWithKaRaAP);
+
+//        System.out.println(boardWithKnightsRooksAndBishops);
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
 //        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
 
