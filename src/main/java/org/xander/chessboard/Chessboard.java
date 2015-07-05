@@ -2,6 +2,8 @@ package org.xander.chessboard;
 
 import java.util.*;
 
+import static org.xander.chessboard.Figure.*;
+
 public class Chessboard {
     private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);
     private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
@@ -45,11 +47,11 @@ public class Chessboard {
     }
 
     public String placeFiguresOnBoard(Map<String, Integer> figureQuantityMap, String emptyBoard) {
-        int numberOfKings = extractA("King", figureQuantityMap);
-        int numberOfQueens = extractA("Queen", figureQuantityMap);
-        int numberOfBishops = extractA("Bishop", figureQuantityMap);
-        int numberOfRooks = extractA("Rook", figureQuantityMap);
-        int numberOfKnights = extractA("Knight", figureQuantityMap);
+        int numberOfKings = extractA(KING.toString(), figureQuantityMap);
+        int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
+        int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
+        int numberOfRooks = extractA(ROOK.toString(), figureQuantityMap);
+        int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
         if (sumOfAllFigures > boardSize) {

@@ -34,27 +34,27 @@ public class KingsPlacement extends FiguresPlacement {
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {
         if (position % dimension + 1 < dimension) {
-            if (boardElements[position + 1] != '\n' && boardElements[position + 1] == '.') {
-                boardElements[position + 1] = 'x';
+            if (boardElements[position + 1] != '\n' && boardElements[position + 1] == EMPTY_FIELD) {
+                boardElements[position + 1] = FIELD_UNDER_ATTACK;
             }
         }
         if (position % dimension - 1 >= 0) {
-            if (boardElements[position - 1] != '\n' && boardElements[position - 1] == '.') {
-                boardElements[position - 1] = 'x';
+            if (boardElements[position - 1] != '\n' && boardElements[position - 1] == EMPTY_FIELD) {
+                boardElements[position - 1] = FIELD_UNDER_ATTACK;
             }
         }
     }
 
     private void placeVertically(char[] boardElements, int position, int dimension) {
         if (position + dimension < boardElements.length) {
-            if (boardElements[position + dimension] != '\n' && boardElements[position + dimension] == '.') {
-                boardElements[position + dimension] = 'x';
+            if (boardElements[position + dimension] != '\n' && boardElements[position + dimension] == EMPTY_FIELD) {
+                boardElements[position + dimension] = FIELD_UNDER_ATTACK;
             }
         }
 
         if (position - dimension >= 0) {
-            if (boardElements[position - dimension] != '\n' && boardElements[position - dimension] == '.') {
-                boardElements[position - dimension] = 'x';
+            if (boardElements[position - dimension] != '\n' && boardElements[position - dimension] == EMPTY_FIELD) {
+                boardElements[position - dimension] = FIELD_UNDER_ATTACK;
             }
         }
     }
@@ -62,15 +62,15 @@ public class KingsPlacement extends FiguresPlacement {
     private void placeDiagonallyAbove(char[] boardElements, int position, int dimension) {
         if (position - dimension - 1 >= 0 && (position - dimension - 1) % dimension >= 0 ) {
             if (boardElements[position - dimension - 1] != '\n'
-                    && boardElements[position - dimension - 1] == '.') {
-                boardElements[position - dimension - 1] = 'x';
+                    && boardElements[position - dimension - 1] == EMPTY_FIELD) {
+                boardElements[position - dimension - 1] = FIELD_UNDER_ATTACK;
             }
         }
 
         if (position - dimension + 1 >= 0 && (position - dimension + 1) % dimension < dimension - 1) {
             if (boardElements[position - dimension + 1] != '\n'
-                    && boardElements[position - dimension + 1] == '.') {
-                boardElements[position - dimension + 1] = 'x';
+                    && boardElements[position - dimension + 1] == EMPTY_FIELD) {
+                boardElements[position - dimension + 1] = FIELD_UNDER_ATTACK;
             }
         }
     }
@@ -79,16 +79,16 @@ public class KingsPlacement extends FiguresPlacement {
         if((position + dimension - 1) % dimension < dimension
                 && position + dimension - 1 < boardElements.length) {
             if (boardElements[position + dimension - 1] != '\n'
-                    && boardElements[position + dimension - 1] == '.') {
-                boardElements[position + dimension - 1] = 'x';
+                    && boardElements[position + dimension - 1] == EMPTY_FIELD) {
+                boardElements[position + dimension - 1] = FIELD_UNDER_ATTACK;
             }
         }
 
         if(position + dimension + 1 < boardElements.length
                 && (position + dimension + 1) % dimension < dimension) {
             if (boardElements[position + dimension + 1] != '\n'
-                    && boardElements[position + dimension + 1] == '.') {
-                boardElements[position + dimension + 1] = 'x';
+                    && boardElements[position + dimension + 1] == EMPTY_FIELD) {
+                boardElements[position + dimension + 1] = FIELD_UNDER_ATTACK;
             }
         }
     }

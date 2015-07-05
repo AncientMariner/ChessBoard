@@ -1,6 +1,9 @@
 package org.xander.chessboard;
 
 public abstract class FiguresPlacement implements PlacementBehavior {
+    public static final char EMPTY_FIELD = '.';
+    public static final char FIELD_UNDER_ATTACK = 'x';
+
     protected final BoardUtils boardUtils = new BoardUtils();
 
     public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
@@ -17,7 +20,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         StringBuilder chessboardWithFigures = new StringBuilder();
         char[] boardElements = board.toCharArray();
         for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] != '\n' && boardElements[i] == '.') {
+            if (boardElements[i] != '\n' && boardElements[i] == EMPTY_FIELD) {
                 boardElements[i] = figure;
                 break;
             }

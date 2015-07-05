@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
+import static org.xander.chessboard.Figure.*;
 
 public class ChessboardTest {
     Chessboard chessboard;
@@ -30,11 +31,11 @@ public class ChessboardTest {
     @Test
     public void chessBoardFiguresTest() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put("King", 2);
-        figureQuantityMap.put("Queen", 3);
-        figureQuantityMap.put("Bishop", 4);
-        figureQuantityMap.put("Rook", 5);
-        figureQuantityMap.put("Knight", 6);
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 3);
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        figureQuantityMap.put(ROOK.toString(), 5);
+        figureQuantityMap.put(KNIGHT.toString(), 6);
         chessboard.setFigureQuantityMap(figureQuantityMap);
 
         assertTrue(figureQuantityMap.equals(chessboard.getFigureQuantityMap()));
@@ -56,7 +57,7 @@ public class ChessboardTest {
     @Test(expected = IllegalStateException.class)
     public void placeAFigureOnBoardNegativeTest() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put("King", 2);
+        figureQuantityMap.put(KING.toString(), 2);
         chessboard.setFigureQuantityMap(figureQuantityMap);
 
         chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawABoard());
