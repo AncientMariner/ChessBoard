@@ -33,12 +33,12 @@ public class KnightsPlacement extends FiguresPlacement {
     }
 
     private void placeTop(char[] boardElements, int position, int dimension) {
-        if (position - dimension * 2 + 1>= 0) {
+        if (position - dimension * 2 + 1 >= 0) {
             if (position % dimension + 1 < dimension)
                 if (boardElements[position - dimension * 2 + 1] == '.')
                     boardElements[position - dimension * 2 + 1] = 'x';
         }
-            if (position - dimension * 2 - 1>= 0) {
+            if (position - dimension * 2 - 1 >= 0) {
                 if (position % dimension - 1 >= 0)
                 if (boardElements[position - dimension * 2 - 1] == '.')
                     boardElements[position - dimension * 2 - 1] = 'x';
