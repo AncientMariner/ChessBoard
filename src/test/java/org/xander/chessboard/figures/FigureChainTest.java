@@ -54,12 +54,12 @@ public class FigureChainTest {
                 "......\n" +
                 "......\n" +
                 "......\n");
-        assertThat("figures are standing on different places", placeFigures.equals("bbbb..\n" +
-                        "xxxxx.\n" +
-                        "xxxxxx\n" +
-                        "x..xxx\n" +
-                        "....xx\n" +
-                        ".....x\n"),
+        assertThat("figures are standing on different places", "bbbb..\n" +
+                                                                      "xxxxx.\n" +
+                                                                      "xxxxxx\n" +
+                                                                      "x..xxx\n" +
+                                                                      "....xx\n" +
+                                                                      ".....x\n".equals(placeFigures),
                 is(true));
     }
 
@@ -78,12 +78,12 @@ public class FigureChainTest {
                                                         "......\n" +
                                                         "......\n" +
                                                         "......\n");
-        assertThat("figures are standing on different places", placeFigures.equals("kxkxnn\n" +
-                                                                                          "xxxx..\n" +
-                                                                                          "...xxx\n" +
-                                                                                          "......\n" +
-                                                                                          "......\n" +
-                                                                                          "......\n"),
+        assertThat("figures are standing on different places", "kxkxnn\n" +
+                                                                       "xxxx..\n" +
+                                                                       "...xxx\n" +
+                                                                       "......\n" +
+                                                                       "......\n" +
+                                                                       "......\n".equals(placeFigures),
                 is(true));
     }
 

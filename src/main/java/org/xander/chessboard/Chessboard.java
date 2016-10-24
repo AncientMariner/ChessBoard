@@ -35,8 +35,7 @@ public class Chessboard {
     }
 
     private String placeFigures(String board) {
-        String result = figureChain.placeFigures(board);
-        return result;
+        return figureChain.placeFigures(board);
     }
 
     public int getDimension() {
@@ -108,7 +107,7 @@ public class Chessboard {
     }
 
     public static void checkBoard(String board, int dimension) {
-        if (board.isEmpty() || board.length() % dimension != 0) {
+        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
             throw new IllegalStateException("There is something wrong with your board");
         }
     }

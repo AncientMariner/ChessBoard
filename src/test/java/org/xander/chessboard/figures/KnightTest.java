@@ -29,12 +29,12 @@ public class KnightTest {
                 "......\n" +
                 "......\n" +
                 "......\n");
-        assertThat("figures are standing on different places", placeFigures.equals("nnnn..\n" +
-                                                                                          "xxxxxx\n" +
-                                                                                          "xxxxx.\n" +
-                                                                                          "......\n" +
-                                                                                          "......\n" +
-                                                                                          "......\n"),
+        assertThat("figures are standing on different places", "nnnn..\n" +
+                                                                      "xxxxxx\n" +
+                                                                      "xxxxx.\n" +
+                                                                      "......\n" +
+                                                                      "......\n" +
+                                                                      "......\n".equals(placeFigures),
                 is(true));
     }
 
