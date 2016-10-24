@@ -7,13 +7,16 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     protected final BoardUtils boardUtils = new BoardUtils();
 
     public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
-        String boardWithFigures = board;
-        while (numberOfFigures > 0) {
-            boardWithFigures = placeOneFigureOnBoardSequentially(boardWithFigures);
-            boardWithFigures = calculateAttackPlaces(boardWithFigures);
-            numberOfFigures--;
+        if (board.contains(".")) {
+            String boardWithFigures = board;
+            while (numberOfFigures > 0) {
+                boardWithFigures = placeOneFigureOnBoardSequentially(boardWithFigures);
+                boardWithFigures = calculateAttackPlaces(boardWithFigures);
+                numberOfFigures--;
+            }
+            return boardWithFigures;
         }
-        return boardWithFigures;
+        return board;
     }
 
     public String placeFigureOnBoard(char figure, String board) {

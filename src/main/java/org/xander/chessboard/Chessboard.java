@@ -12,7 +12,7 @@ import java.util.*;
 import static org.xander.chessboard.figures.Figure.*;
 
 public class Chessboard {
-    private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);
+    private final PlacementBehavior knightsPlacement = new KnightsPlacement();
 //    private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
 //    private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
     private int dimension;
@@ -34,8 +34,9 @@ public class Chessboard {
         rook.setNextFigure(knight);
     }
 
-    public void placeFigures() {
-        figureChain.placeFigures();
+    public String placeFigures(String board) {
+        String result = figureChain.placeFigures(board);
+        return result;
     }
 
     public int getDimension() {
@@ -76,22 +77,17 @@ public class Chessboard {
         int numberOfRooks = extractA(ROOK.toString(), figureQuantityMap);
         int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
-        placeFigures();
-//        this.figureQuantityMap = new HashMap<>();
-//        this.figureQuantityMap.put(KING.toString(), numberOfKings);
-//        this.figureQuantityMap.put(QUEEN.toString(), numberOfQueens);
-//        this.figureQuantityMap.put(ROOK.toString(), numberOfRooks);
-//        this.figureQuantityMap.put(BISHOP.toString(), numberOfBishops);
-//        this.figureQuantityMap.put(KNIGHT.toString(), numberOfKnights);
-//
-//
+
+        checkBoard(emptyBoard, dimension);
+        String board = placeFigures(emptyBoard);
+        System.out.println(board);
+
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
         String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
 
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
-
 //        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);
         //todo: in this situation rook should not be standing at the first line
 //        String boardWithKaRaAP = rooksPlacement.calculateAttackPlaces(boardWithKnightsAndRooks);

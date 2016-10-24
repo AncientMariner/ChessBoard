@@ -1,10 +1,13 @@
 package org.xander.chessboard.figures;
 
+import org.xander.chessboard.PlacementBehavior;
+
 import java.util.Map;
 import java.util.Objects;
 
 public abstract class FiguresChain {
     Map<String, Integer> figureQuantityMap;
+    PlacementBehavior placementBehavior;
     FiguresChain chain;
 
     public FiguresChain(Map<String, Integer> figureQuantityMap) {
@@ -15,12 +18,11 @@ public abstract class FiguresChain {
         this.chain = nextChain;
     }
 
-    public void placeFigures() {
+    public String placeFigures(String board) {
         if (Objects.nonNull(figureQuantityMap.get(getName())) && figureQuantityMap.containsKey(getName())) {
-            Integer number = figureQuantityMap.get(getName());
-            System.out.println("placing + " + number + " " + getName());
+            board = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), board);
         }
-        this.chain.placeFigures();
+        return this.chain.placeFigures(board);
     }
 
     abstract String getName();

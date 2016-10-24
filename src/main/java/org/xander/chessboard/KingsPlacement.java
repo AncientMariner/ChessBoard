@@ -3,12 +3,6 @@ package org.xander.chessboard;
 import static org.xander.chessboard.figures.Figure.*;
 
 public class KingsPlacement extends FiguresPlacement {
-    private final Chessboard chessboard;
-
-    public KingsPlacement(Chessboard chessboard) {
-        this.chessboard = chessboard;
-    }
-
     @Override
     public String placeOneFigureOnBoardSequentially(String board) {
         return placeFigureOnBoard(KING.getFigure(), board);
@@ -18,8 +12,7 @@ public class KingsPlacement extends FiguresPlacement {
     public String calculateAttackPlaces(String board) {
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
-        int dimension = chessboard.getDimension() + 1;
-        chessboard.checkBoard(board, dimension);
+        int dimension = (int) Math.sqrt(board.length()) + 1;
 
         for (int i = 0 ; i < boardElements.length; i++) {
             if (boardElements[i] == KING.getFigure()) {

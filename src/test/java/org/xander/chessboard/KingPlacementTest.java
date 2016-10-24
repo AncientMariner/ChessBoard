@@ -12,7 +12,7 @@ public class KingPlacementTest {
     @Before
     public void setUp() {
         chessboard = new Chessboard(null);
-        figuresPlacement = new KingsPlacement(chessboard);
+        figuresPlacement = new KingsPlacement();
     }
 
     @Test

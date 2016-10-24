@@ -64,12 +64,14 @@ public class ChessboardTest {
         figureQuantityMap.put(BISHOP.toString(), 4);
         figureQuantityMap.put(ROOK.toString(), 5);
         figureQuantityMap.put(KNIGHT.toString(), 6);
+
         int dimension = 8;
         Chessboard chessboard = new Chessboard(figureQuantityMap);
         chessboard.setDimension(dimension);
 
-        String s = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
-        assertThat("more than 1 figure is present", s, is("n.......\n........\n........\n........\n........\n........\n........\n........\n"));
+        assertThat("more than 1 figure is present",
+                chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard()),
+                is("n.......\n........\n........\n........\n........\n........\n........\n........\n"));
     }
 
 
