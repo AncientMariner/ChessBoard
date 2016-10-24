@@ -34,7 +34,7 @@ public class Chessboard {
         rook.setNextFigure(knight);
     }
 
-    public String placeFigures(String board) {
+    private String placeFigures(String board) {
         String result = figureChain.placeFigures(board);
         return result;
     }

@@ -41,6 +41,29 @@ public class FigureChainTest {
     }
 
     @Test
+    public void placeFiguresNegative() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        FiguresChain figuresChain = new Bishop(figureQuantityMap);
+        FiguresChain figuresChain1 = new Queen(figureQuantityMap);
+        figuresChain.setNextFigure(figuresChain1);
+
+        String placeFigures = figuresChain.placeFigures("......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n");
+        assertThat("figures are standing on different places", placeFigures.equals("bbbb..\n" +
+                        "xxxxx.\n" +
+                        "xxxxxx\n" +
+                        "x..xxx\n" +
+                        "....xx\n" +
+                        ".....x\n"),
+                is(true));
+    }
+
+    @Test
     public void placeFiguresKnight() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 2);

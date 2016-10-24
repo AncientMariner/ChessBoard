@@ -74,6 +74,22 @@ public class ChessboardTest {
                 is("n.......\n........\n........\n........\n........\n........\n........\n........\n"));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void placeALotOfFiguresOnBoard() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 12);
+        figureQuantityMap.put(QUEEN.toString(), 13);
+        figureQuantityMap.put(BISHOP.toString(), 14);
+        figureQuantityMap.put(ROOK.toString(), 15);
+        figureQuantityMap.put(KNIGHT.toString(), 16);
+
+        int dimension = 8;
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
+        chessboard.setDimension(dimension);
+
+        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+    }
+
 
     @Test(expected = IllegalStateException.class)
     public void placeAFigureOnBoardNegative() {
@@ -94,5 +110,4 @@ public class ChessboardTest {
 
         chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
     }
-
 }
