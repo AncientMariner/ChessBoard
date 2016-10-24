@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 public class KingTest {
     @Test
     public void getName() {
-        FiguresChain figuresChain = new King(new HashMap<String, Integer>());
+        FiguresChain figuresChain = new King(new HashMap<>());
         assertThat("object is null", figuresChain != null, is(true));
         assertThat("object name is different", figuresChain.getName().equals(Figure.KING.name()) , is(true));
     }

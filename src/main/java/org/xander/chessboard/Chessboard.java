@@ -97,7 +97,7 @@ public class Chessboard {
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
 //        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
 
-        return boardWithKnights;
+        return board;
     }
 
     private int extractA(String figure, Map<String, Integer> figureQuantityMap) {

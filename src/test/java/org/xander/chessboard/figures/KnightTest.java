@@ -11,7 +11,7 @@ import static org.xander.chessboard.figures.Figure.KNIGHT;
 public class KnightTest {
     @Test
     public void getName() {
-        FiguresChain figuresChain = new Knight(new HashMap<String, Integer>());
+        FiguresChain figuresChain = new Knight(new HashMap<>());
         assertThat("object is null", figuresChain != null, is(true));
         assertThat("object name is different", figuresChain.getName().equals(Figure.KNIGHT.name()) , is(true));
     }
@@ -23,7 +23,7 @@ public class KnightTest {
 
         FiguresChain figuresChain = new Knight(figureQuantityMap);
 
-        String placeFigures = ((Knight) figuresChain).placeFigures("......\n" +
+        String placeFigures = figuresChain.placeFigures("......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +

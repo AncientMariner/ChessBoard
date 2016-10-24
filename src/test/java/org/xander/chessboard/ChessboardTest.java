@@ -71,7 +71,14 @@ public class ChessboardTest {
 
         assertThat("more than 1 figure is present",
                 chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard()),
-                is("n.......\n........\n........\n........\n........\n........\n........\n........\n"));
+                is("kxkxqxxx\n" +
+                   "xxxxxxqx\n" +
+                   "qxxxxxxx\n" +
+                   "xxbbxbxx\n" +
+                   "xxxxxbxr\n" +
+                   "xxxxxxxx\n" +
+                   "xxxxxxxx\n" +
+                   "xxxrxxxx\n"));
     }
 
     @Test(expected = IllegalStateException.class)
