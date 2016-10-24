@@ -13,6 +13,7 @@ public class RooksPlacement extends PerpendicularFiguresPlacement {
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = (int) Math.sqrt(board.length()) + 1;
+        Chessboard.checkBoard(board, dimension);
 
         for (int i = 0 ; i < boardElements.length; i++) {
             if (boardElements[i] == ROOK.getFigure()) {

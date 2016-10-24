@@ -1,7 +1,6 @@
 package org.xander.chessboard.figures;
 
 import org.junit.Test;
-import org.xander.chessboard.BishopsPlacement;
 
 import java.util.HashMap;
 

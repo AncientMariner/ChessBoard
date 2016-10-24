@@ -80,7 +80,6 @@ public class Chessboard {
 
         checkBoard(emptyBoard, dimension);
         String board = placeFigures(emptyBoard);
-        System.out.println(board);
 
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
@@ -108,7 +107,7 @@ public class Chessboard {
         return 0;
     }
 
-    public void checkBoard(String board, int dimension) {
+    public static void checkBoard(String board, int dimension) {
         if (board.isEmpty() || board.length() % dimension != 0) {
             throw new IllegalStateException("There is something wrong with your board");
         }

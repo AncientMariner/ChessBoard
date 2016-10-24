@@ -1,6 +1,5 @@
 package org.xander.chessboard.figures;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -39,15 +38,12 @@ public class KnightTest {
                 is(true));
     }
 
-    @Ignore
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void placeFiguresKnightNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 4);
 
-        FiguresChain figuresChain = new Knight(figureQuantityMap);
-
-        ((Knight)figuresChain).placeFigures("....\n");
+        new Knight(figureQuantityMap).placeFigures("....\n");
     }
 
 }

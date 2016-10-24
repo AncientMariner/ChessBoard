@@ -29,7 +29,7 @@ public class FigureChainTest {
 
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void placeFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 4);
@@ -37,9 +37,7 @@ public class FigureChainTest {
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
         figuresChain.setNextFigure(figuresChain1);
 
-        String placeFigures = figuresChain.placeFigures(".....");
-
-        assertThat("figures are not placed", placeFigures.equals("bbbxx"), is(true));
+        figuresChain.placeFigures(".....");
     }
 
     @Test
@@ -57,7 +55,6 @@ public class FigureChainTest {
                                                         "......\n" +
                                                         "......\n" +
                                                         "......\n");
-        System.out.println(placeFigures);
         assertThat("figures are standing on different places", placeFigures.equals("kxkxnn\n" +
                                                                                           "xxxx..\n" +
                                                                                           "...xxx\n" +
