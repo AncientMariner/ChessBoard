@@ -2,8 +2,11 @@ package org.xander.chessboard;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.figures.Figure;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class BishopsPlacementTest {
     private Chessboard chessboard;
@@ -212,4 +215,33 @@ public class BishopsPlacementTest {
                        ".......\n";
         figuresPlacement.calculateAttackPlaces(board);
     }
+
+    @Test
+    public void sequentialFigurePlacement() {
+        FiguresPlacement figuresPlacement = new BishopsPlacement();
+        String board = figuresPlacement.placeFigureOnBoard(Figure.BISHOP.getFigure(), "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n");
+        assertThat("board is different", board, is("b.....\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n"));
+    }
+    @Test
+    public void randomFigurePlacement() {
+        FiguresPlacement figuresPlacement = new BishopsPlacement();
+        String random = figuresPlacement.placeFigureOnBoardRandomly(Figure.BISHOP.getFigure(), "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n");
+        assertThat("board is different", random.contains("b"), is(true));
+    }
+
 }
