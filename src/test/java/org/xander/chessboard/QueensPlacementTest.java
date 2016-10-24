@@ -6,8 +6,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class QueensPlacementTest {
-    Chessboard chessboard;
-    PlacementBehavior figuresPlacement;
+    private Chessboard chessboard;
+    private PlacementBehavior figuresPlacement;
 
     @Before
     public void setUp() {

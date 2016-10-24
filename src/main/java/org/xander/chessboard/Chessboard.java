@@ -6,8 +6,8 @@ import static org.xander.chessboard.Figure.*;
 
 public class Chessboard {
     private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);
-    private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
-    private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
+//    private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
+//    private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap;
@@ -69,7 +69,7 @@ public class Chessboard {
         int numberOfRooks = extractA(ROOK.toString(), figureQuantityMap);
         int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
-
+        placeFigures();
 //        this.figureQuantityMap = new HashMap<>();
 //        this.figureQuantityMap.put(KING.toString(), numberOfKings);
 //        this.figureQuantityMap.put(QUEEN.toString(), numberOfQueens);

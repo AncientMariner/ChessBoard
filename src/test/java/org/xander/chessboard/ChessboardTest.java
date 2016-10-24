@@ -5,8 +5,10 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.Figure.BISHOP;
 import static org.xander.chessboard.Figure.KING;
@@ -66,9 +68,8 @@ public class ChessboardTest {
         Chessboard chessboard = new Chessboard(figureQuantityMap);
         chessboard.setDimension(dimension);
 
-        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
-        chessboard.placeFigures();
-//todo continue the test
+        String s = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        assertThat("more than 1 figure is present", s, is("n.......\n........\n........\n........\n........\n........\n........\n........\n"));
     }
 
 
