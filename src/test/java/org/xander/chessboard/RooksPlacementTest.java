@@ -16,7 +16,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void placeRookTest() {
+    public void placeRook() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -39,7 +39,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackTest() {
+    public void calculateAreaOfTheRookAttack() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -60,7 +60,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfOneRookAttackTest() {
+    public void calculateAreaOfOneRookAttack() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -82,7 +82,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackOnCornersTopRightBottomLeftTest() {
+    public void calculateAreaOfTheRookAttackOnCornersTopRightBottomLeft() {
         int dimension = 6;
         chessboard.setDimension(dimension);
         String board = ".....r\n" +
@@ -102,7 +102,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackOnCornersTopLeftBottomRightTest() {
+    public void calculateAreaOfTheRookAttackOnCornersTopLeftBottomRight() {
         int dimension = 6;
         chessboard.setDimension(dimension);
         String board = "r.....\n" +
@@ -122,7 +122,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackMixTest() {
+    public void calculateAreaOfTheRookAttackMix() {
         int dimension = 6;
         chessboard.setDimension(dimension);
         String board = "......\n" +
@@ -142,7 +142,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackAnotherMixTest() {
+    public void calculateAreaOfTheRookAttackAnotherMix() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -163,7 +163,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackBorderTest() {
+    public void calculateAreaOfTheRookAttackBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -184,7 +184,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void placeThreeRooksOnBoardTest() {
+    public void placeThreeRooksOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
         String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
@@ -196,7 +196,7 @@ public class RooksPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheRookAttackNegativeTest() {
+    public void calculateAreaOfTheRookAttackNegative() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -210,7 +210,7 @@ public class RooksPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheRookAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheRookAttackNegativeBigBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

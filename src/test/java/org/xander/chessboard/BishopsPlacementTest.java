@@ -16,7 +16,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void placeBishopTest() {
+    public void placeBishop() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -39,7 +39,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackTopLeftCornerTest() {
+    public void calculateAreaOfBishopAttackTopLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -60,7 +60,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackBottomLeftCornerTest() {
+    public void calculateAreaOfBishopAttackBottomLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -81,7 +81,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackTopRightCornerTest() {
+    public void calculateAreaOfBishopAttackTopRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -102,7 +102,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackBottomRightCornerTest() {
+    public void calculateAreaOfBishopAttackBottomRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -123,7 +123,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackAllCornersTest() {
+    public void calculateAreaOfBishopAttackAllCorners() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -144,7 +144,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfBishopAttackMixTest() {
+    public void calculateAreaOfBishopAttackMix() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -165,7 +165,7 @@ public class BishopsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackBorderTest() {
+    public void calculateAreaOfTheKingAttackBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -186,7 +186,7 @@ public class BishopsPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheBishopAttackNegativeSmallBoardTest() {
+    public void calculateAreaOfTheBishopAttackNegativeSmallBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -200,7 +200,7 @@ public class BishopsPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheBishopAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheBishopAttackNegativeBigBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

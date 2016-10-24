@@ -16,7 +16,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void placeQueenTest() {
+    public void placeQueen() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -39,7 +39,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackTopLeftCornerTest() {
+    public void calculateAreaOfTheQueenAttackTopLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -60,7 +60,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackTopRightCornerTest() {
+    public void calculateAreaOfTheQueenAttackTopRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -82,7 +82,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackBottomLeftCornerTest() {
+    public void calculateAreaOfTheQueenAttackBottomLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -103,7 +103,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackBottomRightCornerTest() {
+    public void calculateAreaOfTheQueenAttackBottomRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -125,7 +125,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackMiddleTest() {
+    public void calculateAreaOfTheQueenAttackMiddle() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -147,7 +147,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheQueenAttackBorderTest() {
+    public void calculateAreaOfTheQueenAttackBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -168,7 +168,7 @@ public class QueensPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheTwoQueenAttackTest() {
+    public void calculateAreaOfTheTwoQueenAttack() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -190,7 +190,7 @@ public class QueensPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheQueenAttackNegativeTest() {
+    public void calculateAreaOfTheQueenAttackNegative() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -204,7 +204,7 @@ public class QueensPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheQueenAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheQueenAttackNegativeBigBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

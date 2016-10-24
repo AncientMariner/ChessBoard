@@ -16,7 +16,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void placeKingTest() {
+    public void placeKing() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -39,7 +39,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackTopLeftCornerTest() {
+    public void calculateAreaOfTheKingAttackTopLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -60,7 +60,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackBottomLeftCornerTest() {
+    public void calculateAreaOfTheKingAttackBottomLeftCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -81,7 +81,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackTopRightCornerTest() {
+    public void calculateAreaOfTheKingAttackTopRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -102,7 +102,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackBottomRightCornerTest() {
+    public void calculateAreaOfTheKingAttackBottomRightCorner() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -123,7 +123,7 @@ public class KingPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKingAttackBorderTest() {
+    public void calculateAreaOfTheKingAttackBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -144,7 +144,7 @@ public class KingPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKingAttackNegativeTest() {
+    public void calculateAreaOfTheKingAttackNegative() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -158,7 +158,7 @@ public class KingPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKingAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheKingAttackNegativeBigBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

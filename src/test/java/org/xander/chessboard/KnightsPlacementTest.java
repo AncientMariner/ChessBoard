@@ -16,7 +16,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackCornersTest() {
+    public void calculateAreaOfTheKnightAttackCorners() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -36,7 +36,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackTest() {
+    public void calculateAreaOfTheKnightAttack() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -56,7 +56,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackOnBorderAndMiddleTest() {
+    public void calculateAreaOfTheKnightAttackOnBorderAndMiddle() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -76,7 +76,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackOnVerticalBorderTest() {
+    public void calculateAreaOfTheKnightAttackOnVerticalBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -96,7 +96,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheKnightAttackOnHorizontalBorderTest() {
+    public void calculateAreaOfTheKnightAttackOnHorizontalBorder() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -116,7 +116,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void placeThreeKnightsOnBoardTest() {
+    public void placeThreeKnightsOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
@@ -129,7 +129,7 @@ public class KnightsPlacementTest {
     }
 
     @Test
-    public void placeAKnightOnBoardTest() {
+    public void placeAKnightOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
@@ -142,7 +142,7 @@ public class KnightsPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeTest() {
+    public void calculateAreaOfTheKnightAttackNegative() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 
@@ -156,7 +156,7 @@ public class KnightsPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheKnightAttackNegativeBigBoardTest() {
+    public void calculateAreaOfTheKnightAttackNegativeBigBoard() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

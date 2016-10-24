@@ -18,7 +18,7 @@ import static org.xander.chessboard.Figure.ROOK;
 
 public class ChessboardTest {
     @Test
-    public void chessBoardBasicTest() {
+    public void chessBoardBasic() {
         Chessboard chessboard = new Chessboard(null);
         assertNotNull(chessboard);
         assertTrue(chessboard.getDimension() == 0);
@@ -30,7 +30,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void chessBoardFiguresTest() {
+    public void chessBoardFigures() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(QUEEN.toString(), 3);
@@ -42,7 +42,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void drawAnEmptyBoardTest() {
+    public void drawAnEmptyBoard() {
         int dimension = 5;
         Chessboard chessboard = new Chessboard(null);
 
@@ -57,7 +57,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void placeFiguresOnBoard1() {
+    public void placeFiguresOnBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(QUEEN.toString(), 3);
@@ -74,7 +74,7 @@ public class ChessboardTest {
 
 
     @Test(expected = IllegalStateException.class)
-    public void placeAFigureOnBoardNegativeTest() {
+    public void placeAFigureOnBoardNegative() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         Chessboard chessboard = new Chessboard(figureQuantityMap);
@@ -83,7 +83,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void testMultipleFigures() {
+    public void multipleFigures() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(ROOK.toString(), 2);
