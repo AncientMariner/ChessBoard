@@ -11,7 +11,7 @@ public class BishopsPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard();
+        chessboard = new Chessboard(null);
         figuresPlacement = new BishopsPlacement(chessboard);
     }
 

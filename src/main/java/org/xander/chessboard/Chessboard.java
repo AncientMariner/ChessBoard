@@ -10,7 +10,26 @@ public class Chessboard {
     private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
     private int dimension;
     private int boardSize;
-    private Map<String, Integer> figureQuantityMap = new HashMap<>();
+    private Map<String, Integer> figureQuantityMap;
+    private FiguresChain figureChain;
+
+    public Chessboard(Map<String, Integer> figureQuantityMap) {
+        this.figureQuantityMap = figureQuantityMap;
+        this.figureChain = new King(figureQuantityMap);
+        FiguresChain queen = new Queen(figureQuantityMap);
+        FiguresChain bishop = new Bishop(figureQuantityMap);
+        FiguresChain rook = new Rook(figureQuantityMap);
+        FiguresChain knight = new Knight(figureQuantityMap);
+
+        figureChain.setNextFigure(queen);
+        queen.setNextFigure(bishop);
+        bishop.setNextFigure(rook);
+        rook.setNextFigure(knight);
+    }
+
+    public void placeFigures() {
+        figureChain.placeFigures();
+    }
 
     public int getDimension() {
         return dimension;
@@ -22,10 +41,6 @@ public class Chessboard {
 
     public Map<String, Integer> getFigureQuantityMap() {
         return figureQuantityMap;
-    }
-
-    public void setFigureQuantityMap(Map<String, Integer> figureQuantityMap) {
-        this.figureQuantityMap = figureQuantityMap;
     }
 
     public String drawEmptyBoard() {
@@ -47,7 +62,7 @@ public class Chessboard {
         boardSize = xDimension * yDimension;
     }
 
-    public String placeFiguresOnBoard(Map<String, Integer> figureQuantityMap, String emptyBoard) {
+    public String placeFiguresOnBoard(String emptyBoard) {
         int numberOfKings = extractA(KING.toString(), figureQuantityMap);
         int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
         int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
@@ -55,10 +70,19 @@ public class Chessboard {
         int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
+//        this.figureQuantityMap = new HashMap<>();
+//        this.figureQuantityMap.put(KING.toString(), numberOfKings);
+//        this.figureQuantityMap.put(QUEEN.toString(), numberOfQueens);
+//        this.figureQuantityMap.put(ROOK.toString(), numberOfRooks);
+//        this.figureQuantityMap.put(BISHOP.toString(), numberOfBishops);
+//        this.figureQuantityMap.put(KNIGHT.toString(), numberOfKnights);
+//
+//
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
         String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
+
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
 
 //        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);

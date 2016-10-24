@@ -1,24 +1,23 @@
 package org.xander.chessboard;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-import static org.xander.chessboard.Figure.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.Figure.BISHOP;
+import static org.xander.chessboard.Figure.KING;
+import static org.xander.chessboard.Figure.KNIGHT;
+import static org.xander.chessboard.Figure.QUEEN;
+import static org.xander.chessboard.Figure.ROOK;
 
 public class ChessboardTest {
-    Chessboard chessboard;
-
-    @Before
-    public void setUp() {
-        chessboard = new Chessboard();
-    }
-
     @Test
     public void chessBoardBasicTest() {
+        Chessboard chessboard = new Chessboard(null);
         assertNotNull(chessboard);
         assertTrue(chessboard.getDimension() == 0);
 
@@ -36,13 +35,15 @@ public class ChessboardTest {
         figureQuantityMap.put(BISHOP.toString(), 4);
         figureQuantityMap.put(ROOK.toString(), 5);
         figureQuantityMap.put(KNIGHT.toString(), 6);
-        chessboard.setFigureQuantityMap(figureQuantityMap);
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
         assertTrue(figureQuantityMap.equals(chessboard.getFigureQuantityMap()));
     }
 
     @Test
     public void drawAnEmptyBoardTest() {
         int dimension = 5;
+        Chessboard chessboard = new Chessboard(null);
+
         chessboard.setDimension(dimension);
 
         String emptyBoard = chessboard.drawEmptyBoard();
@@ -53,13 +54,31 @@ public class ChessboardTest {
                      ".....\n", emptyBoard);
     }
 
+    @Test
+    public void placeFiguresOnBoard1() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 3);
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        figureQuantityMap.put(ROOK.toString(), 5);
+        figureQuantityMap.put(KNIGHT.toString(), 6);
+        int dimension = 8;
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
+        chessboard.setDimension(dimension);
+
+        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        chessboard.placeFigures();
+//todo continue the test
+    }
+
+
     @Test(expected = IllegalStateException.class)
     public void placeAFigureOnBoardNegativeTest() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
-        chessboard.setFigureQuantityMap(figureQuantityMap);
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
 
-        chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawEmptyBoard());
+        chessboard.placeFiguresOnBoard("");
     }
 
     @Test
@@ -67,12 +86,10 @@ public class ChessboardTest {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(ROOK.toString(), 2);
-        chessboard.setFigureQuantityMap(figureQuantityMap);
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
         chessboard.setDimension(8);
 
-
-        chessboard.placeFiguresOnBoard(figureQuantityMap, chessboard.drawEmptyBoard());
-
+        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
     }
 
 }
