@@ -22,7 +22,10 @@ public abstract class FiguresChain {
         if (Objects.nonNull(figureQuantityMap.get(getName())) && figureQuantityMap.containsKey(getName())) {
             board = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), board);
         }
-        return this.chain.placeFigures(board);
+        if (chain != null) {
+            return this.chain.placeFigures(board);
+        }
+        return board;
     }
 
     abstract String getName();
