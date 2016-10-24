@@ -1,8 +1,6 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figures;
 
 import java.util.Map;
-
-import static org.xander.chessboard.Figure.ROOK;
 
 public class Rook extends FiguresChain {
     public Rook(Map<String, Integer> figureQuantityMap) {
@@ -11,6 +9,6 @@ public class Rook extends FiguresChain {
 
     @Override
     public String getName() {
-        return ROOK.name();
+        return Figure.ROOK.name();
     }
 }

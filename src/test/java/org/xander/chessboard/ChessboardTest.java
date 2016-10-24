@@ -10,11 +10,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.xander.chessboard.Figure.BISHOP;
-import static org.xander.chessboard.Figure.KING;
-import static org.xander.chessboard.Figure.KNIGHT;
-import static org.xander.chessboard.Figure.QUEEN;
-import static org.xander.chessboard.Figure.ROOK;
+import static org.xander.chessboard.figures.Figure.BISHOP;
+import static org.xander.chessboard.figures.Figure.KING;
+import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figures.Figure.QUEEN;
+import static org.xander.chessboard.figures.Figure.ROOK;
 
 public class ChessboardTest {
     @Test

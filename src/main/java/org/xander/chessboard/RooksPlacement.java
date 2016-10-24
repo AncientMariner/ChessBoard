@@ -1,6 +1,6 @@
 package org.xander.chessboard;
 
-import static org.xander.chessboard.Figure.ROOK;
+import static org.xander.chessboard.figures.Figure.ROOK;
 
 public class RooksPlacement extends PerpendicularFiguresPlacement {
     private final Chessboard chessboard;

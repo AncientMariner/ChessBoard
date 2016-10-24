@@ -1,4 +1,4 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figures;
 
 public enum Figure {
     // to avoid a conflict with king in names - knight is taken by 'n' char

@@ -1,6 +1,6 @@
 package org.xander.chessboard;
 
-import static org.xander.chessboard.Figure.BISHOP;
+import static org.xander.chessboard.figures.Figure.BISHOP;
 
 public class BishopsPlacement extends DiagonalFiguresPlacement {
     private final Chessboard chessboard;

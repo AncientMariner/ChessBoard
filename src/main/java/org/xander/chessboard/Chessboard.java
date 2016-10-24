@@ -1,8 +1,15 @@
 package org.xander.chessboard;
 
+import org.xander.chessboard.figures.Bishop;
+import org.xander.chessboard.figures.FiguresChain;
+import org.xander.chessboard.figures.King;
+import org.xander.chessboard.figures.Knight;
+import org.xander.chessboard.figures.Queen;
+import org.xander.chessboard.figures.Rook;
+
 import java.util.*;
 
-import static org.xander.chessboard.Figure.*;
+import static org.xander.chessboard.figures.Figure.*;
 
 public class Chessboard {
     private final PlacementBehavior knightsPlacement = new KnightsPlacement(this);

@@ -1,6 +1,6 @@
 package org.xander.chessboard;
 
-import static org.xander.chessboard.Figure.QUEEN;
+import static org.xander.chessboard.figures.Figure.QUEEN;
 
 public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     private final Chessboard chessboard;

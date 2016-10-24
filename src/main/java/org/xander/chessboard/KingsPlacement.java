@@ -1,6 +1,6 @@
 package org.xander.chessboard;
 
-import static org.xander.chessboard.Figure.*;
+import static org.xander.chessboard.figures.Figure.*;
 
 public class KingsPlacement extends FiguresPlacement {
     private final Chessboard chessboard;

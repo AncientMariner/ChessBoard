@@ -1,4 +1,4 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figures;
 
 import java.util.Map;
 
