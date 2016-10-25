@@ -44,36 +44,34 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
 
-    public String placeNumberOfFiguresOnBoardAll(int numberOfFigures, String board) {
-        if (board.contains(".")) {
-            String boardWithFigures = board;
-            Set<String> boards = new HashSet<>();
-            Set<String> boardsWithFiguresAndAttackPlaces = new HashSet<>();
+    public Set<String> placeNumberOfFiguresOnBoardAll(int numberOfFigures, String board) {
+        Set<String> boards = new HashSet<>();
 
+        if (board.contains(".")) {
             while (numberOfFigures > 0) {
                 if (boards.isEmpty()) {
-                    boards = placeFigureOnBoardRandomly('k', board);
-                    for (String boardWith1Figure : boards) {
-                        boardsWithFiguresAndAttackPlaces.add(calculateAttackPlaces1(boardWith1Figure));
-                    }
-//                    boards.forEach(e -> boardsWithFiguresAndAttackPlaces.add(e));
-
+                    boards.addAll(placeFigureOnBoardRandomly('k', board).stream()
+                            .map(this::calculateAttackPlaces1)
+                            .collect(Collectors.toSet()));
                 } else {
-                    Set<String> strings = new HashSet<>();
+                    Set<String> stringsWithoutAttack = boards.stream()
+                            .map(e -> placeFigureOnBoardRandomly('k', e))
+                            .flatMap(Set::stream)
+                            .collect(Collectors.toSet());
 
-                    for (String boardToPlace : boardsWithFiguresAndAttackPlaces) {
-                        Set<String> boardWithMoreFigures = placeFigureOnBoardRandomly('k', boardToPlace);
-                        strings.addAll(boardWithMoreFigures);
-                    }
-                    for (String boardWith1FigureAttackAndAnotherFigure : strings) {
-                        boardsWithFiguresAndAttackPlaces.add(calculateAttackPlaces1(boardWith1FigureAttackAndAnotherFigure));
-                    }
+                    boards.clear();
+
+                    Set<String> stringsWithAttack = stringsWithoutAttack.stream()
+                            .map(this::calculateAttackPlaces1)
+                            .collect(Collectors.toSet());
+
+                    boards.addAll(stringsWithAttack);
                 }
                 numberOfFigures--;
             }
-            return boardWithFigures;
+            return boards;
         }
-        return board;
+        return boards;
     }
 
 
