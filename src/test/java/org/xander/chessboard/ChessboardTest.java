@@ -17,15 +17,9 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
+import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
 
 public class ChessboardTest {
-
-    public static final String EMPTY_BOARD_SIZE_5 = ".....\n" +
-                                                    ".....\n" +
-                                                    ".....\n" +
-                                                    ".....\n" +
-                                                    ".....\n";
-
     @Test
     public void chessBoardBasic() {
         Chessboard chessboard = new Chessboard(null);
@@ -52,13 +46,13 @@ public class ChessboardTest {
 
     @Test
     public void drawAnEmptyBoard() {
-        int dimension = 5;
+        int dimension = 6;
         Chessboard chessboard = new Chessboard(null);
 
         chessboard.setDimension(dimension);
 
         String emptyBoard = chessboard.drawEmptyBoard();
-        assertEquals(EMPTY_BOARD_SIZE_5, emptyBoard);
+        assertEquals(EMPTY_BOARD_SIZE_6, emptyBoard);
     }
 
 //    runs too long, for now ignored
@@ -104,7 +98,6 @@ public class ChessboardTest {
 
         chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
     }
-
 
     @Test(expected = IllegalStateException.class)
     public void placeAFigureOnBoardNegative() {

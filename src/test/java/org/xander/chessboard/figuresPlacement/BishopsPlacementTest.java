@@ -245,19 +245,6 @@ public class BishopsPlacementTest {
                 "......\n"), is(true));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test
     public void numberOfFigureOnBoard() {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
@@ -268,6 +255,10 @@ public class BishopsPlacementTest {
         Set<String> result = figuresPlacement.placeNumberOfFiguresOnBoard(3, boards);
         System.out.println();
 
+        for (String board : result) {
+            assertTrue("all elements are not present on each board", !board.contains("k") && !board.contains("q") && board.contains("b"));
+            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 3);
+        }
     }
 
 }
