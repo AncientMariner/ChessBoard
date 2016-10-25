@@ -1,12 +1,17 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.Chessboard;
 import org.xander.chessboard.figures.Figure;
+
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 
 public class BishopsPlacementTest {
     private Chessboard chessboard;
@@ -35,10 +40,8 @@ public class BishopsPlacementTest {
                                              "......\n" +
                                              "......\n" +
                                              "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertEquals(expectedBoard, actual);
-        String actualWithTwoBishops = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
-        assertEquals(expectedBoardWithTwoBishops, actualWithTwoBishops);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
+        assertTrue(boards.contains(expectedBoardWithTwoBishops));
     }
 
     @Test
@@ -219,29 +222,26 @@ public class BishopsPlacementTest {
     @Test
     public void sequentialFigurePlacement() {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
-        String board = figuresPlacement.placeFigureOnBoard(Figure.BISHOP.getFigure(), "......\n" +
+        Set<String> boards = figuresPlacement.placeFigureOnBoard(Figure.BISHOP.getFigure(), EMPTY_BOARD_SIZE_6);
+        assertThat("board is different", boards.contains("b.....\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
-                "......\n");
-        assertThat("board is different", board, is("b.....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n"));
+                "......\n"), is(true));
     }
+
     @Test
     public void randomFigurePlacement() {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
-        String random = figuresPlacement.placeFigureOnBoardRandomly(Figure.BISHOP.getFigure(), "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
-        assertThat("board is different", random.contains("b"), is(true));
-    }
+        Set<String> boards = figuresPlacement.placeFigureOnBoard(Figure.BISHOP.getFigure(), EMPTY_BOARD_SIZE_6);
 
+        assertThat("boards are not full", boards.size() == 36, is(true));
+        assertThat("board is different", boards.contains("......\n" +
+                "......\n" +
+                "......\n" +
+                "...b..\n" +
+                "......\n" +
+                "......\n"), is(true));
+    }
 }

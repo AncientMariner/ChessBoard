@@ -1,9 +1,11 @@
 package org.xander.chessboard.figures;
 
-import org.xander.chessboard.PlacementBehavior;
+import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class FiguresChain {
     Map<String, Integer> figureQuantityMap;
@@ -18,14 +20,17 @@ public abstract class FiguresChain {
         this.chain = nextChain;
     }
 
-    public String placeFigures(String board) {
+    public Set<String> placeFigures(Set<String> boards) {
+        if (boards.isEmpty()) {
+            boards = new HashSet<>();
+        }
         if (Objects.nonNull(figureQuantityMap.get(getName())) && figureQuantityMap.containsKey(getName())) {
-            board = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), board);
+            boards = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), boards);
         }
         if (chain != null) {
-            return this.chain.placeFigures(board);
+            return this.chain.placeFigures(boards);
         }
-        return board;
+        return boards;
     }
 
     abstract String getName();

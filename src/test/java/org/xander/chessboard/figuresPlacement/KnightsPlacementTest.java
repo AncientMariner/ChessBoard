@@ -1,9 +1,14 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.Chessboard;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class KnightsPlacementTest {
     private Chessboard chessboard;
@@ -119,13 +124,16 @@ public class KnightsPlacementTest {
     public void placeThreeKnightsOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
+//todo merge tests into 1 with paramates
+        Set<String> objects = new HashSet<>();
+        objects.add(chessboard.drawEmptyBoard());
+        Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
 
-        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
-        assertEquals("nnn..\n" +
+        assertTrue(boards.contains("nnn..\n" +
                      "x.xxx\n" +
                      "xxxx.\n" +
                      ".....\n" +
-                     ".....\n", result);
+                     ".....\n"));
     }
 
     @Test
@@ -133,12 +141,12 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertEquals("n....\n" +
-                     ".....\n" +
-                     ".....\n" +
-                     ".....\n" +
-                     ".....\n", actual);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
+        assertTrue(boards.contains("n....\n" +
+                ".....\n" +
+                ".....\n" +
+                ".....\n" +
+                ".....\n"));
     }
 
     @Test(expected = IllegalStateException.class)

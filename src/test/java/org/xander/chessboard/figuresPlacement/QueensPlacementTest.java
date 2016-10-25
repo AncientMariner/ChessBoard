@@ -1,9 +1,15 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.Chessboard;
+import org.xander.chessboard.figuresPlacement.PlacementBehavior;
+import org.xander.chessboard.figuresPlacement.QueensPlacement;
+
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class QueensPlacementTest {
     private Chessboard chessboard;
@@ -32,10 +38,8 @@ public class QueensPlacementTest {
                                             "......\n" +
                                             "......\n" +
                                             "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertEquals(expectedBoard, actual);
-        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
-        assertEquals(expectedBoardWithTwoQueens, actualWithTwoRooks);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
+        assertTrue(boards.contains(expectedBoardWithTwoQueens));
     }
 
     @Test

@@ -12,14 +12,12 @@ import java.util.*;
 import static org.xander.chessboard.figures.Figure.*;
 
 public class Chessboard {
-    private final PlacementBehavior knightsPlacement = new KnightsPlacement();
-//    private final PlacementBehavior rooksPlacement = new RooksPlacement(this);
-//    private final PlacementBehavior bishopPlacement = new BishopsPlacement(this);
     private int dimension;
     private int boardSize;
     private Map<String, Integer> figureQuantityMap;
     private FiguresChain figureChain;
 
+    //todo add builder for various combinations
     public Chessboard(Map<String, Integer> figureQuantityMap) {
         this.figureQuantityMap = figureQuantityMap;
         this.figureChain = new King(figureQuantityMap);
@@ -34,8 +32,8 @@ public class Chessboard {
         rook.setNextFigure(knight);
     }
 
-    private String placeFigures(String board) {
-        return figureChain.placeFigures(board);
+    private Set<String> placeFigures(Set<String> boards) {
+        return figureChain.placeFigures(boards);
     }
 
     public int getDimension() {
@@ -69,7 +67,7 @@ public class Chessboard {
         boardSize = xDimension * yDimension;
     }
 
-    public String placeFiguresOnBoard(String emptyBoard) {
+    public Set<String> placeFiguresOnBoard(String emptyBoard) {
         int numberOfKings = extractA(KING.toString(), figureQuantityMap);
         int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
         int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
@@ -77,13 +75,16 @@ public class Chessboard {
         int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
-        checkBoard(emptyBoard, dimension);
-        String board = placeFigures(emptyBoard);
-
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
-        String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
+
+        checkBoard(emptyBoard, dimension);
+        HashSet<String> initialBoards = new HashSet<>();
+        initialBoards.add(drawEmptyBoard());
+        Set<String> boards = placeFigures(initialBoards);
+
+//        String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
 
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
 //        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);
@@ -95,8 +96,7 @@ public class Chessboard {
 //        System.out.println(boardWithKnightsRooksAndBishops);
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
 //        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
-
-        return board;
+        return boards;
     }
 
     private int extractA(String figure, Map<String, Integer> figureQuantityMap) {

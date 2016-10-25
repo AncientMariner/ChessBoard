@@ -1,9 +1,14 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.Chessboard;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RooksPlacementTest {
     private Chessboard chessboard;
@@ -32,10 +37,8 @@ public class RooksPlacementTest {
                                            "......\n" +
                                            "......\n" +
                                            "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertEquals(expectedBoard, actual);
-        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
-        assertEquals(expectedBoardWithTwoRooks, actualWithTwoRooks);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
+        assertTrue(boards.contains(expectedBoardWithTwoRooks));
     }
 
     @Test
@@ -187,12 +190,16 @@ public class RooksPlacementTest {
     public void placeThreeRooksOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
-        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
-        assertEquals("rxxxx\n" +
+        //todo merge tests into 1 with paramates
+        Set<String> objects = new HashSet<>();
+        objects.add(chessboard.drawEmptyBoard());
+        Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
+
+        assertTrue(boards.contains("rxxxx\n" +
                      "xrxxx\n" +
                      "xxrxx\n" +
                      "xxx..\n" +
-                     "xxx..\n", result);
+                     "xxx..\n"));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -210,7 +217,7 @@ public class RooksPlacementTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheRookAttackNegativeBigBoard() {
+    public void calculateAreaOfTheRookAttackNegativeBoardBiggerThanDimension() {
         int dimension = 6;
         chessboard.setDimension(dimension);
 

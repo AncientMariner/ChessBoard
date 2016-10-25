@@ -1,4 +1,4 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 public class BoardUtils {
     String transformArrayToStringBuilder(char[] boardElements) {

@@ -3,10 +3,15 @@ package org.xander.chessboard.figures;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class KnightTest {
     @Test
@@ -23,19 +28,20 @@ public class KnightTest {
 
         FiguresChain figuresChain = new Knight(figureQuantityMap);
 
-        String placeFigures = figuresChain.placeFigures("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
-        assertThat("figures are standing on different places", "nnnn..\n" +
+        Set<String> objects = new HashSet<>();
+        objects.add(EMPTY_BOARD_SIZE_6);
+        Set<String> boards = figuresChain.placeFigures(objects);
+        assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
                                                                       "xxxxxx\n" +
                                                                       "xxxxx.\n" +
                                                                       "......\n" +
                                                                       "......\n" +
-                                                                      "......\n".equals(placeFigures),
+                                                                      "......\n"),
                 is(true));
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("n"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
+        }
     }
 
     @Test(expected = IllegalStateException.class)
@@ -43,7 +49,9 @@ public class KnightTest {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 4);
 
-        new Knight(figureQuantityMap).placeFigures("....\n");
-    }
+        Set<String> objects = new HashSet<>();
+        objects.add("....\n");
 
+        new Knight(figureQuantityMap).placeFigures(objects);
+    }
 }
