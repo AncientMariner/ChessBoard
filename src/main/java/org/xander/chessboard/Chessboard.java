@@ -34,8 +34,8 @@ public class Chessboard {
         rook.setNextFigure(knight);
     }
 
-    private String placeFigures(String board) {
-        return figureChain.placeFigures(board);
+    private Set<String> placeFigures(Set<String> boards) {
+        return figureChain.placeFigures(boards);
     }
 
     public int getDimension() {
@@ -69,7 +69,7 @@ public class Chessboard {
         boardSize = xDimension * yDimension;
     }
 
-    public String placeFiguresOnBoard(String emptyBoard) {
+    public Set<String> placeFiguresOnBoard(String emptyBoard) {
         int numberOfKings = extractA(KING.toString(), figureQuantityMap);
         int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
         int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
@@ -78,7 +78,7 @@ public class Chessboard {
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
         checkBoard(emptyBoard, dimension);
-        String board = placeFigures(emptyBoard);
+        Set<String> boards = placeFigures(new HashSet<>());
 
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
@@ -96,7 +96,7 @@ public class Chessboard {
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
 //        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
 
-        return board;
+        return boards;
     }
 
     private int extractA(String figure, Map<String, Integer> figureQuantityMap) {

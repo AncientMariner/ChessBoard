@@ -3,11 +3,14 @@ package org.xander.chessboard.figures;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
+import static org.xander.chessboard.figures.Figure.QUEEN;
 
 public class KingTest {
     @Test
@@ -21,21 +24,25 @@ public class KingTest {
     public void placeFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
-        figureQuantityMap.put(BISHOP.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 1);
+        figureQuantityMap.put(BISHOP.toString(), 1);
 
-        FiguresChain figuresChain = new King(figureQuantityMap);
-        FiguresChain figuresChain1 = new Bishop(figureQuantityMap);
-        figuresChain.setNextFigure(figuresChain1);
+        FiguresChain kingChain = new King(figureQuantityMap);
+        FiguresChain queenChain = new Queen(figureQuantityMap);
+        FiguresChain bishopChain = new Bishop(figureQuantityMap);
+        kingChain.setNextFigure(queenChain);
+        queenChain.setNextFigure(bishopChain);
 //        FiguresChain figuresChain = new King(figureQuantityMap);
 
-        figuresChain.placeFigures("......\n" +
+        HashSet<String> strings = new HashSet<>();
+        strings.add("......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n");
+        Set<String> boards = kingChain.placeFigures(strings);
         System.out.println();
-
     }
 
 }

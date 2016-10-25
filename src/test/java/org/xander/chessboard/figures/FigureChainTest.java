@@ -38,7 +38,7 @@ public class FigureChainTest {
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
         figuresChain.setNextFigure(figuresChain1);
 
-        figuresChain.placeFigures(".....");
+//        figuresChain.placeFigures(".....");
     }
 
     @Ignore
@@ -50,19 +50,19 @@ public class FigureChainTest {
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
         figuresChain.setNextFigure(figuresChain1);
 
-        String placeFigures = figuresChain.placeFigures("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
-        assertThat("figures are standing on different places", "bbbb..\n" +
-                                                                      "xxxxx.\n" +
-                                                                      "xxxxxx\n" +
-                                                                      "x..xxx\n" +
-                                                                      "....xx\n" +
-                                                                      ".....x\n".equals(placeFigures),
-                is(true));
+//        String placeFigures = figuresChain.placeFigures("......\n" +
+//                "......\n" +
+//                "......\n" +
+//                "......\n" +
+//                "......\n" +
+//                "......\n");
+//        assertThat("figures are standing on different places", "bbbb..\n" +
+//                                                                      "xxxxx.\n" +
+//                                                                      "xxxxxx\n" +
+//                                                                      "x..xxx\n" +
+//                                                                      "....xx\n" +
+//                                                                      ".....x\n".equals(placeFigures),
+//                is(true));
     }
 
     @Ignore
@@ -75,19 +75,19 @@ public class FigureChainTest {
         FiguresChain figuresChain = new King(figureQuantityMap);
         figuresChain.setNextFigure(new Knight(figureQuantityMap));
 
-        String placeFigures = figuresChain.placeFigures("......\n" +
-                                                        "......\n" +
-                                                        "......\n" +
-                                                        "......\n" +
-                                                        "......\n" +
-                                                        "......\n");
-        assertThat("figures are standing on different places", "kxkxnn\n" +
-                                                                       "xxxx..\n" +
-                                                                       "...xxx\n" +
-                                                                       "......\n" +
-                                                                       "......\n" +
-                                                                       "......\n".equals(placeFigures),
-                is(true));
+//        String placeFigures = figuresChain.placeFigures("......\n" +
+//                                                        "......\n" +
+//                                                        "......\n" +
+//                                                        "......\n" +
+//                                                        "......\n" +
+//                                                        "......\n");
+//        assertThat("figures are standing on different places", "kxkxnn\n" +
+//                                                                       "xxxx..\n" +
+//                                                                       "...xxx\n" +
+//                                                                       "......\n" +
+//                                                                       "......\n" +
+//                                                                       "......\n".equals(placeFigures),
+//                is(true));
     }
 
 }

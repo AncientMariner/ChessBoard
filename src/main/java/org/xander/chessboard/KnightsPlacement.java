@@ -7,7 +7,7 @@ import static org.xander.chessboard.figures.Figure.KNIGHT;
 public class KnightsPlacement extends FiguresPlacement {
     @Override
     public Set<String> placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoardRandomly(KNIGHT.getFigure(), board);
+        return placeFigureOnBoard(KNIGHT.getFigure(), board);
     }
 
     @Override

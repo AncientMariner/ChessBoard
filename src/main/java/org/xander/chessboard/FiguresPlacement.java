@@ -13,57 +13,27 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     protected final BoardUtils boardUtils = new BoardUtils();
 
-    public String placeNumberOfFiguresOnBoard(int numberOfFigures, String board) {
-        //todo change into the another one
-//        if (board.contains(".")) {
-//            String boardWithFigures = board;
-//            while (numberOfFigures > 0) {
-//                boardWithFigures = placeOneFigureOnBoardSequentially(boardWithFigures);
-//                boardWithFigures = calculateAttackPlaces(boardWithFigures);
-//                numberOfFigures--;
-//            }
-//            return boardWithFigures;
-//        }
-        return null;
-    }
+    public Set<String> placeNumberOfFiguresOnBoard(int numberOfFigures, Set<String> boards) {
+        for (String board : boards) {
+            if (board.contains(".")) {
+                while (numberOfFigures > 0) {
+                    Set<String> boardRepresentation;
+                    if (boards.isEmpty()) {
+                        boardRepresentation = placeOneFigureOnBoardSequentially(board).stream()
+                                .map(this::calculateAttackPlaces)
+                                .collect(Collectors.toSet());
+                    } else {
+                        boardRepresentation = boards.stream()
+                                .map(this::placeOneFigureOnBoardSequentially)
+                                .flatMap(Set::stream)
+                                .map(this::calculateAttackPlaces)
+                                .collect(Collectors.toSet());
+                        boards.clear();
+                    }
+                    boardRepresentation.forEach(boards::add);
 
-    public String placeFigureOnBoard(char figure, String board) {
-        StringBuilder chessboardWithFigures = new StringBuilder();
-        char[] boardElements = board.toCharArray();
-        for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] != NEXT_LINE_FIELD && boardElements[i] == EMPTY_FIELD) {
-                boardElements[i] = figure;
-                break;
-            }
-        }
-        for (char element : boardElements) {
-            chessboardWithFigures.append(element);
-        }
-        return chessboardWithFigures.toString();
-    }
-
-
-    public Set<String> placeNumberOfFiguresOnBoardAll(int numberOfFigures, String board) {
-        Set<String> boards = new HashSet<>();
-
-        if (board.contains(".")) {
-            while (numberOfFigures > 0) {
-                Set<String> boardRepresentation;
-                if (boards.isEmpty()) {
-                    boardRepresentation = placeOneFigureOnBoardSequentially(board).stream()
-                            .map(this::calculateAttackPlaces)
-                            .collect(Collectors.toSet());
-                } else {
-                    boardRepresentation = boards.stream()
-                            .map(this::placeOneFigureOnBoardSequentially)
-                            .flatMap(Set::stream)
-                            .map(this::calculateAttackPlaces)
-                            .collect(Collectors.toSet());
-                    boards.clear();
+                    numberOfFigures--;
                 }
-                boardRepresentation.forEach(boards::add);
-
-                numberOfFigures--;
             }
             return boards;
         }
@@ -71,7 +41,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
 
-    public Set<String> placeFigureOnBoardRandomly(char figure, String board) {
+    public Set<String> placeFigureOnBoard(char figure, String board) {
         List<Integer> numberOfEmptyPlaces = IntStream.range(0, board.length())
                 .filter(i -> board.charAt(i) == '.')
                 .boxed()
@@ -81,7 +51,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
         for (int i = 0; i < board.length(); i++) {
             char[] boardArray = board.toCharArray();
-            if(boardArray[i] != NEXT_LINE_FIELD && boardArray[i] == EMPTY_FIELD){
+            if (boardArray[i] != NEXT_LINE_FIELD && boardArray[i] == EMPTY_FIELD) {
                 boardArray[i] = figure;
                 StringBuilder chessboardWithFigures = new StringBuilder();
                 for (char element : boardArray) {
@@ -92,5 +62,4 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         }
         return setOfPossibleBoards;
     }
-
 }
