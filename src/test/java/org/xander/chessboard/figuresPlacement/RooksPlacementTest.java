@@ -3,8 +3,6 @@ package org.xander.chessboard.figuresPlacement;
 import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.Chessboard;
-import org.xander.chessboard.figuresPlacement.PlacementBehavior;
-import org.xander.chessboard.figuresPlacement.RooksPlacement;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -192,6 +190,7 @@ public class RooksPlacementTest {
     public void placeThreeRooksOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
+        //todo merge tests into 1 with paramates
         Set<String> objects = new HashSet<>();
         objects.add(chessboard.drawEmptyBoard());
         Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);

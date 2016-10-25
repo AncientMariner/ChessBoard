@@ -17,7 +17,8 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
-import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class ChessboardTest {
     @Test
@@ -119,7 +120,7 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
         }
     }
 }

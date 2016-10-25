@@ -10,7 +10,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
-import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class KnightTest {
     @Test
@@ -39,7 +40,7 @@ public class KnightTest {
                 is(true));
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("n"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
         }
     }
 

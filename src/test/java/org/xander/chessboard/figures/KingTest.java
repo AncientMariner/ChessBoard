@@ -12,7 +12,8 @@ import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.QUEEN;
-import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class KingTest {
     @Test
@@ -40,7 +41,7 @@ public class KingTest {
         Set<String> boards = kingChain.placeFigures(strings);
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("q") && board.contains("b"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 3);
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 3);
         }
     }
 

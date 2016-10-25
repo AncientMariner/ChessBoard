@@ -13,16 +13,10 @@ import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class FigureChainTest {
-
-    public static final String EMPTY_BOARD_SIZE_6 = "......\n" +
-            "......\n" +
-            "......\n" +
-            "......\n" +
-            "......\n" +
-            "......\n";
-
     @Test
     public void setNextFigure() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
@@ -75,7 +69,7 @@ public class FigureChainTest {
 
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("q"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
         }
     }
 
@@ -105,7 +99,7 @@ public class FigureChainTest {
                 is(true));
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("n"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
         }
     }
 

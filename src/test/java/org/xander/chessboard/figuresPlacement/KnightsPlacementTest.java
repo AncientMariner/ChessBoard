@@ -3,8 +3,6 @@ package org.xander.chessboard.figuresPlacement;
 import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.Chessboard;
-import org.xander.chessboard.figuresPlacement.KnightsPlacement;
-import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -126,10 +124,11 @@ public class KnightsPlacementTest {
     public void placeThreeKnightsOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
-
+//todo merge tests into 1 with paramates
         Set<String> objects = new HashSet<>();
         objects.add(chessboard.drawEmptyBoard());
         Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
+
         assertTrue(boards.contains("nnn..\n" +
                      "x.xxx\n" +
                      "xxxx.\n" +

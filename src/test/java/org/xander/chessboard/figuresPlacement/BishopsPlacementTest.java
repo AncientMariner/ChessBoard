@@ -5,14 +5,13 @@ import org.junit.Test;
 import org.xander.chessboard.Chessboard;
 import org.xander.chessboard.figures.Figure;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 
 public class BishopsPlacementTest {
     private Chessboard chessboard;
@@ -231,6 +230,7 @@ public class BishopsPlacementTest {
                 "......\n" +
                 "......\n"), is(true));
     }
+
     @Test
     public void randomFigurePlacement() {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
@@ -244,21 +244,4 @@ public class BishopsPlacementTest {
                 "......\n" +
                 "......\n"), is(true));
     }
-
-    @Test
-    public void numberOfFigureOnBoard() {
-        FiguresPlacement figuresPlacement = new BishopsPlacement();
-
-
-        HashSet<String> boards = new HashSet<>();
-        boards.add(EMPTY_BOARD_SIZE_6);
-        Set<String> result = figuresPlacement.placeNumberOfFiguresOnBoard(3, boards);
-        System.out.println();
-
-        for (String board : result) {
-            assertTrue("all elements are not present on each board", !board.contains("k") && !board.contains("q") && board.contains("b"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 3);
-        }
-    }
-
 }
