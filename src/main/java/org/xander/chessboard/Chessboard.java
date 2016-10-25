@@ -83,7 +83,7 @@ public class Chessboard {
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
-        String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
+//        String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
 
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
 //        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);

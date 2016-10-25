@@ -1,11 +1,13 @@
 package org.xander.chessboard;
 
+import java.util.Set;
+
 import static org.xander.chessboard.figures.Figure.BISHOP;
 
 public class BishopsPlacement extends DiagonalFiguresPlacement {
     @Override
-    public String placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoard(BISHOP.getFigure(), board);
+    public Set<String> placeOneFigureOnBoardSequentially(String board) {
+        return placeFigureOnBoardRandomly(BISHOP.getFigure(), board);
     }
 
     @Override

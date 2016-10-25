@@ -4,6 +4,7 @@ import org.xander.chessboard.PlacementBehavior;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class FiguresChain {
     Map<String, Integer> figureQuantityMap;
@@ -20,7 +21,8 @@ public abstract class FiguresChain {
 
     public String placeFigures(String board) {
         if (Objects.nonNull(figureQuantityMap.get(getName())) && figureQuantityMap.containsKey(getName())) {
-            board = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), board);
+            Set<String> boards = placementBehavior.placeNumberOfFiguresOnBoardAll(figureQuantityMap.get(getName()), board);
+            System.out.println();
         }
         if (chain != null) {
             return this.chain.placeFigures(board);

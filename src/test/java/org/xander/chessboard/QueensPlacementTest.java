@@ -3,7 +3,10 @@ package org.xander.chessboard;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class QueensPlacementTest {
     private Chessboard chessboard;
@@ -32,10 +35,10 @@ public class QueensPlacementTest {
                                             "......\n" +
                                             "......\n" +
                                             "......\n";
-        String actual = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertEquals(expectedBoard, actual);
-        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
-        assertEquals(expectedBoardWithTwoQueens, actualWithTwoRooks);
+        Set<String> strings = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
+        assertTrue(strings.contains(expectedBoard));
+//        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
+//        assertEquals(expectedBoardWithTwoQueens, actualWithTwoRooks);
     }
 
     @Test

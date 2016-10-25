@@ -1,11 +1,13 @@
 package org.xander.chessboard;
 
+import java.util.Set;
+
 import static org.xander.chessboard.figures.Figure.QUEEN;
 
 public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     @Override
-    public String placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoard(QUEEN.getFigure(), board);
+    public Set<String> placeOneFigureOnBoardSequentially(String board) {
+        return placeFigureOnBoardRandomly(QUEEN.getFigure(), board);
     }
 
     @Override

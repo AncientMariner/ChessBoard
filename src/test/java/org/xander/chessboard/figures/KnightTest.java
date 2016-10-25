@@ -1,5 +1,6 @@
 package org.xander.chessboard.figures;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class KnightTest {
         assertThat("object name is different", figuresChain.getName().equals(Figure.KNIGHT.name()) , is(true));
     }
 
+    @Ignore
     @Test
     public void placeFiguresKnight() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
@@ -38,6 +40,7 @@ public class KnightTest {
                 is(true));
     }
 
+    @Ignore
     @Test(expected = IllegalStateException.class)
     public void placeFiguresKnightNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
