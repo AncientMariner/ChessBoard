@@ -1,11 +1,9 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.Chessboard;
 import org.xander.chessboard.figures.Figure;
-import org.xander.chessboard.figuresPlacement.BishopsPlacement;
-import org.xander.chessboard.figuresPlacement.FiguresPlacement;
-import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Set;
