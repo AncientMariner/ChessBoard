@@ -83,6 +83,23 @@ public class ChessboardTest {
                    "xxxrxxxx\n"), is(true));
     }
 
+    //currently out of memory error, requires optimization
+    @Ignore
+    @Test
+    public void readmeRequirement() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 2);
+        figureQuantityMap.put(BISHOP.toString(), 2);
+        figureQuantityMap.put(KNIGHT.toString(), 1);
+
+        int dimension = 7;
+        Chessboard chessboard = new Chessboard(figureQuantityMap);
+        chessboard.setDimension(dimension);
+
+        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        System.out.println();
+    }
 
     @Test(expected = IllegalStateException.class)
     public void placeALotOfFiguresOnBoard() {
