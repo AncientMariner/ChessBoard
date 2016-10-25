@@ -1,19 +1,16 @@
 package org.xander.chessboard;
 
+import org.junit.Ignore;
 import org.junit.Test;
-import org.xander.chessboard.figures.Bishop;
-import org.xander.chessboard.figures.FiguresChain;
-import org.xander.chessboard.figures.King;
-import org.xander.chessboard.figures.Knight;
-import org.xander.chessboard.figures.Queen;
-import org.xander.chessboard.figures.Rook;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
@@ -22,6 +19,13 @@ import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
 
 public class ChessboardTest {
+
+    public static final String EMPTY_BOARD_SIZE_5 = ".....\n" +
+                                                    ".....\n" +
+                                                    ".....\n" +
+                                                    ".....\n" +
+                                                    ".....\n";
+
     @Test
     public void chessBoardBasic() {
         Chessboard chessboard = new Chessboard(null);
@@ -54,13 +58,11 @@ public class ChessboardTest {
         chessboard.setDimension(dimension);
 
         String emptyBoard = chessboard.drawEmptyBoard();
-        assertEquals(".....\n" +
-                     ".....\n" +
-                     ".....\n" +
-                     ".....\n" +
-                     ".....\n", emptyBoard);
+        assertEquals(EMPTY_BOARD_SIZE_5, emptyBoard);
     }
 
+//    runs too long, for now ignored
+    @Ignore
     @Test
     public void placeFiguresOnBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -70,32 +72,20 @@ public class ChessboardTest {
         figureQuantityMap.put(ROOK.toString(), 5);
         figureQuantityMap.put(KNIGHT.toString(), 6);
 
-        FiguresChain kingChain = new King(figureQuantityMap);
-        FiguresChain queenChain = new Queen(figureQuantityMap);
-        FiguresChain bishopChain = new Bishop(figureQuantityMap);
-        FiguresChain rookChain = new Rook(figureQuantityMap);
-        FiguresChain knightChain = new Knight(figureQuantityMap);
-
-//        kingChain.setNextFigure(queenChain);
-//        queenChain.setNextFigure(bishopChain);
-//        bishopChain.setNextFigure(rookChain);
-//        rookChain.setNextFigure(knightChain);
-
-
         int dimension = 8;
         Chessboard chessboard = new Chessboard(figureQuantityMap);
         chessboard.setDimension(dimension);
 
-//        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
-//        assertThat("more than 1 figure is present",
-//                boards.contains("kxkxqxxx\n" +
-//                   "xxxxxxqx\n" +
-//                   "qxxxxxxx\n" +
-//                   "xxbbxbxx\n" +
-//                   "xxxxxbxr\n" +
-//                   "xxxxxxxx\n" +
-//                   "xxxxxxxx\n" +
-//                   "xxxrxxxx\n"), is(true));
+        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        assertThat("more than 1 figure is present",
+                boards.contains("kxkxqxxx\n" +
+                   "xxxxxxqx\n" +
+                   "qxxxxxxx\n" +
+                   "xxbbxbxx\n" +
+                   "xxxxxbxr\n" +
+                   "xxxxxxxx\n" +
+                   "xxxxxxxx\n" +
+                   "xxxrxxxx\n"), is(true));
     }
 
 
@@ -135,8 +125,8 @@ public class ChessboardTest {
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
         for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("q") && board.contains("b"));
-            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 3);
+            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
+            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
         }
     }
 }

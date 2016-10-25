@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.QUEEN;
+import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
 
 public class KingTest {
     @Test
@@ -35,12 +36,7 @@ public class KingTest {
         queenChain.setNextFigure(bishopChain);
 
         HashSet<String> strings = new HashSet<>();
-        strings.add("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
+        strings.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = kingChain.placeFigures(strings);
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("q") && board.contains("b"));

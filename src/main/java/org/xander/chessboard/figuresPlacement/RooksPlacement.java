@@ -1,4 +1,6 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
+
+import org.xander.chessboard.Chessboard;
 
 import java.util.Set;
 

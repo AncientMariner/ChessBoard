@@ -2,6 +2,8 @@ package org.xander.chessboard;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.figuresPlacement.PlacementBehavior;
+import org.xander.chessboard.figuresPlacement.RooksPlacement;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,10 +38,8 @@ public class RooksPlacementTest {
                                            "......\n" +
                                            "......\n" +
                                            "......\n";
-        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertTrue(boards.contains(expectedBoard));
-//        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
-//        assertEquals(expectedBoardWithTwoRooks, actualWithTwoRooks);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
+        assertTrue(boards.contains(expectedBoardWithTwoRooks));
     }
 
     @Test

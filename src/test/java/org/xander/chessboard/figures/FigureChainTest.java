@@ -1,7 +1,7 @@
 package org.xander.chessboard.figures;
 
 import org.junit.Test;
-import org.xander.chessboard.BishopsPlacement;
+import org.xander.chessboard.figuresPlacement.BishopsPlacement;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,6 +15,14 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 
 public class FigureChainTest {
+
+    public static final String EMPTY_BOARD_SIZE_6 = "......\n" +
+            "......\n" +
+            "......\n" +
+            "......\n" +
+            "......\n" +
+            "......\n";
+
     @Test
     public void setNextFigure() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
@@ -55,12 +63,7 @@ public class FigureChainTest {
         figuresChain.setNextFigure(figuresChain1);
 
         Set<String> objects = new HashSet<>();
-        objects.add("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
+        objects.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("bbbb..\n" +
                                                                                       "xxxxx.\n" +

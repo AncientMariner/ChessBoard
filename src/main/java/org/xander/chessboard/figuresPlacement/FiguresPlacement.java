@@ -1,4 +1,4 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,14 +23,14 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
                     } else {
-                        boardsRepresentation = boards.stream()
+                        boardsRepresentation = boards.parallelStream()
                                 .map(this::placeOneFigureOnBoardSequentially)
                                 .flatMap(Set::stream)
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
                         boards.clear();
                     }
-                    boardsRepresentation.forEach(boards::add);
+                    boards.addAll(boardsRepresentation);
 
                     numberOfFigures--;
                 }

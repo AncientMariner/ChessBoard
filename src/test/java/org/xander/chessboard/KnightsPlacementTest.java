@@ -2,6 +2,8 @@ package org.xander.chessboard;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xander.chessboard.figuresPlacement.KnightsPlacement;
+import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Set;

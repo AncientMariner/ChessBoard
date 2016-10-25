@@ -1,4 +1,6 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
+
+import org.xander.chessboard.Chessboard;
 
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class KingsPlacement extends FiguresPlacement {
     @Override
     public String calculateAttackPlaces(String board) {
         char[] boardElements = board.toCharArray();
-        //mind the '\n' character
+        //mind the NEXT_LINE_FIELD character
         int dimension = (int) Math.sqrt(board.length()) + 1;
         Chessboard.checkBoard(board, dimension);
 
@@ -30,12 +32,12 @@ public class KingsPlacement extends FiguresPlacement {
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {
         if (position % dimension + 1 < dimension) {
-            if (boardElements[position + 1] != '\n' && boardElements[position + 1] == EMPTY_FIELD) {
+            if (boardElements[position + 1] != NEXT_LINE_FIELD && boardElements[position + 1] == EMPTY_FIELD) {
                 boardElements[position + 1] = FIELD_UNDER_ATTACK;
             }
         }
         if (position % dimension - 1 >= 0) {
-            if (boardElements[position - 1] != '\n' && boardElements[position - 1] == EMPTY_FIELD) {
+            if (boardElements[position - 1] != NEXT_LINE_FIELD && boardElements[position - 1] == EMPTY_FIELD) {
                 boardElements[position - 1] = FIELD_UNDER_ATTACK;
             }
         }
@@ -43,13 +45,13 @@ public class KingsPlacement extends FiguresPlacement {
 
     private void placeVertically(char[] boardElements, int position, int dimension) {
         if (position + dimension < boardElements.length) {
-            if (boardElements[position + dimension] != '\n' && boardElements[position + dimension] == EMPTY_FIELD) {
+            if (boardElements[position + dimension] != NEXT_LINE_FIELD && boardElements[position + dimension] == EMPTY_FIELD) {
                 boardElements[position + dimension] = FIELD_UNDER_ATTACK;
             }
         }
 
         if (position - dimension >= 0) {
-            if (boardElements[position - dimension] != '\n' && boardElements[position - dimension] == EMPTY_FIELD) {
+            if (boardElements[position - dimension] != NEXT_LINE_FIELD && boardElements[position - dimension] == EMPTY_FIELD) {
                 boardElements[position - dimension] = FIELD_UNDER_ATTACK;
             }
         }
@@ -57,14 +59,14 @@ public class KingsPlacement extends FiguresPlacement {
 
     private void placeDiagonallyAbove(char[] boardElements, int position, int dimension) {
         if (position - dimension - 1 >= 0 && (position - dimension - 1) % dimension >= 0 ) {
-            if (boardElements[position - dimension - 1] != '\n'
+            if (boardElements[position - dimension - 1] != NEXT_LINE_FIELD
                     && boardElements[position - dimension - 1] == EMPTY_FIELD) {
                 boardElements[position - dimension - 1] = FIELD_UNDER_ATTACK;
             }
         }
 
         if (position - dimension + 1 >= 0 && (position - dimension + 1) % dimension < dimension - 1) {
-            if (boardElements[position - dimension + 1] != '\n'
+            if (boardElements[position - dimension + 1] != NEXT_LINE_FIELD
                     && boardElements[position - dimension + 1] == EMPTY_FIELD) {
                 boardElements[position - dimension + 1] = FIELD_UNDER_ATTACK;
             }
@@ -74,7 +76,7 @@ public class KingsPlacement extends FiguresPlacement {
     private void placeDiagonallyBelow(char[] boardElements, int position, int dimension) {
         if((position + dimension - 1) % dimension < dimension
                 && position + dimension - 1 < boardElements.length) {
-            if (boardElements[position + dimension - 1] != '\n'
+            if (boardElements[position + dimension - 1] != NEXT_LINE_FIELD
                     && boardElements[position + dimension - 1] == EMPTY_FIELD) {
                 boardElements[position + dimension - 1] = FIELD_UNDER_ATTACK;
             }
@@ -82,7 +84,7 @@ public class KingsPlacement extends FiguresPlacement {
 
         if(position + dimension + 1 < boardElements.length
                 && (position + dimension + 1) % dimension < dimension) {
-            if (boardElements[position + dimension + 1] != '\n'
+            if (boardElements[position + dimension + 1] != NEXT_LINE_FIELD
                     && boardElements[position + dimension + 1] == EMPTY_FIELD) {
                 boardElements[position + dimension + 1] = FIELD_UNDER_ATTACK;
             }

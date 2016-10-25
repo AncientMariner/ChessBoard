@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figures.FigureChainTest.EMPTY_BOARD_SIZE_6;
 
 public class KnightTest {
     @Test
@@ -27,12 +28,7 @@ public class KnightTest {
         FiguresChain figuresChain = new Knight(figureQuantityMap);
 
         Set<String> objects = new HashSet<>();
-        objects.add("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
+        objects.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
                                                                       "xxxxxx\n" +

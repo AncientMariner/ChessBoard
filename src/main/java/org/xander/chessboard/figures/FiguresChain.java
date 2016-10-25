@@ -1,6 +1,6 @@
 package org.xander.chessboard.figures;
 
-import org.xander.chessboard.PlacementBehavior;
+import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Map;

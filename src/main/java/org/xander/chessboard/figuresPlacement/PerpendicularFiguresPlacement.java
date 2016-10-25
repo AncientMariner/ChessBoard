@@ -1,4 +1,4 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
 
 public abstract class PerpendicularFiguresPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     public void placeHorizontally(char[] boardElements, int position, int dimension) {

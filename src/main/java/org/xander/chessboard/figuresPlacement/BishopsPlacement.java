@@ -1,13 +1,15 @@
-package org.xander.chessboard;
+package org.xander.chessboard.figuresPlacement;
+
+import org.xander.chessboard.Chessboard;
 
 import java.util.Set;
 
-import static org.xander.chessboard.figures.Figure.QUEEN;
+import static org.xander.chessboard.figures.Figure.BISHOP;
 
-public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
+public class BishopsPlacement extends DiagonalFiguresPlacement {
     @Override
     public Set<String> placeOneFigureOnBoardSequentially(String board) {
-        return placeFigureOnBoard(QUEEN.getFigure(), board);
+        return placeFigureOnBoard(BISHOP.getFigure(), board);
     }
 
     @Override
@@ -17,11 +19,8 @@ public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         int dimension = (int) Math.sqrt(board.length()) + 1;
         Chessboard.checkBoard(board, dimension);
 
-
         for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == QUEEN.getFigure()) {
-                placeHorizontally(boardElements, i, dimension);
-                placeVertically(boardElements, i, dimension);
+            if (boardElements[i] == BISHOP.getFigure()) {
                 placeDiagonallyAbove(boardElements, i, dimension);
                 placeDiagonallyBelow(boardElements, i, dimension);
             }

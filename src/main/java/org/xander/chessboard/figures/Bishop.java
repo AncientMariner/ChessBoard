@@ -1,6 +1,6 @@
 package org.xander.chessboard.figures;
 
-import org.xander.chessboard.BishopsPlacement;
+import org.xander.chessboard.figuresPlacement.BishopsPlacement;
 
 import java.util.Map;
 
