@@ -17,20 +17,20 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         for (String board : boards) {
             if (board.contains(".")) {
                 while (numberOfFigures > 0) {
-                    Set<String> boardRepresentation;
+                    Set<String> boardsRepresentation;
                     if (boards.isEmpty()) {
-                        boardRepresentation = placeOneFigureOnBoardSequentially(board).stream()
+                        boardsRepresentation = placeOneFigureOnBoardSequentially(board).stream()
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
                     } else {
-                        boardRepresentation = boards.stream()
+                        boardsRepresentation = boards.stream()
                                 .map(this::placeOneFigureOnBoardSequentially)
                                 .flatMap(Set::stream)
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
                         boards.clear();
                     }
-                    boardRepresentation.forEach(boards::add);
+                    boardsRepresentation.forEach(boards::add);
 
                     numberOfFigures--;
                 }

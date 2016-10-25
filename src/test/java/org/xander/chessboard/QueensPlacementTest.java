@@ -35,8 +35,8 @@ public class QueensPlacementTest {
                                             "......\n" +
                                             "......\n" +
                                             "......\n";
-        Set<String> strings = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertTrue(strings.contains(expectedBoard));
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
+        assertTrue(boards.contains(expectedBoard));
 //        String actualWithTwoRooks = figuresPlacement.placeOneFigureOnBoardSequentially(actual);
 //        assertEquals(expectedBoardWithTwoQueens, actualWithTwoRooks);
     }

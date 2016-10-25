@@ -1,9 +1,9 @@
 package org.xander.chessboard;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -119,18 +119,19 @@ public class KnightsPlacementTest {
                      "nnnnnn\n", actualBoard);
     }
 
-    @Ignore
     @Test
     public void placeThreeKnightsOnBoard() {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-//        String result = figuresPlacement.placeNumberOfFiguresOnBoard(3, chessboard.drawEmptyBoard());
-//        assertEquals("nnn..\n" +
-//                     "x.xxx\n" +
-//                     "xxxx.\n" +
-//                     ".....\n" +
-//                     ".....\n", result);
+        Set<String> objects = new HashSet<>();
+        objects.add(chessboard.drawEmptyBoard());
+        Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
+        assertTrue(boards.contains("nnn..\n" +
+                     "x.xxx\n" +
+                     "xxxx.\n" +
+                     ".....\n" +
+                     ".....\n"));
     }
 
     @Test
@@ -138,8 +139,8 @@ public class KnightsPlacementTest {
         int dimension = 5;
         chessboard.setDimension(dimension);
 
-        Set<String> strings = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertTrue(strings.contains("n....\n" +
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
+        assertTrue(boards.contains("n....\n" +
                 ".....\n" +
                 ".....\n" +
                 ".....\n" +

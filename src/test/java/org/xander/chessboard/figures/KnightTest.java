@@ -1,12 +1,14 @@
 package org.xander.chessboard.figures;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 
 public class KnightTest {
@@ -17,7 +19,6 @@ public class KnightTest {
         assertThat("object name is different", figuresChain.getName().equals(Figure.KNIGHT.name()) , is(true));
     }
 
-    @Ignore
     @Test
     public void placeFiguresKnight() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
@@ -25,28 +26,35 @@ public class KnightTest {
 
         FiguresChain figuresChain = new Knight(figureQuantityMap);
 
-//        String placeFigures = figuresChain.placeFigures("......\n" +
-//                "......\n" +
-//                "......\n" +
-//                "......\n" +
-//                "......\n" +
-//                "......\n");
-//        assertThat("figures are standing on different places", "nnnn..\n" +
-//                                                                      "xxxxxx\n" +
-//                                                                      "xxxxx.\n" +
-//                                                                      "......\n" +
-//                                                                      "......\n" +
-//                                                                      "......\n".equals(placeFigures),
-//                is(true));
+        Set<String> objects = new HashSet<>();
+        objects.add("......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n");
+        Set<String> boards = figuresChain.placeFigures(objects);
+        assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
+                                                                      "xxxxxx\n" +
+                                                                      "xxxxx.\n" +
+                                                                      "......\n" +
+                                                                      "......\n" +
+                                                                      "......\n"),
+                is(true));
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("n"));
+            assertTrue("all elements are not present on each board", board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "").length() == 4);
+        }
     }
 
-    @Ignore
     @Test(expected = IllegalStateException.class)
     public void placeFiguresKnightNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 4);
 
-//        new Knight(figureQuantityMap).placeFigures("....\n");
-    }
+        Set<String> objects = new HashSet<>();
+        objects.add("....\n");
 
+        new Knight(figureQuantityMap).placeFigures(objects);
+    }
 }

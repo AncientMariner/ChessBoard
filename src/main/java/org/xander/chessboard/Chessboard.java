@@ -78,7 +78,9 @@ public class Chessboard {
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
         checkBoard(emptyBoard, dimension);
-        Set<String> boards = placeFigures(new HashSet<>());
+        HashSet<String> initialBoards = new HashSet<>();
+        initialBoards.add(drawEmptyBoard());
+        Set<String> boards = placeFigures(initialBoards);
 
         if (sumOfAllFigures > boardSize) {
             throw new IllegalStateException("There are more figures than places to put them");
