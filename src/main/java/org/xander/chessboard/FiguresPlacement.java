@@ -49,24 +49,21 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
         if (board.contains(".")) {
             while (numberOfFigures > 0) {
+                Set<String> boardRepresentation;
                 if (boards.isEmpty()) {
-                    boards.addAll(placeFigureOnBoardRandomly('k', board).stream()
+                    boardRepresentation = placeFigureOnBoardRandomly('k', board).stream()
                             .map(this::calculateAttackPlaces1)
-                            .collect(Collectors.toSet()));
+                            .collect(Collectors.toSet());
                 } else {
-                    Set<String> stringsWithoutAttack = boards.stream()
+                    boardRepresentation = boards.stream()
                             .map(e -> placeFigureOnBoardRandomly('k', e))
                             .flatMap(Set::stream)
-                            .collect(Collectors.toSet());
-
-                    boards.clear();
-
-                    Set<String> stringsWithAttack = stringsWithoutAttack.stream()
                             .map(this::calculateAttackPlaces1)
                             .collect(Collectors.toSet());
-
-                    boards.addAll(stringsWithAttack);
+                    boards.clear();
                 }
+                boardRepresentation.forEach(boards::add);
+
                 numberOfFigures--;
             }
             return boards;
