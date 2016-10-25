@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.figures.Figure;
 
+import java.util.Set;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -235,13 +237,34 @@ public class BishopsPlacementTest {
     @Test
     public void randomFigurePlacement() {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
-        String random = figuresPlacement.placeFigureOnBoardRandomly(Figure.BISHOP.getFigure(), "......\n" +
+        Set<String> strings = figuresPlacement.placeFigureOnBoardRandomly(Figure.BISHOP.getFigure(), "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
                 "......\n");
-        assertThat("board is different", random.contains("b"), is(true));
+
+
+        assertThat("boards are not full", strings.size() == 36, is(true));
+        assertThat("board is different", strings.contains("......\n" +
+                "......\n" +
+                "......\n" +
+                "...b..\n" +
+                "......\n" +
+                "......\n"), is(true));
+
+    }
+
+    @Test
+    public void numberOfFigureOnBoard() {
+
+        FiguresPlacement figuresPlacement = new BishopsPlacement();
+        figuresPlacement.placeNumberOfFiguresOnBoardAll(3, "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n");
     }
 
 }
