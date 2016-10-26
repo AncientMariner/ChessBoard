@@ -131,4 +131,25 @@ public class ChessboardTest {
             assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
         }
     }
+
+
+    //check such a situation
+    @Ignore
+    @Test
+    public void multipleFigures1() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(BISHOP.toString(), 0);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
+
+        Set<String> boards = chessboard.placeFiguresOnBoard( "bbbbbb\n" +
+                "b....b\n" +
+                "b....b\n" +
+                "b....b\n" +
+                "b....b\n" +
+                "bbbbbb\n");
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
+        }
+    }
 }

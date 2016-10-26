@@ -2,45 +2,111 @@ package org.xander.chessboard.figuresPlacement;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xander.chessboard.Chessboard;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.xander.chessboard.figures.Figure;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 
-public class RooksPlacementTest {
-    private Chessboard chessboard;
-    private PlacementBehavior figuresPlacement;
+public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
+    private final Figure FIGURE = Figure.ROOK;
 
     @Before
     public void setUp() {
-        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new RooksPlacement();
     }
 
     @Test
     public void placeRook() {
-        String expectedBoard = "r.....\n" +
-                               "......\n" +
-                               "......\n" +
-                               "......\n" +
-                               "......\n" +
-                               "......\n";
-        String expectedBoardWithTwoRooks = "rr....\n" +
-                                           "......\n" +
-                                           "......\n" +
-                                           "......\n" +
-                                           "......\n" +
-                                           "......\n";
-        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
-        assertTrue(boards.contains(expectedBoardWithTwoRooks));
+        placeFigure(FIGURE);
+    }
+
+
+    @Test
+    public void areaOfBishopAttackTopLeftCorner() {
+        String expectedBoard = "rxxxxx\n" +
+                "x.....\n" +
+                "x.....\n" +
+                "x.....\n" +
+                "x.....\n" +
+                "x.....\n";
+        String actual = calculateAttackOfTheFigureOnBoard(FIGURE);
+        assertEquals(expectedBoard, actual);
     }
 
     @Test
-    public void calculateAreaOfTheRookAttack() {
+    public void areaOfBishopAttackBottomLeftCorner() {
+        String expectedBoard = "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n" +
+                               "rxxxxx\n";
+        String actual = calculateAttackOfTheFigureOnBoardBottomLeft(FIGURE);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void areaOfBishopAttackTopRightCorner() {
+        String expectedBoard = "xxxxxr\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n";
+        String actual = calculateAttackOfTheFigureOnBoardTopRight(FIGURE);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void areaOfBishopAttackBottomRightCorner() {
+        String expectedBoard = ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               ".....x\n" +
+                               "xxxxxr\n";
+        String actual = calculateAttackOfTheFigureOnBoardBottomRight(FIGURE);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void areaOfBishopAttackAllCorners() {
+        String expectedBoard = "rxxxxr\n" +
+                               "x....x\n" +
+                               "x....x\n" +
+                               "x....x\n" +
+                               "x....x\n" +
+                               "rxxxxr\n";
+        String actual = calculateAttackOfTheFigureOnBoardAllCorners(FIGURE);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void areaOfBishopAttackMix() {
+        String expectedBoard = "xxxrxx\n" +
+                               "..xx.x\n" +
+                               "..xx.x\n" +
+                               "xxxxxr\n" +
+                               "..xx.x\n" +
+                               "xxrxxx\n";
+        String actual = calculateAttackOfTheFigureOnBoardMix(FIGURE);
+        assertEquals(expectedBoard, actual);
+    }
+
+    @Test
+    public void areaOfTheBishopAttackBorder() {
+        String expectedBoardWithBishops = "rrrrrr\n" +
+                "rxxxxr\n" +
+                "rxxxxr\n" +
+                "rxxxxr\n" +
+                "rxxxxr\n" +
+                "rrrrrr\n";
+        String actual = calculateAttackOfTheFigureOnBoardAllBorders(FIGURE);
+        assertEquals(expectedBoardWithBishops, actual);
+    }
+
+
+    @Test
+    public void areaOfTheRookAttack() {
         String board = ".....r\n" +
                        "...r..\n" +
                        "..r...\n" +
@@ -58,7 +124,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfOneRookAttack() {
+    public void areaOfOneRookAttack() {
         String board = "......\n" +
                 "......\n" +
                 "...r..\n" +
@@ -77,7 +143,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackOnCornersTopRightBottomLeft() {
+    public void areaOfTheRookAttackOnCornersTopRightBottomLeft() {
         String board = ".....r\n" +
                        "......\n" +
                        "......\n" +
@@ -95,7 +161,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackOnCornersTopLeftBottomRight() {
+    public void areaOfTheRookAttackOnCornersTopLeftBottomRight() {
         String board = "r.....\n" +
                        "......\n" +
                        "......\n" +
@@ -113,7 +179,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackMix() {
+    public void areaOfTheRookAttackMix() {
         String board = "......\n" +
                        "....r.\n" +
                        "......\n" +
@@ -131,7 +197,7 @@ public class RooksPlacementTest {
     }
 
     @Test
-    public void calculateAreaOfTheRookAttackAnotherMix() {
+    public void areaOfTheRookAttackAnotherMix() {
         String board = "......\n" +
                        "......\n" +
                        "..r...\n" +
@@ -146,60 +212,5 @@ public class RooksPlacementTest {
                                            "..xx..\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
-    }
-
-    @Test
-    public void calculateAreaOfTheRookAttackBorder() {
-        String board = "rrrrrr\n" +
-                       "r....r\n" +
-                       "r....r\n" +
-                       "r....r\n" +
-                       "r....r\n" +
-                       "rrrrrr\n";
-        String expectedBoardWithRooks = "rrrrrr\n" +
-                                        "rxxxxr\n" +
-                                        "rxxxxr\n" +
-                                        "rxxxxr\n" +
-                                        "rxxxxr\n" +
-                                        "rrrrrr\n";
-        String actual = figuresPlacement.calculateAttackPlaces(board);
-        assertEquals(expectedBoardWithRooks, actual);
-    }
-
-    @Test
-    public void placeThreeRooksOnBoard() {
-        //todo merge tests into 1 with paramates
-        Set<String> objects = new HashSet<>();
-        objects.add(chessboard.drawEmptyBoard());
-        Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
-
-        assertTrue(boards.contains("rxxxxx\n" +
-                     "xrxxxx\n" +
-                     "xxrxxx\n" +
-                     "xxx...\n" +
-                     "xxx...\n" +
-                     "xxx...\n"));
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheRookAttackNegative() {
-        String board = ".\n" +
-                       ".....\n" +
-                       "..r...\n" +
-                       ".r...r\n" +
-                       "...\n" +
-                       ".....\n";
-        figuresPlacement.calculateAttackPlaces(board);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void calculateAreaOfTheRookAttackNegativeBoardBiggerThanDimension() {
-        String board = ".......\n" +
-                       ".......\n" +
-                       "..r....\n" +
-                       ".r.....\n" +
-                       ".......\n" +
-                       ".......\n";
-        figuresPlacement.calculateAttackPlaces(board);
     }
 }

@@ -52,7 +52,7 @@ public class Chessboard {
         boardSize = xDimension * yDimension;
     }
 
-    public Set<String> placeFiguresOnBoard(String emptyBoard) {
+    public Set<String> placeFiguresOnBoard(String initialBoard) {
         int numberOfKings = extractA(KING.toString(), figureQuantityMap);
         int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
         int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
@@ -64,7 +64,7 @@ public class Chessboard {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 
-        checkBoard(emptyBoard, dimension);
+        checkBoard(initialBoard, dimension);
         HashSet<String> initialBoards = new HashSet<>();
         initialBoards.add(drawEmptyBoard());
         Set<String> boards = placeFigures(initialBoards);
@@ -92,7 +92,8 @@ public class Chessboard {
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {
-        return new Chessboard().new Builder(figureQuantityMap); }
+        return new Chessboard().new Builder(figureQuantityMap);
+    }
 
     public class Builder {
         private Builder(Map<String, Integer> figureQuantityMap) {
@@ -105,36 +106,40 @@ public class Chessboard {
         }
 
         public Builder withKing() {
-            Chessboard.this.figureChain = new King(figureQuantityMap);
+            prepareFiguresChain(new King(figureQuantityMap));
             return this;
         }
 
         public Builder withQueen() {
-            FiguresChain queen = new Queen(figureQuantityMap);
-            Chessboard.this.figureChain.setNextFigure(queen);
+            prepareFiguresChain(new Queen(figureQuantityMap));
             return this;
         }
 
         public Builder withBishop() {
-            FiguresChain bishop = new Bishop(figureQuantityMap);
-            Chessboard.this.figureChain.setNextFigure(bishop);
+            prepareFiguresChain(new Bishop(figureQuantityMap));
             return this;
         }
 
         public Builder withRook() {
-            FiguresChain rook = new Rook(figureQuantityMap);
-            Chessboard.this.figureChain.setNextFigure(rook);
+            prepareFiguresChain(new Rook(figureQuantityMap));
             return this;
         }
 
         public Builder withKnight() {
-            FiguresChain knight = new Knight(figureQuantityMap);
-            Chessboard.this.figureChain.setNextFigure(knight);
+            prepareFiguresChain(new Knight(figureQuantityMap));
             return this;
         }
 
         public Chessboard build() {
             return Chessboard.this;
+        }
+
+        private void prepareFiguresChain(FiguresChain figure) {
+            if (Chessboard.this.figureChain == null) {
+                Chessboard.this.figureChain = figure;
+            } else {
+                Chessboard.this.figureChain.setNextFigure(figure);
+            }
         }
     }
 }

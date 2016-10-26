@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
@@ -20,7 +21,7 @@ public class FigureChainTest {
     @Test
     public void setNextFigure() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put("1", 1);
+        figureQuantityMap.put("k", 1);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
 
@@ -28,14 +29,13 @@ public class FigureChainTest {
         assertThat("object is null", figuresChain.chain != null, is(true));
         assertThat("object is null", figuresChain.chain != null, is(true));
         assertThat("object is null", figuresChain.figureQuantityMap != null, is(true));
-        assertThat("key is not present", figuresChain.figureQuantityMap.containsKey("1"), is(true));
+        assertThat("key is not present", figuresChain.figureQuantityMap.containsKey("k"), is(true));
         assertThat("value is not present", figuresChain.figureQuantityMap.containsValue(1), is(true));
         assertThat("object is of different type", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
-
     }
 
     @Test(expected = IllegalStateException.class)
-    public void placeFigures() {
+    public void placeFiguresBishopNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 4);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
@@ -74,7 +74,7 @@ public class FigureChainTest {
     }
 
     @Test
-    public void placeFiguresKnight() {
+    public void placeFiguresKnightAndKing() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 2);
         figureQuantityMap.put(KING.toString(), 2);
@@ -103,4 +103,59 @@ public class FigureChainTest {
         }
     }
 
+    @Test
+    public void placeFiguresKnight() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KNIGHT.toString(), 4);
+
+        FiguresChain figuresChain = new Knight(figureQuantityMap);
+
+        Set<String> objects = new HashSet<>();
+        objects.add(EMPTY_BOARD_SIZE_6);
+        Set<String> boards = figuresChain.placeFigures(objects);
+        assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
+                        "xxxxxx\n" +
+                        "xxxxx.\n" +
+                        "......\n" +
+                        "......\n" +
+                        "......\n"),
+                is(true));
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("n"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
+        }
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void placeFiguresKnightNegative() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KNIGHT.toString(), 4);
+
+        Set<String> objects = new HashSet<>();
+        objects.add("....\n");
+
+        new Knight(figureQuantityMap).placeFigures(objects);
+    }
+
+    @Test
+    public void placeFiguresKingQueenBishop() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 1);
+        figureQuantityMap.put(QUEEN.toString(), 1);
+        figureQuantityMap.put(BISHOP.toString(), 1);
+
+        FiguresChain kingChain = new King(figureQuantityMap);
+        FiguresChain queenChain = new Queen(figureQuantityMap);
+        FiguresChain bishopChain = new Bishop(figureQuantityMap);
+        kingChain.setNextFigure(queenChain);
+        queenChain.setNextFigure(bishopChain);
+
+        HashSet<String> strings = new HashSet<>();
+        strings.add(EMPTY_BOARD_SIZE_6);
+        Set<String> boards = kingChain.placeFigures(strings);
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("q") && board.contains("b"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 3);
+        }
+    }
 }
