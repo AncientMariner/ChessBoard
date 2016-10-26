@@ -72,7 +72,7 @@ public class Chessboard {
 
         checkBoard(initialBoard, dimension);
         HashSet<String> initialBoards = new HashSet<>();
-        initialBoards.add(drawEmptyBoard());
+        initialBoards.add(initialBoard);
         Set<String> boards = placeFigures(initialBoards);
 
 //        String boardWithKnights = knightsPlacement.placeOneFigureOnBoard(emptyBoard);
@@ -102,6 +102,7 @@ public class Chessboard {
     }
 
     public class Builder {
+        private FiguresChain previousFiguresChain;
         private Builder(Map<String, Integer> figureQuantityMap) {
             if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
                 throw new IllegalStateException("please provide the figures to put on the board");
@@ -158,8 +159,10 @@ public class Chessboard {
         private void prepareFiguresChain(FiguresChain figure) {
             if (Chessboard.this.figureChain == null) {
                 Chessboard.this.figureChain = figure;
+                previousFiguresChain = figure;
             } else {
-                Chessboard.this.figureChain.setNextFigure(figure);
+                previousFiguresChain.setNextFigure(figure);
+                previousFiguresChain = figure;
             }
         }
     }

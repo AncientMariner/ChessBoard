@@ -156,7 +156,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void multipleFigures() {
+    public void multipleFigures2() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(ROOK.toString(), 2);
@@ -169,8 +169,22 @@ public class ChessboardTest {
         }
     }
 
+    @Test
+    public void multipleFigures3() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(ROOK.toString(), 2);
+        figureQuantityMap.put(KNIGHT.toString(), 2);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withKing().withRook().withKnight().build();
 
-    //check such a situation
+        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && board.contains("n"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 6);
+        }
+    }
+
+    //todo check such a situation
     @Ignore
     @Test
     public void multipleFigures1() {
