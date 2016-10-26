@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/AncientMariner/ChessBoard.svg?branch=master)](https://travis-ci.org/AncientMariner/ChessBoard)
-
 ChessBoard
 ==========
 
