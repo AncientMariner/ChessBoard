@@ -9,4 +9,10 @@ public class BoardUtils {
         }
         return chessBoardWithFigures.toString();
     }
+
+    public static void checkBoard(String board, int dimension) {
+        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
+            throw new IllegalStateException("There is something wrong with your board");
+        }
+    }
 }

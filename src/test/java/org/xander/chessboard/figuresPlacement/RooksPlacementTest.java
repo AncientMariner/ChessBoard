@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 
 public class RooksPlacementTest {
     private Chessboard chessboard;
@@ -16,15 +17,12 @@ public class RooksPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard(null);
+        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new RooksPlacement();
     }
 
     @Test
     public void placeRook() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String expectedBoard = "r.....\n" +
                                "......\n" +
                                "......\n" +
@@ -43,9 +41,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttack() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".....r\n" +
                        "...r..\n" +
                        "..r...\n" +
@@ -64,9 +59,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfOneRookAttack() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                 "......\n" +
                 "...r..\n" +
@@ -86,8 +78,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttackOnCornersTopRightBottomLeft() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
         String board = ".....r\n" +
                        "......\n" +
                        "......\n" +
@@ -106,8 +96,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttackOnCornersTopLeftBottomRight() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
         String board = "r.....\n" +
                        "......\n" +
                        "......\n" +
@@ -126,8 +114,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttackMix() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
         String board = "......\n" +
                        "....r.\n" +
                        "......\n" +
@@ -146,9 +132,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttackAnotherMix() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "......\n" +
                        "..r...\n" +
@@ -167,9 +150,6 @@ public class RooksPlacementTest {
 
     @Test
     public void calculateAreaOfTheRookAttackBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "rrrrrr\n" +
                        "r....r\n" +
                        "r....r\n" +
@@ -188,25 +168,21 @@ public class RooksPlacementTest {
 
     @Test
     public void placeThreeRooksOnBoard() {
-        int dimension = 5;
-        chessboard.setDimension(dimension);
         //todo merge tests into 1 with paramates
         Set<String> objects = new HashSet<>();
         objects.add(chessboard.drawEmptyBoard());
         Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
 
-        assertTrue(boards.contains("rxxxx\n" +
-                     "xrxxx\n" +
-                     "xxrxx\n" +
-                     "xxx..\n" +
-                     "xxx..\n"));
+        assertTrue(boards.contains("rxxxxx\n" +
+                     "xrxxxx\n" +
+                     "xxrxxx\n" +
+                     "xxx...\n" +
+                     "xxx...\n" +
+                     "xxx...\n"));
     }
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheRookAttackNegative() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".\n" +
                        ".....\n" +
                        "..r...\n" +
@@ -218,9 +194,6 @@ public class RooksPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheRookAttackNegativeBoardBiggerThanDimension() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".......\n" +
                        ".......\n" +
                        "..r....\n" +

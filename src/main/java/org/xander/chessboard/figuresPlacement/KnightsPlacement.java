@@ -1,10 +1,9 @@
 package org.xander.chessboard.figuresPlacement;
 
-import org.xander.chessboard.Chessboard;
-
 import java.util.Set;
 
 import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class KnightsPlacement extends FiguresPlacement {
     @Override
@@ -17,7 +16,7 @@ public class KnightsPlacement extends FiguresPlacement {
         char[] boardElements = board.toCharArray();
         //mind the '\n' character
         int dimension = (int) Math.sqrt(board.length()) + 1;
-        Chessboard.checkBoard(board, dimension);
+        checkBoard(board, dimension);
 
         for (int i = 0 ; i < boardElements.length; i++) {
             if (boardElements[i] == KNIGHT.getFigure()) {

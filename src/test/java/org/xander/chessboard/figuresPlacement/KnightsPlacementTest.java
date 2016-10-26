@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 
 public class KnightsPlacementTest {
     private Chessboard chessboard;
@@ -16,15 +17,12 @@ public class KnightsPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard(null);
+        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new KnightsPlacement();
     }
 
     @Test
     public void calculateAreaOfTheKnightAttackCorners() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "n....n\n" +
                        "......\n" +
                        "......\n" +
@@ -42,9 +40,6 @@ public class KnightsPlacementTest {
 
     @Test
     public void calculateAreaOfTheKnightAttack() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "......\n" +
                        "..n...\n" +
@@ -62,9 +57,6 @@ public class KnightsPlacementTest {
 
     @Test
     public void calculateAreaOfTheKnightAttackOnBorderAndMiddle() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "n....n\n" +
                        "......\n" +
                        "..nn..\n" +
@@ -82,9 +74,6 @@ public class KnightsPlacementTest {
 
     @Test
     public void calculateAreaOfTheKnightAttackOnVerticalBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "n....n\n" +
                        "n....n\n" +
                        "n....n\n" +
@@ -102,9 +91,6 @@ public class KnightsPlacementTest {
 
     @Test
     public void calculateAreaOfTheKnightAttackOnHorizontalBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "nnnnnn\n" +
                        "......\n" +
                        "......\n" +
@@ -122,38 +108,34 @@ public class KnightsPlacementTest {
 
     @Test
     public void placeThreeKnightsOnBoard() {
-        int dimension = 5;
-        chessboard.setDimension(dimension);
 //todo merge tests into 1 with paramates
         Set<String> objects = new HashSet<>();
         objects.add(chessboard.drawEmptyBoard());
         Set<String> boards = figuresPlacement.placeNumberOfFiguresOnBoard(3, objects);
 
-        assertTrue(boards.contains("nnn..\n" +
-                     "x.xxx\n" +
-                     "xxxx.\n" +
-                     ".....\n" +
-                     ".....\n"));
+        assertTrue(boards.contains("nnn...\n" +
+                     "x.xxx.\n" +
+                     "xxxx..\n" +
+                     "......\n" +
+                     "......\n"+
+                     "......\n"));
     }
 
     @Test
     public void placeAKnightOnBoard() {
-        int dimension = 5;
-        chessboard.setDimension(dimension);
-
         Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(chessboard.drawEmptyBoard());
-        assertTrue(boards.contains("n....\n" +
-                ".....\n" +
-                ".....\n" +
-                ".....\n" +
-                ".....\n"));
+        assertTrue(boards.contains("n.....\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n"));
+
+
     }
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheKnightAttackNegative() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".\n" +
                        ".....\n" +
                        "..n...\n" +
@@ -165,9 +147,6 @@ public class KnightsPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheKnightAttackNegativeBigBoard() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".......\n" +
                        ".......\n" +
                        "..n....\n" +

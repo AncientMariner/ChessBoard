@@ -3,13 +3,12 @@ package org.xander.chessboard.figuresPlacement;
 import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.Chessboard;
-import org.xander.chessboard.figuresPlacement.PlacementBehavior;
-import org.xander.chessboard.figuresPlacement.QueensPlacement;
 
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 
 public class QueensPlacementTest {
     private Chessboard chessboard;
@@ -17,15 +16,12 @@ public class QueensPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard(null);
+        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new QueensPlacement();
     }
 
     @Test
     public void placeQueen() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String expectedBoard = "q.....\n" +
                                "......\n" +
                                "......\n" +
@@ -44,9 +40,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackTopLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "q.....\n" +
                        "......\n" +
                        "......\n" +
@@ -65,10 +58,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackTopRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
-
         String board = ".....q\n" +
                        "......\n" +
                        "......\n" +
@@ -87,9 +76,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackBottomLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "......\n" +
                        "......\n" +
@@ -108,10 +94,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackBottomRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
-
         String board = "......\n" +
                        "......\n" +
                        "......\n" +
@@ -130,10 +112,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackMiddle() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
-
         String board = "......\n" +
                        "......\n" +
                        "..q...\n" +
@@ -152,9 +130,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheQueenAttackBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "qqqqqq\n" +
                        "q....q\n" +
                        "q....q\n" +
@@ -173,10 +148,6 @@ public class QueensPlacementTest {
 
     @Test
     public void calculateAreaOfTheTwoQueenAttack() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
-
         String board = "......\n" +
                        "......\n" +
                        "..q...\n" +
@@ -195,9 +166,6 @@ public class QueensPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheQueenAttackNegative() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".\n" +
                        ".....\n" +
                        "..q...\n" +
@@ -209,9 +177,6 @@ public class QueensPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheQueenAttackNegativeBigBoard() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".......\n" +
                        ".......\n" +
                        "..q....\n" +
