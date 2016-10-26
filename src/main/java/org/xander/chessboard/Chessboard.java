@@ -75,14 +75,14 @@ public class Chessboard {
         initialBoards.add(drawEmptyBoard());
         Set<String> boards = placeFigures(initialBoards);
 
-//        String boardWithKnights = knightsPlacement.placeOneFigureOnBoardSequentially(emptyBoard);
+//        String boardWithKnights = knightsPlacement.placeOneFigureOnBoard(emptyBoard);
 
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
-//        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoardSequentially(boardWithKnightsAndAttackPlaces);
+//        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoard(boardWithKnightsAndAttackPlaces);
         //todo: in this situation rook should not be standing at the first line
 //        String boardWithKaRaAP = rooksPlacement.calculateAttackPlaces(boardWithKnightsAndRooks);
 
-//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeOneFigureOnBoardSequentially(boardWithKaRaAP);
+//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeOneFigureOnBoard(boardWithKaRaAP);
 
 //        System.out.println(boardWithKnightsRooksAndBishops);
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
@@ -91,15 +91,6 @@ public class Chessboard {
     }
 
     private int extractA(String figure) {
-        if (!figure.equals(KING.toString())
-                && !figure.equals(QUEEN.toString())
-                && !figure.equals(BISHOP.toString())
-                && !figure.equals(ROOK.toString())
-                && !figure.equals(KNIGHT.toString())) {
-            if (figureQuantityMap.containsKey(figure)) {
-                throw new IllegalStateException("there is no such a figure to place on board");
-            }
-        }
         if (figureQuantityMap.containsKey(figure)) {
             return figureQuantityMap.get(figure);
         }

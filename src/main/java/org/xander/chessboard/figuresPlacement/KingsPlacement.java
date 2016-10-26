@@ -7,14 +7,14 @@ import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class KingsPlacement extends FiguresPlacement {
     @Override
-    public Set<String> placeOneFigureOnBoardSequentially(String board) {
+    public Set<String> placeOneFigureOnBoard(String board) {
         return placeFigureOnBoard(KING.getFigure(), board);
     }
 
     @Override
     public String calculateAttackPlaces(String board) {
         char[] boardElements = board.toCharArray();
-        //mind the NEXT_LINE_FIELD character
+        //mind the '\n' character
         int dimension = (int) Math.sqrt(board.length()) + 1;
         checkBoard(board, dimension);
 

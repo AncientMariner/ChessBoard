@@ -23,7 +23,7 @@ public class FiguresAttackPlacesTest {
                 "......\n" +
                 "......\n" +
                 "......\n";
-        Set<String> boards = figuresPlacement.placeOneFigureOnBoardSequentially(expectedBoard);
+        Set<String> boards = figuresPlacement.placeOneFigureOnBoard(expectedBoard);
         assertTrue(boards.contains(expectedBoardWithTwoBishops));
     }
 

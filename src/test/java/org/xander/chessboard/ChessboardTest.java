@@ -45,6 +45,13 @@ public class ChessboardTest {
     }
 
     @Test(expected = IllegalStateException.class)
+    public void nonExistingFigure() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put("PAWN", 1);
+        Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("......");
+    }
+
+    @Test(expected = IllegalStateException.class)
     public void moreThanExpectedFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);

@@ -2,7 +2,6 @@ package org.xander.chessboard.figures;
 
 import org.xander.chessboard.figuresPlacement.KnightsPlacement;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -15,9 +14,6 @@ public class Knight extends FiguresChain {
 
     @Override
     public Set<String> placeFigures(Set<String> boards) {
-        if (boards.isEmpty()) {
-            boards = new HashSet<>();
-        }
         if (Objects.nonNull(figureQuantityMap.get(getName())) && figureQuantityMap.containsKey(getName())) {
             boards = placementBehavior.placeNumberOfFiguresOnBoard(figureQuantityMap.get(getName()), boards);
         }

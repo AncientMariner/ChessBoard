@@ -19,12 +19,12 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 while (numberOfFigures > 0) {
                     Set<String> boardsRepresentation;
                     if (boards.isEmpty()) {
-                        boardsRepresentation = placeOneFigureOnBoardSequentially(board).stream()
+                        boardsRepresentation = placeOneFigureOnBoard(board).stream()
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
                     } else {
                         boardsRepresentation = boards.parallelStream()
-                                .map(this::placeOneFigureOnBoardSequentially)
+                                .map(this::placeOneFigureOnBoard)
                                 .flatMap(Set::stream)
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());

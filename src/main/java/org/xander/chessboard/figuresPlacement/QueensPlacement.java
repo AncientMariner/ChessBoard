@@ -7,7 +7,7 @@ import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     @Override
-    public Set<String> placeOneFigureOnBoardSequentially(String board) {
+    public Set<String> placeOneFigureOnBoard(String board) {
         return placeFigureOnBoard(QUEEN.getFigure(), board);
     }
 
