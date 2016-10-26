@@ -7,9 +7,15 @@ import org.xander.chessboard.figures.Knight;
 import org.xander.chessboard.figures.Queen;
 import org.xander.chessboard.figures.Rook;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import static org.xander.chessboard.figures.Figure.*;
+import static org.xander.chessboard.figures.Figure.BISHOP;
+import static org.xander.chessboard.figures.Figure.KING;
+import static org.xander.chessboard.figures.Figure.KNIGHT;
+import static org.xander.chessboard.figures.Figure.QUEEN;
+import static org.xander.chessboard.figures.Figure.ROOK;
 import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class Chessboard {
@@ -53,11 +59,11 @@ public class Chessboard {
     }
 
     public Set<String> placeFiguresOnBoard(String initialBoard) {
-        int numberOfKings = extractA(KING.toString(), figureQuantityMap);
-        int numberOfQueens = extractA(QUEEN.toString(), figureQuantityMap);
-        int numberOfBishops = extractA(BISHOP.toString(), figureQuantityMap);
-        int numberOfRooks = extractA(ROOK.toString(), figureQuantityMap);
-        int numberOfKnights = extractA(KNIGHT.toString(), figureQuantityMap);
+        int numberOfKings = extractA(KING.toString());
+        int numberOfQueens = extractA(QUEEN.toString());
+        int numberOfBishops = extractA(BISHOP.toString());
+        int numberOfRooks = extractA(ROOK.toString());
+        int numberOfKnights = extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
         if (sumOfAllFigures > boardSize) {
@@ -84,11 +90,17 @@ public class Chessboard {
         return boards;
     }
 
-    private int extractA(String figure, Map<String, Integer> figureQuantityMap) {
-        if (figureQuantityMap.containsKey(figure)) {
-            return figureQuantityMap.get(figure);
+    private int extractA(String figure) {
+        if (figure.equals(KING.toString())
+                || figure.equals(QUEEN.toString())
+                || figure.equals(BISHOP.toString())
+                || figure.equals(ROOK.toString())
+                || figure.equals(KNIGHT.toString())) {
+            if (figureQuantityMap.containsKey(figure)) {
+                return figureQuantityMap.get(figure);
+            }
         }
-        return 0;
+        throw new IllegalStateException("there is no such a figure to place on board");
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {
@@ -97,6 +109,21 @@ public class Chessboard {
 
     public class Builder {
         private Builder(Map<String, Integer> figureQuantityMap) {
+            if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
+                throw new IllegalStateException("please provide the figures to put on the board");
+            }
+            Set<String> possibleFigures = new HashSet<>();
+            possibleFigures.add(KING.toString());
+            possibleFigures.add(QUEEN.toString());
+            possibleFigures.add(BISHOP.toString());
+            possibleFigures.add(ROOK.toString());
+            possibleFigures.add(KNIGHT.toString());
+
+            Set<String> givenFigures = figureQuantityMap.keySet();
+
+            if (givenFigures.size() > 0 && givenFigures.stream().anyMatch(e -> !possibleFigures.contains(e))) {
+                throw new IllegalStateException("not desired figure is present");
+            }
             Chessboard.this.figureQuantityMap = figureQuantityMap;
         }
 

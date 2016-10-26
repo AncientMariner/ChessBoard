@@ -25,10 +25,49 @@ public class ChessboardTest {
 
     @Test
     public void chessBoardBasic() {
-        Chessboard chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(ROOK.toString(), 1);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).build();
 
         assertNotNull(chessboard);
         assertEquals(DIMENSION_6, chessboard.getDimension());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void chessBoardBasicNegative() {
+        Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void nonExistingFigures() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put("a", 1);
+        Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("   ");
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void moreThanExpectedFigures() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 3);
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        figureQuantityMap.put(ROOK.toString(), 5);
+        figureQuantityMap.put(KNIGHT.toString(), 6);
+        figureQuantityMap.put("PAWN", 8);
+
+        Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void notDesiredFiguresWithPawn() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 3);
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        figureQuantityMap.put(KNIGHT.toString(), 6);
+        figureQuantityMap.put("PAWN", 8);
+
+        Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
     }
 
     @Test
