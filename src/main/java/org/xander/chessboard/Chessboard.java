@@ -91,16 +91,19 @@ public class Chessboard {
     }
 
     private int extractA(String figure) {
-        if (figure.equals(KING.toString())
-                || figure.equals(QUEEN.toString())
-                || figure.equals(BISHOP.toString())
-                || figure.equals(ROOK.toString())
-                || figure.equals(KNIGHT.toString())) {
+        if (!figure.equals(KING.toString())
+                && !figure.equals(QUEEN.toString())
+                && !figure.equals(BISHOP.toString())
+                && !figure.equals(ROOK.toString())
+                && !figure.equals(KNIGHT.toString())) {
             if (figureQuantityMap.containsKey(figure)) {
-                return figureQuantityMap.get(figure);
+                throw new IllegalStateException("there is no such a figure to place on board");
             }
         }
-        throw new IllegalStateException("there is no such a figure to place on board");
+        if (figureQuantityMap.containsKey(figure)) {
+            return figureQuantityMap.get(figure);
+        }
+        return 0;
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {

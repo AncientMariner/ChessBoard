@@ -17,7 +17,6 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
-import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class ChessboardTest {
@@ -80,14 +79,6 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 6);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
         assertTrue(figureQuantityMap.equals(chessboard.getFigureQuantityMap()));
-    }
-
-    @Test
-    public void drawAnEmptyBoard() {
-        Chessboard chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
-
-        String emptyBoard = chessboard.drawEmptyBoard();
-        assertEquals(EMPTY_BOARD_SIZE_6, emptyBoard);
     }
 
 //    runs too long, for now ignored
