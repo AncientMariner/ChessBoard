@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'org.xander.chessboard'
+version = '1.0-SNAPSHOT'
+
+description = """ChessBoard"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}

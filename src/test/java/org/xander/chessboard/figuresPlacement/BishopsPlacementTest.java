@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 
 public class BishopsPlacementTest {
@@ -19,15 +20,12 @@ public class BishopsPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard(null);
+        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new BishopsPlacement();
     }
 
     @Test
     public void placeBishop() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String expectedBoard = "b.....\n" +
                                "......\n" +
                                "......\n" +
@@ -46,9 +44,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackTopLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "b.....\n" +
                        "......\n" +
                        "......\n" +
@@ -67,9 +62,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackBottomLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "......\n" +
                        "......\n" +
@@ -88,9 +80,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackTopRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".....b\n" +
                        "......\n" +
                        "......\n" +
@@ -109,9 +98,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackBottomRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "......\n" +
                        "......\n" +
@@ -130,9 +116,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackAllCorners() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "b....b\n" +
                        "......\n" +
                        "......\n" +
@@ -151,9 +134,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfBishopAttackMix() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "...b..\n" +
                        "......\n" +
                        "......\n" +
@@ -172,9 +152,6 @@ public class BishopsPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board =  "bbbbbb\n" +
                         "b....b\n" +
                         "b....b\n" +
@@ -193,9 +170,6 @@ public class BishopsPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheBishopAttackNegativeSmallBoard() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "..\n" +
                        ".....\n" +
                        "..b.\n" +
@@ -207,9 +181,6 @@ public class BishopsPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheBishopAttackNegativeBigBoard() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".......\n" +
                        ".......\n" +
                        "..b....\n" +

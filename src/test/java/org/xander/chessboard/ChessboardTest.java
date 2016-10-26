@@ -21,16 +21,14 @@ import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class ChessboardTest {
+    public static final int DIMENSION_6 = 6;
+
     @Test
     public void chessBoardBasic() {
-        Chessboard chessboard = new Chessboard(null);
+        Chessboard chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
+
         assertNotNull(chessboard);
-        assertTrue(chessboard.getDimension() == 0);
-
-        int dimension = 5;
-        chessboard.setDimension(dimension);
-
-        assertEquals(dimension, chessboard.getDimension());
+        assertEquals(DIMENSION_6, chessboard.getDimension());
     }
 
     @Test
@@ -41,16 +39,13 @@ public class ChessboardTest {
         figureQuantityMap.put(BISHOP.toString(), 4);
         figureQuantityMap.put(ROOK.toString(), 5);
         figureQuantityMap.put(KNIGHT.toString(), 6);
-        Chessboard chessboard = new Chessboard(figureQuantityMap);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
         assertTrue(figureQuantityMap.equals(chessboard.getFigureQuantityMap()));
     }
 
     @Test
     public void drawAnEmptyBoard() {
-        int dimension = 6;
-        Chessboard chessboard = new Chessboard(null);
-
-        chessboard.setDimension(dimension);
+        Chessboard chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
 
         String emptyBoard = chessboard.drawEmptyBoard();
         assertEquals(EMPTY_BOARD_SIZE_6, emptyBoard);
@@ -68,8 +63,7 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 6);
 
         int dimension = 8;
-        Chessboard chessboard = new Chessboard(figureQuantityMap);
-        chessboard.setDimension(dimension);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
         assertThat("more than 1 figure is present",
@@ -83,6 +77,22 @@ public class ChessboardTest {
                    "xxxrxxxx\n"), is(true));
     }
 
+    //currently out of memory error, requires optimization
+    @Ignore
+    @Test
+    public void readmeRequirement() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 2);
+        figureQuantityMap.put(BISHOP.toString(), 2);
+        figureQuantityMap.put(KNIGHT.toString(), 1);
+
+        int dimension = 7;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withKnight().build();
+
+        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        System.out.println();
+    }
 
     @Test(expected = IllegalStateException.class)
     public void placeALotOfFiguresOnBoard() {
@@ -94,8 +104,7 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 16);
 
         int dimension = 8;
-        Chessboard chessboard = new Chessboard(figureQuantityMap);
-        chessboard.setDimension(dimension);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
         chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
     }
@@ -104,7 +113,7 @@ public class ChessboardTest {
     public void placeAFigureOnBoardNegative() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
-        Chessboard chessboard = new Chessboard(figureQuantityMap);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withKing().build();
 
         chessboard.placeFiguresOnBoard("");
     }
@@ -114,8 +123,7 @@ public class ChessboardTest {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(ROOK.toString(), 2);
-        Chessboard chessboard = new Chessboard(figureQuantityMap);
-        chessboard.setDimension(8);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(8).withKing().withRook().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
         for (String board : boards) {

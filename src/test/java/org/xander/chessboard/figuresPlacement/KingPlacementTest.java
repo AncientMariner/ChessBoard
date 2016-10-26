@@ -3,13 +3,12 @@ package org.xander.chessboard.figuresPlacement;
 import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.Chessboard;
-import org.xander.chessboard.figuresPlacement.KingsPlacement;
-import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.xander.chessboard.ChessboardTest.DIMENSION_6;
 
 public class KingPlacementTest {
     private Chessboard chessboard;
@@ -17,15 +16,12 @@ public class KingPlacementTest {
 
     @Before
     public void setUp() {
-        chessboard = new Chessboard(null);
+        chessboard = Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
         figuresPlacement = new KingsPlacement();
     }
 
     @Test
     public void placeKing() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String expectedBoard = "k.....\n" +
                                "......\n" +
                                "......\n" +
@@ -44,9 +40,6 @@ public class KingPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackTopLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "k.....\n" +
                        "......\n" +
                        "......\n" +
@@ -65,9 +58,6 @@ public class KingPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackBottomLeftCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        "..k...\n" +
                        "......\n" +
@@ -86,9 +76,6 @@ public class KingPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackTopRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".....k\n" +
                        "......\n" +
                        "......\n" +
@@ -107,9 +94,6 @@ public class KingPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackBottomRightCorner() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = "......\n" +
                        ".k....\n" +
                        "......\n" +
@@ -128,9 +112,6 @@ public class KingPlacementTest {
 
     @Test
     public void calculateAreaOfTheKingAttackBorder() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board =  "kkkkkk\n" +
                         "k....k\n" +
                         "k....k\n" +
@@ -149,9 +130,6 @@ public class KingPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheKingAttackNegative() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".\n" +
                        ".....\n" +
                        "..k...\n" +
@@ -163,9 +141,6 @@ public class KingPlacementTest {
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaOfTheKingAttackNegativeBigBoard() {
-        int dimension = 6;
-        chessboard.setDimension(dimension);
-
         String board = ".......\n" +
                        ".......\n" +
                        "..k....\n" +

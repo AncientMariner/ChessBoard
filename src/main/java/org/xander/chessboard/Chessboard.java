@@ -10,6 +10,7 @@ import org.xander.chessboard.figures.Rook;
 import java.util.*;
 
 import static org.xander.chessboard.figures.Figure.*;
+import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class Chessboard {
     private int dimension;
@@ -17,19 +18,7 @@ public class Chessboard {
     private Map<String, Integer> figureQuantityMap;
     private FiguresChain figureChain;
 
-    //todo add builder for various combinations
-    public Chessboard(Map<String, Integer> figureQuantityMap) {
-        this.figureQuantityMap = figureQuantityMap;
-        this.figureChain = new King(figureQuantityMap);
-        FiguresChain queen = new Queen(figureQuantityMap);
-        FiguresChain bishop = new Bishop(figureQuantityMap);
-        FiguresChain rook = new Rook(figureQuantityMap);
-        FiguresChain knight = new Knight(figureQuantityMap);
-
-        figureChain.setNextFigure(queen);
-        queen.setNextFigure(bishop);
-        bishop.setNextFigure(rook);
-        rook.setNextFigure(knight);
+    private Chessboard() {
     }
 
     private Set<String> placeFigures(Set<String> boards) {
@@ -38,10 +27,6 @@ public class Chessboard {
 
     public int getDimension() {
         return dimension;
-    }
-
-    public void setDimension(int dimension) {
-        this.dimension = dimension;
     }
 
     public Map<String, Integer> getFigureQuantityMap() {
@@ -106,9 +91,50 @@ public class Chessboard {
         return 0;
     }
 
-    public static void checkBoard(String board, int dimension) {
-        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
-            throw new IllegalStateException("There is something wrong with your board");
+    public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {
+        return new Chessboard().new Builder(figureQuantityMap); }
+
+    public class Builder {
+        private Builder(Map<String, Integer> figureQuantityMap) {
+            Chessboard.this.figureQuantityMap = figureQuantityMap;
+        }
+
+        public Builder withDimension(int dimension) {
+            Chessboard.this.dimension = dimension;
+            return this;
+        }
+
+        public Builder withKing() {
+            Chessboard.this.figureChain = new King(figureQuantityMap);
+            return this;
+        }
+
+        public Builder withQueen() {
+            FiguresChain queen = new Queen(figureQuantityMap);
+            Chessboard.this.figureChain.setNextFigure(queen);
+            return this;
+        }
+
+        public Builder withBishop() {
+            FiguresChain bishop = new Bishop(figureQuantityMap);
+            Chessboard.this.figureChain.setNextFigure(bishop);
+            return this;
+        }
+
+        public Builder withRook() {
+            FiguresChain rook = new Rook(figureQuantityMap);
+            Chessboard.this.figureChain.setNextFigure(rook);
+            return this;
+        }
+
+        public Builder withKnight() {
+            FiguresChain knight = new Knight(figureQuantityMap);
+            Chessboard.this.figureChain.setNextFigure(knight);
+            return this;
+        }
+
+        public Chessboard build() {
+            return Chessboard.this;
         }
     }
 }
