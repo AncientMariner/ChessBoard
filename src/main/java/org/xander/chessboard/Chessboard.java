@@ -59,7 +59,7 @@ public class Chessboard {
     }
 
     public Set<String> placeFiguresOnBoard(String initialBoard) {
-        if (initialBoard != null || !initialBoard.isEmpty()) {
+        if (initialBoard != null && !initialBoard.isEmpty()) {
             int length = (int) Math.sqrt(initialBoard.length()) + 1;
             calculateBoardSizeBasedOn(length, length);
         }
