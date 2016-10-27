@@ -208,6 +208,20 @@ public class ChessboardTest {
         }
     }
 
+    @Test
+    public void smallBoard() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 1);
+        figureQuantityMap.put(QUEEN.toString(), 1);
+
+        int dimension = 2;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
+
+        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        assertThat("more than 1 figure is present",
+                boards.contains("kx\n" + "xx\n"), is(true));
+
+    }
     //todo check for board figures legal placement before calculation
-    //todo create test with small board
+
 }
