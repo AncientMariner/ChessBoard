@@ -7,7 +7,7 @@ import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class BishopsPlacement extends DiagonalFiguresPlacement {
     @Override
-    public Set<String> placeOneFigureOnBoard(String board) {
+    public Set<String> placeCertainFigureOnBoard(String board) {
         return placeFigureOnBoard(BISHOP.getFigure(), board);
     }
 

@@ -6,7 +6,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
             int rightPosition = 1;
             while (position % dimension + rightPosition < dimension) {
                 if (boardElements[position + rightPosition] != NEXT_LINE_FIELD
-                        && boardElements[position + rightPosition] == EMPTY_FIELD) {
+                        && boardElements[position + rightPosition] == EMPTY_FIELD_CHAR) {
                     boardElements[position + rightPosition] = FIELD_UNDER_ATTACK;
                 }
                 rightPosition++;
@@ -16,7 +16,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
             int leftPosition = 1;
             while (position % dimension - leftPosition >= 0) {
                 if (boardElements[position - leftPosition] != NEXT_LINE_FIELD
-                        && boardElements[position - leftPosition] == EMPTY_FIELD) {
+                        && boardElements[position - leftPosition] == EMPTY_FIELD_CHAR) {
                     boardElements[position - leftPosition] = FIELD_UNDER_ATTACK;
                 }
                 leftPosition++;
@@ -29,7 +29,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
             int numberOfLinesBelow = 1;
             while (position + dimension * numberOfLinesBelow < boardElements.length) {
                 if (boardElements[position + dimension * numberOfLinesBelow] != NEXT_LINE_FIELD
-                        && boardElements[position + dimension * numberOfLinesBelow] == EMPTY_FIELD) {
+                        && boardElements[position + dimension * numberOfLinesBelow] == EMPTY_FIELD_CHAR) {
                     boardElements[position + dimension * numberOfLinesBelow] = FIELD_UNDER_ATTACK;
                 }
                 numberOfLinesBelow++;
@@ -40,7 +40,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
             int numberOfLinesAbove = 1;
             while (position - dimension * numberOfLinesAbove >= 0) {
                 if (boardElements[position - dimension * numberOfLinesAbove] != NEXT_LINE_FIELD
-                        && boardElements[position - dimension * numberOfLinesAbove] == EMPTY_FIELD) {
+                        && boardElements[position - dimension * numberOfLinesAbove] == EMPTY_FIELD_CHAR) {
                     boardElements[position - dimension * numberOfLinesAbove] = FIELD_UNDER_ATTACK;
                 }
                 numberOfLinesAbove++;
@@ -56,7 +56,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
                 if (position - dimension * positionLeftAbove - positionLeftAbove >= 0
                         && (position - dimension * positionLeftAbove - positionLeftAbove) % dimension >= 0 ) {
                     if (boardElements[position - dimension * positionLeftAbove - positionLeftAbove] != NEXT_LINE_FIELD
-                            && boardElements[position - dimension * positionLeftAbove - positionLeftAbove] == EMPTY_FIELD) {
+                            && boardElements[position - dimension * positionLeftAbove - positionLeftAbove] == EMPTY_FIELD_CHAR) {
                         boardElements[position - dimension * positionLeftAbove - positionLeftAbove] = FIELD_UNDER_ATTACK;
                     }
                 }
@@ -70,7 +70,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
                 if (position - dimension * positionRightAbove + positionRightAbove >= 0
                         && (position - dimension * positionRightAbove + positionRightAbove) % dimension < dimension - 1) {
                     if (boardElements[position - dimension * positionRightAbove + positionRightAbove] != NEXT_LINE_FIELD
-                            && boardElements[position - dimension * positionRightAbove + positionRightAbove] == EMPTY_FIELD) {
+                            && boardElements[position - dimension * positionRightAbove + positionRightAbove] == EMPTY_FIELD_CHAR) {
                         boardElements[position - dimension * positionRightAbove + positionRightAbove] = FIELD_UNDER_ATTACK;
                     }
                 }
@@ -88,7 +88,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
                 if((position + dimension * positionLeftBelow - positionLeftBelow) % dimension < dimension
                         && position + dimension * positionLeftBelow - positionLeftBelow < boardElements.length) {
                     if (boardElements[position + dimension * positionLeftBelow - positionLeftBelow] != NEXT_LINE_FIELD
-                            && boardElements[position + dimension * positionLeftBelow - positionLeftBelow] == EMPTY_FIELD) {
+                            && boardElements[position + dimension * positionLeftBelow - positionLeftBelow] == EMPTY_FIELD_CHAR) {
                         boardElements[position + dimension * positionLeftBelow - positionLeftBelow] = FIELD_UNDER_ATTACK;
                     }
                 }
@@ -102,7 +102,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
                 if(position + dimension * positionRightBelow + positionRightBelow < boardElements.length
                         && (position + dimension * positionRightBelow + positionRightBelow) % dimension < dimension) {
                     if (boardElements[position + dimension * positionRightBelow + positionRightBelow] != NEXT_LINE_FIELD
-                            && boardElements[position + dimension * positionRightBelow + positionRightBelow] == EMPTY_FIELD) {
+                            && boardElements[position + dimension * positionRightBelow + positionRightBelow] == EMPTY_FIELD_CHAR) {
                         boardElements[position + dimension * positionRightBelow + positionRightBelow] = FIELD_UNDER_ATTACK;
                     }
                 }

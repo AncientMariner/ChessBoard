@@ -58,6 +58,10 @@ public class Chessboard {
         boardSize = xDimension * yDimension;
     }
 
+    public Set<String> placeFiguresOnEmptyBoard() {
+        return placeFiguresOnBoard(drawEmptyBoard());
+    }
+
     public Set<String> placeFiguresOnBoard(String initialBoard) {
         if (initialBoard != null && !initialBoard.isEmpty()) {
             int length = (int) Math.sqrt(initialBoard.length()) + 1;
@@ -79,14 +83,14 @@ public class Chessboard {
         initialBoards.add(initialBoard);
         Set<String> boards = placeFigures(initialBoards);
 
-//        String boardWithKnights = knightsPlacement.placeOneFigureOnBoard(emptyBoard);
+//        String boardWithKnights = knightsPlacement.placeCertainFigureOnBoard(emptyBoard);
 
 //        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
-//        String boardWithKnightsAndRooks = rooksPlacement.placeOneFigureOnBoard(boardWithKnightsAndAttackPlaces);
+//        String boardWithKnightsAndRooks = rooksPlacement.placeCertainFigureOnBoard(boardWithKnightsAndAttackPlaces);
         //todo: in this situation rook should not be standing at the first line
 //        String boardWithKaRaAP = rooksPlacement.calculateAttackPlaces(boardWithKnightsAndRooks);
 
-//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeOneFigureOnBoard(boardWithKaRaAP);
+//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeCertainFigureOnBoard(boardWithKaRaAP);
 
 //        System.out.println(boardWithKnightsRooksAndBishops);
 //        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);

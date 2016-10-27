@@ -7,7 +7,7 @@ import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class KnightsPlacement extends FiguresPlacement {
     @Override
-    public Set<String> placeOneFigureOnBoard(String board) {
+    public Set<String> placeCertainFigureOnBoard(String board) {
         return placeFigureOnBoard(KNIGHT.getFigure(), board);
     }
 
@@ -32,12 +32,12 @@ public class KnightsPlacement extends FiguresPlacement {
     private void placeTop(char[] boardElements, int position, int dimension) {
         if (position - dimension * 2 + 1 >= 0) {
             if (position % dimension + 1 < dimension)
-                if (boardElements[position - dimension * 2 + 1] == EMPTY_FIELD)
+                if (boardElements[position - dimension * 2 + 1] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension * 2 + 1] = FIELD_UNDER_ATTACK;
         }
             if (position - dimension * 2 - 1 >= 0) {
                 if (position % dimension - 1 >= 0)
-                if (boardElements[position - dimension * 2 - 1] == EMPTY_FIELD)
+                if (boardElements[position - dimension * 2 - 1] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension * 2 - 1] = FIELD_UNDER_ATTACK;
             }
     }
@@ -45,10 +45,10 @@ public class KnightsPlacement extends FiguresPlacement {
     private void placeLeft(char[] boardElements, int position, int dimension) {
         if (position % dimension - 2 >= 0) {
             if (position + dimension < boardElements.length)
-                if (boardElements[position + dimension - 2] == EMPTY_FIELD)
+                if (boardElements[position + dimension - 2] == EMPTY_FIELD_CHAR)
                     boardElements[position + dimension - 2] = FIELD_UNDER_ATTACK;
             if (position - dimension >= 0)
-                if (boardElements[position - dimension - 2] == EMPTY_FIELD)
+                if (boardElements[position - dimension - 2] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension - 2] = FIELD_UNDER_ATTACK;
         }
     }
@@ -56,12 +56,12 @@ public class KnightsPlacement extends FiguresPlacement {
     private void placeBelow(char[] boardElements, int position, int dimension) {
         if (position + dimension * 2 + 1 < boardElements.length) {
             if (position % dimension + 1 < dimension)
-                if (boardElements[position + dimension * 2 + 1] == EMPTY_FIELD)
+                if (boardElements[position + dimension * 2 + 1] == EMPTY_FIELD_CHAR)
                     boardElements[position + dimension * 2 + 1] = FIELD_UNDER_ATTACK;
         }
         if (position + dimension * 2 - 1 < boardElements.length){
             if (position % dimension - 1 >= 0) {
-                if (boardElements[position + dimension * 2 - 1] == EMPTY_FIELD) {
+                if (boardElements[position + dimension * 2 - 1] == EMPTY_FIELD_CHAR) {
                     boardElements[position + dimension * 2 - 1] = FIELD_UNDER_ATTACK;
                 }
             }
@@ -71,10 +71,10 @@ public class KnightsPlacement extends FiguresPlacement {
     private void placeRight(char[] boardElements, int position, int dimension) {
         if (position % dimension + 2 < dimension) {
             if (position + dimension < boardElements.length)
-                if (boardElements[position + dimension + 2] == EMPTY_FIELD)
+                if (boardElements[position + dimension + 2] == EMPTY_FIELD_CHAR)
                     boardElements[position + dimension + 2] = FIELD_UNDER_ATTACK;
             if (position - dimension >= 0)
-                if (boardElements[position - dimension + 2] == EMPTY_FIELD)
+                if (boardElements[position - dimension + 2] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension + 2] = FIELD_UNDER_ATTACK;
         }
     }

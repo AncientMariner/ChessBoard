@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -162,6 +163,28 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(8).withKing().withRook().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+
+        assertThat("there is no boards", boards.size() > 0, is(true));
+        for (String board : boards) {
+            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
+        }
+    }
+
+   @Test
+    public void multipleFiguresBothCombinations() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(ROOK.toString(), 2);
+        Chessboard chessboard1 = Chessboard.newBuilder(figureQuantityMap).withDimension(8).withRook().withKing().build();
+        Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(8).withKing().withRook().build();
+
+        Set<String> boards1 = chessboard1.placeFiguresOnEmptyBoard();
+        Set<String> boards2 = chessboard2.placeFiguresOnEmptyBoard();
+
+        Set<String> boards = new HashSet<>();
+        boards.addAll(boards1);
+        boards.addAll(boards2);
 
         assertThat("there is no boards", boards.size() > 0, is(true));
         for (String board : boards) {

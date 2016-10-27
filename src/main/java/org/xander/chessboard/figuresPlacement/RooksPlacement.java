@@ -7,7 +7,7 @@ import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class RooksPlacement extends PerpendicularFiguresPlacement {
     @Override
-    public Set<String> placeOneFigureOnBoard(String board) {
+    public Set<String> placeCertainFigureOnBoard(String board) {
         return placeFigureOnBoard(ROOK.getFigure(), board);
     }
 

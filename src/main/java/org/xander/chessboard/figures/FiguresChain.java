@@ -34,7 +34,7 @@ public abstract class FiguresChain {
         if (Objects.nonNull(numberOfFigures) && figureQuantityMap.containsKey(getName())) {
             while (numberOfFigures > 0) {
                 boardsToReturn.clear();
-                boardsToReturn.addAll(placementBehavior.placeFigureOnBoard(boards));
+                boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
                 numberOfFigures--;
             }
         }
