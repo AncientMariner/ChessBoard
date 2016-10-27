@@ -17,11 +17,10 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
+import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.DIMENSION_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
 public class ChessboardTest {
-    public static final int DIMENSION_6 = 6;
-
     @Test
     public void chessBoardBasic() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
@@ -188,7 +187,6 @@ public class ChessboardTest {
         }
     }
 
-    //todo check such a situation
     @Test
     public void multipleFigures1() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
