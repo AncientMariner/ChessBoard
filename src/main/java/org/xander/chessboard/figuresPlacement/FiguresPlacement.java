@@ -24,9 +24,10 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                                 .flatMap(Set::stream)
                                 .map(this::calculateAttackPlaces)
                                 .collect(Collectors.toSet());
-                    boards.clear();
-                    boards.addAll(boardsRepresentation);
-
+                    if (boardsRepresentation.size() > 0) {
+                        boards.clear();
+                        boards.addAll(boardsRepresentation);
+                    }
                     numberOfFigures--;
                 }
             }

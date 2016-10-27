@@ -42,7 +42,7 @@ public class Chessboard {
     public String drawEmptyBoard() {
         int xDimension = dimension;
         int yDimension = dimension;
-        calculateBoardSize(xDimension, yDimension);
+        calculateBoardSizeBasedOn(xDimension, yDimension);
 
         StringBuilder chessBoard = new StringBuilder();
         for (int y = 0; y < yDimension; y++) {
@@ -54,11 +54,15 @@ public class Chessboard {
         return chessBoard.toString();
     }
 
-    private void calculateBoardSize(int xDimension, int yDimension) {
+    private void calculateBoardSizeBasedOn(int xDimension, int yDimension) {
         boardSize = xDimension * yDimension;
     }
 
     public Set<String> placeFiguresOnBoard(String initialBoard) {
+        if (initialBoard != null || !initialBoard.isEmpty()) {
+            int length = (int) Math.sqrt(initialBoard.length()) + 1;
+            calculateBoardSizeBasedOn(length, length);
+        }
         int numberOfKings = extractA(KING.toString());
         int numberOfQueens = extractA(QUEEN.toString());
         int numberOfBishops = extractA(BISHOP.toString());

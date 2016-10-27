@@ -134,11 +134,11 @@ public class ChessboardTest {
     @Test(expected = IllegalStateException.class)
     public void placeALotOfFiguresOnBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put(KING.toString(), 12);
-        figureQuantityMap.put(QUEEN.toString(), 13);
-        figureQuantityMap.put(BISHOP.toString(), 14);
-        figureQuantityMap.put(ROOK.toString(), 15);
-        figureQuantityMap.put(KNIGHT.toString(), 16);
+        figureQuantityMap.put(KING.toString(), 22);
+        figureQuantityMap.put(QUEEN.toString(), 23);
+        figureQuantityMap.put(BISHOP.toString(), 24);
+        figureQuantityMap.put(ROOK.toString(), 25);
+        figureQuantityMap.put(KNIGHT.toString(), 26);
 
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
@@ -163,6 +163,8 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(8).withKing().withRook().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+
+        assertThat("there is no boards", boards.size() > 0, is(true));
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
             assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
@@ -175,9 +177,11 @@ public class ChessboardTest {
         figureQuantityMap.put(KING.toString(), 2);
         figureQuantityMap.put(ROOK.toString(), 2);
         figureQuantityMap.put(KNIGHT.toString(), 2);
-        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withKing().withRook().withKnight().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(5).withKing().withRook().withKnight().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+
+        assertThat("there is no boards", boards.size() > 0, is(true));
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && board.contains("n"));
             assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 6);
@@ -185,22 +189,25 @@ public class ChessboardTest {
     }
 
     //todo check such a situation
-    @Ignore
     @Test
     public void multipleFigures1() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put(BISHOP.toString(), 0);
+        figureQuantityMap.put(BISHOP.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard( "bbbbbb\n" +
+        Set<String> boards = chessboard.placeFiguresOnBoard("bbbbbb\n" +
                 "b....b\n" +
                 "b....b\n" +
                 "b....b\n" +
                 "b....b\n" +
                 "bbbbbb\n");
+        assertThat("there is no boards", boards.size() > 0, is(true));
         for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
+            assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("r") && !board.contains("k"));
+            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 21);
         }
     }
+
+    //todo check for board figures legal placement before calculation
+    //todo create test with small board
 }
