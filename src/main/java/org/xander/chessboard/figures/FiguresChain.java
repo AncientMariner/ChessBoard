@@ -8,11 +8,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class FiguresChain {
-    Map<String, Integer> figureQuantityMap;
+    final Map<String, Integer> figureQuantityMap;
     PlacementBehavior placementBehavior;
     FiguresChain chain;
 
-    public FiguresChain(Map<String, Integer> figureQuantityMap) {
+    FiguresChain(Map<String, Integer> figureQuantityMap) {
         this.figureQuantityMap = figureQuantityMap;
     }
 

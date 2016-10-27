@@ -13,7 +13,6 @@ public class BishopTest {
     public void getName() throws Exception {
         FiguresChain figuresChain = new Bishop(new HashMap<>());
 
-        assertThat("object is null", figuresChain != null, is(true));
         assertThat("object is null", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
         assertThat("object name is different", figuresChain.getName().equals(Figure.BISHOP.name()) , is(true));
     }

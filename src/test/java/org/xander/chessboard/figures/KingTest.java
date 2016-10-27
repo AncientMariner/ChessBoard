@@ -13,7 +13,6 @@ public class KingTest {
     @Test
     public void getName() {
         FiguresChain figuresChain = new King(new HashMap<>());
-        assertThat("object is null", figuresChain != null, is(true));
         assertThat("object is null", figuresChain.placementBehavior instanceof KingsPlacement, is(true));
         assertThat("object name is different", figuresChain.getName().equals(KING.name()) , is(true));
     }

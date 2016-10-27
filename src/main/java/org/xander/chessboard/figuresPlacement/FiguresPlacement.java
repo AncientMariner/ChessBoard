@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public abstract class FiguresPlacement implements PlacementBehavior {
-    public static final char EMPTY_FIELD_CHAR = '.';
-    public static final String EMPTY_FIELD_STRING = ".";
-    public static final char FIELD_UNDER_ATTACK = 'x';
-    public static final char NEXT_LINE_FIELD = '\n';
+    static final char EMPTY_FIELD_CHAR = '.';
+    private static final String EMPTY_FIELD_STRING = ".";
+    static final char FIELD_UNDER_ATTACK = 'x';
+    static final char NEXT_LINE_FIELD = '\n';
 
-    protected final BoardUtils boardUtils = new BoardUtils();
+    final BoardUtils boardUtils = new BoardUtils();
 
     public Set<String> placeFiguresOnBoards(Set<String> boards) {
         Set<String> boardsRepresentation = boards.parallelStream()

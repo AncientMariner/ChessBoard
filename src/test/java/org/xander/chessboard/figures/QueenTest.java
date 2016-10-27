@@ -12,7 +12,6 @@ public class QueenTest {
     @Test
     public void getName() {
         FiguresChain figuresChain = new Queen(new HashMap<>());
-        assertThat("object is null", figuresChain != null, is(true));
         assertThat("object is null", figuresChain.placementBehavior instanceof QueensPlacement, is(true));
         assertThat("object name is different", figuresChain.getName().equals(Figure.QUEEN.name()) , is(true));
     }
