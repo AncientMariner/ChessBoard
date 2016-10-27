@@ -91,11 +91,11 @@ public class FigureChainTest {
                 "......\n");
         Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("kxkxnn\n" +
-                                                                       "xxxx..\n" +
-                                                                       "...xxx\n" +
-                                                                       "......\n" +
-                                                                       "......\n" +
-                                                                       "......\n"),
+                                                                                      "xxxx..\n" +
+                                                                                      "...xxx\n" +
+                                                                                      "......\n" +
+                                                                                      "......\n" +
+                                                                                      "......\n"),
                 is(true));
         for (String board : boards) {
             assertTrue("all elements are not present on each board", board.contains("k") && board.contains("n"));

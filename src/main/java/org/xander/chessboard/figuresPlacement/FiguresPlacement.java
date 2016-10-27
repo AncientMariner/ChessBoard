@@ -13,25 +13,17 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     protected final BoardUtils boardUtils = new BoardUtils();
 
-    public Set<String> placeNumberOfFiguresOnBoard(int numberOfFigures, Set<String> boards) {
-        for (String board : boards) {
-            if (board.contains(".")) {
-                while (numberOfFigures > 0) {
-                    Set<String> boardsRepresentation;
-                    //todo think about separate execution
-                    boardsRepresentation = boards.parallelStream()
-                                .map(this::placeOneFigureOnBoard)
-                                .flatMap(Set::stream)
-                                .map(this::calculateAttackPlaces)
-                                .collect(Collectors.toSet());
-                    if (boardsRepresentation.size() > 0) {
-                        boards.clear();
-                        boards.addAll(boardsRepresentation);
-                    }
-                    numberOfFigures--;
-                }
-            }
-            return boards;
+    public Set<String> placeFigureOnBoard(Set<String> boards) {
+        Set<String> boardsRepresentation = boards.parallelStream().filter(e -> e.contains("."))
+                    .map(this::placeOneFigureOnBoard)
+                    .flatMap(Set::stream)
+                    .map(this::calculateAttackPlaces)
+                    .collect(Collectors.toSet());
+
+
+        if (boardsRepresentation.size() > 0) {
+            boards.clear();
+            boards.addAll(boardsRepresentation);
         }
         return boards;
     }
