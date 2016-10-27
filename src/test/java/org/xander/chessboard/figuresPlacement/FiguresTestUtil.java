@@ -8,6 +8,8 @@ public class FiguresTestUtil {
             "......\n" +
             "......\n";
 
+    public static final int DIMENSION_6 = 6;
+
     public static String leftOnlyFigures(String board) {
         return board.replaceAll("x", "").replaceAll("\n", "").replaceAll("\\.", "");
     }
