@@ -57,24 +57,24 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     public Set<String> placeFigureOnBoard(char figure, String board) {
         return Stream.iterate(0, index -> index + 1)
                 .limit(board.length())
-                .map(index -> place(index, figure, board))
+                .map(index -> placeFigureAtPosition(index, figure, board))
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
 
-    private Set<String> place(int index, char figure, String board) {
+    private Set<String> placeFigureAtPosition(int index, char figure, String board) {
         int numberOfEmptyPlaces = (int) IntStream
                 .range(0, board.length())
                 .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
                 .boxed()
                 .count();
         Set<String> setOfPossibleBoards = new HashSet<>(numberOfEmptyPlaces);
-
-        StringBuilder chessboardWithFigures;
         char[] boardArray = board.toCharArray();
+
         if (boardArray[index] == EMPTY_FIELD_CHAR) {
             boardArray[index] = figure;
-            chessboardWithFigures = new StringBuilder();
+            StringBuilder chessboardWithFigures  = new StringBuilder();
+
             for (char element : boardArray) {
                 chessboardWithFigures.append(element);
             }
