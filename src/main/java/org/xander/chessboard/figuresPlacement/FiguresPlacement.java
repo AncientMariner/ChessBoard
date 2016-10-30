@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
@@ -54,71 +55,31 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
     public Set<String> placeFigureOnBoard(char figure, String board) {
+        return Stream.iterate(0, index -> index + 1)
+                .limit(board.length())
+                .map(index -> place(index, figure, board))
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+    }
+
+    private Set<String> place(int index, char figure, String board) {
         int numberOfEmptyPlaces = (int) IntStream
                 .range(0, board.length())
                 .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
-                .boxed().count();
-
+                .boxed()
+                .count();
         Set<String> setOfPossibleBoards = new HashSet<>(numberOfEmptyPlaces);
+
         StringBuilder chessboardWithFigures;
-
-        for (int i = 0; i < board.length(); i++) {
-            char[] boardArray = board.toCharArray();
-
-            if (boardArray[i] == EMPTY_FIELD_CHAR) {
-                boardArray[i] = figure;
-                chessboardWithFigures = new StringBuilder();
-                for (char element : boardArray) {
-                    chessboardWithFigures.append(element);
-                }
-                setOfPossibleBoards.add(chessboardWithFigures.toString());
+        char[] boardArray = board.toCharArray();
+        if (boardArray[index] == EMPTY_FIELD_CHAR) {
+            boardArray[index] = figure;
+            chessboardWithFigures = new StringBuilder();
+            for (char element : boardArray) {
+                chessboardWithFigures.append(element);
             }
+            setOfPossibleBoards.add(chessboardWithFigures.toString());
         }
         return setOfPossibleBoards;
     }
-
-
-//
-//    public Set<String> placeFigureOnBoard(char figure, String board) {
-//        int numberOfEmptyPlaces = (int) IntStream
-//                .range(0, board.length())
-//                .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
-//                .boxed().count();
-//
-//        Set<String> setOfPossibleBoards = new HashSet<>(numberOfEmptyPlaces);
-//        createBoardForEachPossiblePlacement(figure, board, setOfPossibleBoards, numberOfEmptyPlaces);
-//
-//        return setOfPossibleBoards;
-//    }
-//
-//    private void createBoardForEachPossiblePlacement(char figure, String board, Set<String> boards, int index) {
-////        StringBuilder chessboardWithFigures;
-//
-//        Stream.iterate(0, e -> e + 1).limit(index).forEach(e -> calculate(figure, boards, e, board));
-//
-////        calculate(figure, boards, index, boardArray);
-//    }
-//
-//    private void calculate(char figure, Set<String> boards, int index, String board) {
-//        char[] boardArray = board.toCharArray();
-//
-//        StringBuilder chessboardWithFigures;
-//        if (boardArray[index] != NEXT_LINE_FIELD_CHAR && boardArray[index] == EMPTY_FIELD_CHAR) {
-//            boardArray[index] = figure;
-//            chessboardWithFigures = new StringBuilder();
-//            for (char element : boardArray) {
-//                chessboardWithFigures.append(element);
-//            }
-//            boards.add(chessboardWithFigures.toString());
-//        }
-//    }
-
-
-
-
-
-
-
-
-
 }
