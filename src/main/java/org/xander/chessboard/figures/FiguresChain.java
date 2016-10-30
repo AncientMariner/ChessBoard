@@ -2,10 +2,10 @@ package org.xander.chessboard.figures;
 
 import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public abstract class FiguresChain {
     final Map<String, Integer> figureQuantityMap;
@@ -30,15 +30,17 @@ public abstract class FiguresChain {
 
     Set<String> placePartOfChain(Set<String> boards) {
         Integer numberOfFigures = figureQuantityMap.get(getName());
-        Set<String> boardsToReturn = boards.stream().collect(Collectors.toSet());
+        Set<String> boardsToReturn = new HashSet<>();
         if (Objects.nonNull(numberOfFigures) && figureQuantityMap.containsKey(getName())) {
             while (numberOfFigures > 0) {
-                boardsToReturn.clear();
                 boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
+                boards.clear();
+                boards.addAll(boardsToReturn);
+                boardsToReturn.clear();
                 numberOfFigures--;
             }
         }
-        return boardsToReturn;
+        return boards;
     }
 
     abstract String getName();

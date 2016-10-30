@@ -33,12 +33,12 @@ public class KnightsPlacement extends FiguresPlacement {
         if (position - dimension * 2 + 1 >= 0) {
             if (position % dimension + 1 < dimension)
                 if (boardElements[position - dimension * 2 + 1] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension * 2 + 1] = FIELD_UNDER_ATTACK;
+                    boardElements[position - dimension * 2 + 1] = FIELD_UNDER_ATTACK_CHAR;
         }
             if (position - dimension * 2 - 1 >= 0) {
                 if (position % dimension - 1 >= 0)
                 if (boardElements[position - dimension * 2 - 1] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension * 2 - 1] = FIELD_UNDER_ATTACK;
+                    boardElements[position - dimension * 2 - 1] = FIELD_UNDER_ATTACK_CHAR;
             }
     }
 
@@ -46,10 +46,10 @@ public class KnightsPlacement extends FiguresPlacement {
         if (position % dimension - 2 >= 0) {
             if (position + dimension < boardElements.length)
                 if (boardElements[position + dimension - 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position + dimension - 2] = FIELD_UNDER_ATTACK;
+                    boardElements[position + dimension - 2] = FIELD_UNDER_ATTACK_CHAR;
             if (position - dimension >= 0)
                 if (boardElements[position - dimension - 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension - 2] = FIELD_UNDER_ATTACK;
+                    boardElements[position - dimension - 2] = FIELD_UNDER_ATTACK_CHAR;
         }
     }
 
@@ -57,12 +57,12 @@ public class KnightsPlacement extends FiguresPlacement {
         if (position + dimension * 2 + 1 < boardElements.length) {
             if (position % dimension + 1 < dimension)
                 if (boardElements[position + dimension * 2 + 1] == EMPTY_FIELD_CHAR)
-                    boardElements[position + dimension * 2 + 1] = FIELD_UNDER_ATTACK;
+                    boardElements[position + dimension * 2 + 1] = FIELD_UNDER_ATTACK_CHAR;
         }
         if (position + dimension * 2 - 1 < boardElements.length){
             if (position % dimension - 1 >= 0) {
                 if (boardElements[position + dimension * 2 - 1] == EMPTY_FIELD_CHAR) {
-                    boardElements[position + dimension * 2 - 1] = FIELD_UNDER_ATTACK;
+                    boardElements[position + dimension * 2 - 1] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
         }
@@ -72,10 +72,10 @@ public class KnightsPlacement extends FiguresPlacement {
         if (position % dimension + 2 < dimension) {
             if (position + dimension < boardElements.length)
                 if (boardElements[position + dimension + 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position + dimension + 2] = FIELD_UNDER_ATTACK;
+                    boardElements[position + dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
             if (position - dimension >= 0)
                 if (boardElements[position - dimension + 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension + 2] = FIELD_UNDER_ATTACK;
+                    boardElements[position - dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
         }
     }
 }
