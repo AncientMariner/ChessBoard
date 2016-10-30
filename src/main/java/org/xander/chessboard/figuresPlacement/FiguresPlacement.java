@@ -15,54 +15,43 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     static final char EMPTY_FIELD_CHAR = '.';
     private static final String EMPTY_FIELD_STRING = ".";
     static final char FIELD_UNDER_ATTACK_CHAR = 'x';
-    static final String FIELD_UNDER_ATTACK_STRING = "x";
+    private static final String FIELD_UNDER_ATTACK_STRING = "x";
     static final char NEXT_LINE_FIELD_CHAR = '\n';
 
     final BoardUtils boardUtils = new BoardUtils();
 
     public Set<String> placeFiguresOnBoards(Set<String> boards) {
-        Set<String> collect = new HashSet<>();
-        Set<String> boardsWithNewFigure;
-        Set<String> boardsWithNewFigureAndAttack;
+        Set<String> initialBoardsWithoutAttackPlaces = boards.parallelStream()
+                .filter(board -> board.contains(KING.getFigureAsString())
+                              || board.contains(QUEEN.getFigureAsString())
+                              || board.contains(BISHOP.getFigureAsString())
+                              || board.contains(ROOK.getFigureAsString())
+                              || board.contains(KNIGHT.getFigureAsString()))
+                .filter(e -> !e.contains(FIELD_UNDER_ATTACK_STRING))
+                .filter(e -> e.contains(EMPTY_FIELD_STRING))
+                .map(this::calculateAttackPlaces)
+                .collect(Collectors.toSet());
 
-        if (boards.parallelStream()
-                .anyMatch(board -> board.contains(KING.getFigureAsString())
-                                || board.contains(QUEEN.getFigureAsString())
-                                || board.contains(BISHOP.getFigureAsString())
-                                || board.contains(ROOK.getFigureAsString())
-                                || board.contains(KNIGHT.getFigureAsString()))) {
-            collect = boards.parallelStream()
-                    .filter(e -> !e.contains(FIELD_UNDER_ATTACK_STRING))
-                    .filter(e -> e.contains(EMPTY_FIELD_STRING))
-                    .map(this::calculateAttackPlaces)
-                    .collect(Collectors.toSet());
+        if (initialBoardsWithoutAttackPlaces.isEmpty()) {
+            initialBoardsWithoutAttackPlaces.addAll(boards);
         }
 
-        if (collect.isEmpty()) {
-            collect.addAll(boards);
-        }
-
-        boardsWithNewFigure = collect.parallelStream()
+        Set<String> boardsWithNewFigure = initialBoardsWithoutAttackPlaces.parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
 
-        boardsWithNewFigureAndAttack = boardsWithNewFigure.parallelStream()
+        Set<String> boardsWithNewFigureAndAttackPlaces = boardsWithNewFigure.parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
                 .collect(Collectors.toSet());
 
-        if (boardsWithNewFigureAndAttack.isEmpty()) {
-            boardsWithNewFigureAndAttack.addAll(collect);
+        if (boardsWithNewFigureAndAttackPlaces.isEmpty()) {
+            boardsWithNewFigureAndAttackPlaces.addAll(initialBoardsWithoutAttackPlaces);
         }
-
-        if (boardsWithNewFigureAndAttack.size() > 0) {
-            return boardsWithNewFigureAndAttack;
-        }
-        return collect;
+        return boardsWithNewFigureAndAttackPlaces;
     }
-
 
     public Set<String> placeFigureOnBoard(char figure, String board) {
         int numberOfEmptyPlaces = (int) IntStream
