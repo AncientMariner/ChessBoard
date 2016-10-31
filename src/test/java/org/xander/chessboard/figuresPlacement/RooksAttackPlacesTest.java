@@ -23,11 +23,11 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfBishopAttackTopLeftCorner() {
         String expectedBoard = "rxxxxx\n" +
-                "x.....\n" +
-                "x.....\n" +
-                "x.....\n" +
-                "x.....\n" +
-                "x.....\n";
+                               "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n" +
+                               "x.....\n";
         String actual = calculateAttackOfTheFigureOnBoard(FIGURE);
         assertEquals(expectedBoard, actual);
     }
@@ -95,11 +95,11 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfTheBishopAttackBorder() {
         String expectedBoardWithBishops = "rrrrrr\n" +
-                "rxxxxr\n" +
-                "rxxxxr\n" +
-                "rxxxxr\n" +
-                "rxxxxr\n" +
-                "rrrrrr\n";
+                                          "rxxxxr\n" +
+                                          "rxxxxr\n" +
+                                          "rxxxxr\n" +
+                                          "rxxxxr\n" +
+                                          "rrrrrr\n";
         String actual = calculateAttackOfTheFigureOnBoardAllBorders(FIGURE);
         assertEquals(expectedBoardWithBishops, actual);
     }
@@ -126,17 +126,17 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfOneRookAttack() {
         String board = "......\n" +
-                "......\n" +
-                "...r..\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
+                       "......\n" +
+                       "...r..\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n";
         String expectedBoardWithTwoRooks = "...x..\n" +
-                "...x..\n" +
-                "xxxrxx\n" +
-                "...x..\n" +
-                "...x..\n" +
-                "...x..\n";
+                                           "...x..\n" +
+                                           "xxxrxx\n" +
+                                           "...x..\n" +
+                                           "...x..\n" +
+                                           "...x..\n";
 
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);

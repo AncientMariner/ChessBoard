@@ -22,11 +22,11 @@ public class KnightsAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfBishopAttackTopLeftCorner() {
         String expectedBoard = "n.....\n" +
-                "..x...\n" +
-                ".x....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
+                               "..x...\n" +
+                               ".x....\n" +
+                               "......\n" +
+                               "......\n" +
+                               "......\n";
         String actual = calculateAttackOfTheFigureOnBoard(FIGURE);
         assertEquals(expectedBoard, actual);
     }
@@ -71,83 +71,83 @@ public class KnightsAttackPlacesTest extends FiguresAttackPlacesTest {
     public void areaOfTheKnightAttackCorners() {
         String actualBoard = calculateAttackOfTheFigureOnBoardAllCorners(FIGURE);
         assertEquals("n....n\n" +
-                     "..xx..\n" +
-                     ".x..x.\n" +
-                     ".x..x.\n" +
-                     "..xx..\n" +
-                     "n....n\n", actualBoard);
+                               "..xx..\n" +
+                               ".x..x.\n" +
+                               ".x..x.\n" +
+                               "..xx..\n" +
+                               "n....n\n", actualBoard);
     }
 
     @Test
     public void areaOfTheKnightAttackMix() {
         String actualBoard = calculateAttackOfTheFigureOnBoardMix(FIGURE);
         assertEquals("...n..\n" +
-                ".x..xx\n" +
-                "..xxx.\n" +
-                ".x.x.n\n" +
-                "x..xx.\n" +
-                "..n.x.\n", actualBoard);
+                               ".x..xx\n" +
+                               "..xxx.\n" +
+                               ".x.x.n\n" +
+                               "x..xx.\n" +
+                               "..n.x.\n", actualBoard);
     }
 
     @Test
     public void areaOfTheKnightAttackAllBorders() {
         String actualBoard = calculateAttackOfTheFigureOnBoardAllBorders(FIGURE);
         assertEquals("nnnnnn\n" +
-                     "nxxxxn\n" +
-                     "nxxxxn\n" +
-                     "nxxxxn\n" +
-                     "nxxxxn\n" +
-                     "nnnnnn\n", actualBoard);
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nnnnnn\n", actualBoard);
     }
 
     @Test
     public void areaOfTheKnightAttackOnVerticalBorder() {
         String board = "n....n\n" +
-                "n....n\n" +
-                "n....n\n" +
-                "n....n\n" +
-                "n....n\n" +
-                "n....n\n";
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n" +
+                       "n....n\n";
         String actualBoard = figuresPlacement.calculateAttackPlaces(board);
         assertEquals("nxxxxn\n" +
-                "nxxxxn\n" +
-                "nxxxxn\n" +
-                "nxxxxn\n" +
-                "nxxxxn\n" +
-                "nxxxxn\n", actualBoard);
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n" +
+                               "nxxxxn\n", actualBoard);
     }
 
     @Test
     public void areaOfTheKnightAttackOnHorizontalBorder() {
         String board = "nnnnnn\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "nnnnnn\n";
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "nnnnnn\n";
         String actualBoard = figuresPlacement.calculateAttackPlaces(board);
         assertEquals("nnnnnn\n" +
-                "xxxxxx\n" +
-                "xxxxxx\n" +
-                "xxxxxx\n" +
-                "xxxxxx\n" +
-                "nnnnnn\n", actualBoard);
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "xxxxxx\n" +
+                               "nnnnnn\n", actualBoard);
     }
 
     @Test
     public void areaOfTheKnightAttackOnBorderAndMiddle() {
         String board = "n....n\n" +
-                "......\n" +
-                "..nn..\n" +
-                "..nn..\n" +
-                "......\n" +
-                "n....n\n";
+                       "......\n" +
+                       "..nn..\n" +
+                       "..nn..\n" +
+                       "......\n" +
+                       "n....n\n";
         String actualBoard = figuresPlacement.calculateAttackPlaces(board);
         assertEquals("nxxxxn\n" +
-                "xxxxxx\n" +
-                "xxnnxx\n" +
-                "xxnnxx\n" +
-                "xxxxxx\n" +
-                "nxxxxn\n", actualBoard);
+                               "xxxxxx\n" +
+                               "xxnnxx\n" +
+                               "xxnnxx\n" +
+                               "xxxxxx\n" +
+                               "nxxxxn\n", actualBoard);
     }
 }

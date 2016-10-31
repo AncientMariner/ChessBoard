@@ -92,11 +92,11 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n" +
+                       "......\n");
         Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("kxkxnn\n" +
                                                                                       "xxxx..\n" +
@@ -130,12 +130,11 @@ public class FigureChainTest {
         objects.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
-                        "xxxxxx\n" +
-                        "xxxxx.\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n"),
-                is(true));
+                                                                                      "xxxxxx\n" +
+                                                                                      "xxxxx.\n" +
+                                                                                      "......\n" +
+                                                                                      "......\n" +
+                                                                                      "......\n"), is(true));
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> board.contains("n")
                         && !board.contains("k")

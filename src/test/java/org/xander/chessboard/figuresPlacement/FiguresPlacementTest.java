@@ -21,11 +21,11 @@ public class FiguresPlacementTest {
 
         HashSet<String> boards = new HashSet<>();
         boards.add("nnnnnn\n" +
-                "nnnnnn\n" +
-                "nnnnnn\n" +
-                "nnnnnn\n" +
-                "nnnnnn\n" +
-                "nnnnnn\n");
+                      "nnnnnn\n" +
+                      "nnnnnn\n" +
+                      "nnnnnn\n" +
+                      "nnnnnn\n" +
+                      "nnnnnn\n");
 
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 3);
@@ -50,11 +50,11 @@ public class FiguresPlacementTest {
         FiguresPlacement figuresPlacement = new BishopsPlacement();
         Set<String> boards = figuresPlacement.placeFigureOnBoard(BISHOP.getFigure(), EMPTY_BOARD_SIZE_6);
         assertThat("board is different", boards.contains("b.....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n"), is(true));
+                                                                "......\n" +
+                                                                "......\n" +
+                                                                "......\n" +
+                                                                "......\n" +
+                                                                "......\n"), is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains("k")
@@ -75,11 +75,11 @@ public class FiguresPlacementTest {
 
         assertThat("boards are not full", boards.size() == 36, is(true));
         assertThat("board is different", boards.contains("......\n" +
-                "......\n" +
-                "......\n" +
-                "...b..\n" +
-                "......\n" +
-                "......\n"), is(true));
+                                                                "......\n" +
+                                                                "......\n" +
+                                                                "...b..\n" +
+                                                                "......\n" +
+                                                                "......\n"), is(true));
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains("k")
                                 && !board.contains("q")

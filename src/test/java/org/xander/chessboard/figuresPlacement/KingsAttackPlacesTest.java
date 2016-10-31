@@ -40,11 +40,11 @@ public class KingsAttackPlacesTest extends FiguresAttackPlacesTest {
                        "......\n" +
                        "k.....\n";
         String expectedBoard = ".xxx..\n" +
-                                            ".xkx..\n" +
-                                            ".xxx..\n" +
-                                            "......\n" +
-                                            "xx....\n" +
-                                            "kx....\n";
+                               ".xkx..\n" +
+                               ".xxx..\n" +
+                               "......\n" +
+                               "xx....\n" +
+                               "kx....\n";
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoard, actual);
     }
@@ -52,11 +52,11 @@ public class KingsAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfTheKingAttackBottomLeftCornerSingle() {
         String expectedBoard = "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "xx....\n" +
-                "kx....\n";
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "xx....\n" +
+                               "kx....\n";
         String actual = calculateAttackOfTheFigureOnBoardBottomLeft(FIGURE);
         assertEquals(expectedBoard, actual);
     }
@@ -82,11 +82,11 @@ public class KingsAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfTheKingAttackTopRightCornerSingle() {
         String expected = "....xk\n" +
-                        "....xx\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n" +
-                        "......\n";
+                          "....xx\n" +
+                          "......\n" +
+                          "......\n" +
+                          "......\n" +
+                          "......\n";
         String actual = calculateAttackOfTheFigureOnBoardTopRight(FIGURE);
         assertEquals(expected, actual);
     }
@@ -118,11 +118,11 @@ public class KingsAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfTheKingAttackMix() {
         String expectedBoardWithTwoQueens = "..xkx.\n" +
-                "..xxx.\n" +
-                "....xx\n" +
-                "....xk\n" +
-                ".xxxxx\n" +
-                ".xkx..\n";
+                                            "..xxx.\n" +
+                                            "....xx\n" +
+                                            "....xk\n" +
+                                            ".xxxxx\n" +
+                                            ".xkx..\n";
         String actual = calculateAttackOfTheFigureOnBoardMix(FIGURE);
         assertEquals(expectedBoardWithTwoQueens, actual);
     }
@@ -130,11 +130,11 @@ public class KingsAttackPlacesTest extends FiguresAttackPlacesTest {
     @Test
     public void areaOfTheKingAttackBorder() {
         String expectedBoardWithKings = "kkkkkk\n" +
-                "kxxxxk\n" +
-                "kx..xk\n" +
-                "kx..xk\n" +
-                "kxxxxk\n" +
-                "kkkkkk\n";
+                                        "kxxxxk\n" +
+                                        "kx..xk\n" +
+                                        "kx..xk\n" +
+                                        "kxxxxk\n" +
+                                        "kkkkkk\n";
         String actual = calculateAttackOfTheFigureOnBoardAllBorders(FIGURE);
         assertEquals(expectedBoardWithKings, actual);
     }

@@ -105,13 +105,13 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
         assertThat("more than 1 figure is present",
                 boards.contains("kxkxqxxx\n" +
-                   "xxxxxxqx\n" +
-                   "qxxxxxxx\n" +
-                   "xxbbxbxx\n" +
-                   "xxxxxbxr\n" +
-                   "xxxxxxxx\n" +
-                   "xxxxxxxx\n" +
-                   "xxxrxxxx\n"), is(true));
+                                "xxxxxxqx\n" +
+                                "qxxxxxxx\n" +
+                                "xxbbxbxx\n" +
+                                "xxxxxbxr\n" +
+                                "xxxxxxxx\n" +
+                                "xxxxxxxx\n" +
+                                "xxxrxxxx\n"), is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> board.contains("k")
@@ -245,8 +245,6 @@ public class ChessboardTest {
 
         assertThat("there is no boards", boards.size() > 0, is(true));
 
-        System.out.println(boards.size());
-
         assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains("k")
                         && !board.contains("q")
@@ -267,11 +265,11 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard("bbbbbb\n" +
-                "b....b\n" +
-                "b....b\n" +
-                "b....b\n" +
-                "b....b\n" +
-                "bbbbbb\n");
+                                                                       "b....b\n" +
+                                                                       "b....b\n" +
+                                                                       "b....b\n" +
+                                                                       "b....b\n" +
+                                                                       "bbbbbb\n");
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
@@ -294,11 +292,11 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard("......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n");
+                                                                       "......\n" +
+                                                                       "......\n" +
+                                                                       "......\n" +
+                                                                       "......\n" +
+                                                                       "......\n");
         assertThat("there is no boards", boards.size() > 0, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
@@ -321,11 +319,11 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard("bbbbbb\n" +
-                "bbbbbb\n" +
-                "bbbbbb\n" +
-                "bbbbbb\n" +
-                "bbbbbb\n" +
-                "bbbbbb\n");
+                                                                       "bbbbbb\n" +
+                                                                       "bbbbbb\n" +
+                                                                       "bbbbbb\n" +
+                                                                       "bbbbbb\n" +
+                                                                       "bbbbbb\n");
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()

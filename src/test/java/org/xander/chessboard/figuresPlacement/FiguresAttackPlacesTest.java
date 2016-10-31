@@ -12,68 +12,68 @@ public class FiguresAttackPlacesTest {
 
     void placeFigure(Figure figure) {
         String expectedBoard = figure.getFigureAsString() + ".....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
-        String expectedBoardWithTwoBishops = figure.getFigureAsString() +figure.getFigureAsString() +"....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n";
+        String expectedBoardWithTwoBishops = figure.getFigureAsString() +figure.getFigureAsString() + "....\n" +
+                                                                                                    "......\n" +
+                                                                                                    "......\n" +
+                                                                                                    "......\n" +
+                                                                                                    "......\n" +
+                                                                                                    "......\n";
         Set<String> boards = figuresPlacement.placeCertainFigureOnBoard(expectedBoard);
         assertTrue(boards.contains(expectedBoardWithTwoBishops));
     }
 
     String calculateAttackOfTheFigureOnBoard(Figure figure) {
         String expectedBoard = figure.getFigureAsString() + ".....\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n" +
+                                                            "......\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
     String calculateAttackOfTheFigureOnBoardBottomLeft(Figure figure) {
         String expectedBoard = "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                figure.getFigureAsString() + ".....\n";
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+         figure.getFigureAsString() + ".....\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
     String calculateAttackOfTheFigureOnBoardTopRight(Figure figure) {
         String expectedBoard = "....." + figure.getFigureAsString() + "\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n";
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "......\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
     String calculateAttackOfTheFigureOnBoardBottomRight(Figure figure) {
         String expectedBoard = "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "....." + figure.getFigureAsString() + "\n";
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "......\n" +
+                               "....." + figure.getFigureAsString() + "\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
     String calculateAttackOfTheFigureOnBoardAllCorners(Figure figure) {
         String expectedBoard = figure.getFigureAsString() + "...." + figure.getFigureAsString() + "\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                "......\n" +
-                figure.getFigureAsString() + "...." + figure.getFigureAsString() + "\n";
+                                                                                            "......\n" +
+                                                                                            "......\n" +
+                                                                                            "......\n" +
+                                                                                            "......\n" +
+                               figure.getFigureAsString() + "...." + figure.getFigureAsString() + "\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
@@ -89,11 +89,11 @@ public class FiguresAttackPlacesTest {
 
     String calculateAttackOfTheFigureOnBoardMix(Figure figure) {
         String expectedBoard = "..." + figure.getFigureAsString() + ".." + "\n" +
-                "......\n" +
-                "......\n" +
-                "....." + figure.getFigureAsString() + "\n" +
-                "......\n" +
-                ".." + figure.getFigureAsString() + "...\n";
+                               "......\n" +
+                               "......\n" +
+                               "....." + figure.getFigureAsString() + "\n" +
+                               "......\n" +
+                               ".." + figure.getFigureAsString() + "...\n";
         return figuresPlacement.calculateAttackPlaces(expectedBoard);
     }
 
@@ -101,22 +101,22 @@ public class FiguresAttackPlacesTest {
     @Test(expected = IllegalStateException.class)
     public void calculateAreaNegativeSmallBoard() {
         String board = "..\n" +
-                ".....\n" +
-                "....\n" +
-                "...\n" +
-                "....\n" +
-                "..\n";
+                       ".....\n" +
+                       "....\n" +
+                       "...\n" +
+                       "....\n" +
+                       "..\n";
         new BishopsPlacement().calculateAttackPlaces(board);
     }
 
     @Test(expected = IllegalStateException.class)
     public void calculateAreaNegativeBigBoard() {
         String board = ".......\n" +
-                ".......\n" +
-                ".......\n" +
-                ".......\n" +
-                ".......\n" +
-                ".......\n";
+                       ".......\n" +
+                       ".......\n" +
+                       ".......\n" +
+                       ".......\n" +
+                       ".......\n";
         new KingsPlacement().calculateAttackPlaces(board);
     }
 }

@@ -46,11 +46,11 @@ public class QueensPlacementTest extends FiguresAttackPlacesTest {
     @Test
     public void calculateAreaOfTheQueenAttackTopRightCorner() {
         String expectedBoardWithTwoQueens = "xxxxxq\n" +
-                "....xx\n" +
-                "...x.x\n" +
-                "..x..x\n" +
-                ".x...x\n" +
-                "x....x\n";
+                                            "....xx\n" +
+                                            "...x.x\n" +
+                                            "..x..x\n" +
+                                            ".x...x\n" +
+                                            "x....x\n";
         String actual = calculateAttackOfTheFigureOnBoardTopRight(FIGURE);
         assertEquals(expectedBoardWithTwoQueens, actual);
     }
