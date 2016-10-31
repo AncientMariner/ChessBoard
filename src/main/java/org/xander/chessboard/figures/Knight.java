@@ -13,6 +13,7 @@ public class Knight extends FiguresChain {
 
     @Override
     public Set<String> placeFigures(Set<String> boards) {
+        //knight is finishing figure to avoid cycling in figures
         return placePartOfChain(boards);
     }
 

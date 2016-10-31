@@ -26,7 +26,7 @@ public class KingsPlacement extends FiguresPlacement {
                 placeDiagonallyBelow(boardElements, i, dimension);
             }
         }
-        return boardUtils.transformArrayToStringBuilder(boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
     }
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {

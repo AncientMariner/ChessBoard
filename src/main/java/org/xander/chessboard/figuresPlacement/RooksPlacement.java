@@ -24,6 +24,6 @@ public class RooksPlacement extends PerpendicularFiguresPlacement {
                 placeVertically(boardElements, i, dimension);
             }
         }
-        return boardUtils.transformArrayToStringBuilder(boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
     }
 }

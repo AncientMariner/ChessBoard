@@ -27,6 +27,6 @@ public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
                 placeDiagonallyBelow(boardElements, i, dimension);
             }
         }
-        return boardUtils.transformArrayToStringBuilder(boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
     }
 }

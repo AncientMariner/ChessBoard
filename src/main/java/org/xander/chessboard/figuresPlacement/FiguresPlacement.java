@@ -19,8 +19,6 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     private static final String FIELD_UNDER_ATTACK_STRING = "x";
     static final char NEXT_LINE_FIELD_CHAR = '\n';
 
-    final BoardUtils boardUtils = new BoardUtils();
-
     public Set<String> placeFiguresOnBoards(Set<String> boards) {
         Set<String> initialBoardsWithoutAttackPlaces = boards.parallelStream()
                 .filter(board -> board.contains(KING.getFigureAsString())
@@ -37,13 +35,15 @@ public abstract class FiguresPlacement implements PlacementBehavior {
             initialBoardsWithoutAttackPlaces.addAll(boards);
         }
 
-        Set<String> boardsWithNewFigure = initialBoardsWithoutAttackPlaces.parallelStream()
+        Set<String> boardsWithNewFigure = initialBoardsWithoutAttackPlaces
+                .parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
 
-        Set<String> boardsWithNewFigureAndAttackPlaces = boardsWithNewFigure.parallelStream()
+        Set<String> boardsWithNewFigureAndAttackPlaces = boardsWithNewFigure
+                .parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
                 .collect(Collectors.toSet());
@@ -57,28 +57,22 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     public Set<String> placeFigureOnBoard(char figure, String board) {
         return Stream.iterate(0, index -> index + 1)
                 .limit(board.length())
-                .map(index -> placeFigureAtPosition(index, figure, board))
+                .map(index -> placeFigureAtPosition(figure, index, board))
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
 
-    private Set<String> placeFigureAtPosition(int index, char figure, String board) {
-        int numberOfEmptyPlaces = (int) IntStream
-                .range(0, board.length())
-                .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
-                .boxed()
-                .count();
-        Set<String> setOfPossibleBoards = new HashSet<>(numberOfEmptyPlaces);
+    private Set<String> placeFigureAtPosition(char figure, int position, String board) {
+        Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
+                                                        .range(0, board.length())
+                                                        .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
+                                                        .boxed()
+                                                        .count());
         char[] boardArray = board.toCharArray();
 
-        if (boardArray[index] == EMPTY_FIELD_CHAR) {
-            boardArray[index] = figure;
-            StringBuilder chessboardWithFigures  = new StringBuilder();
-
-            for (char element : boardArray) {
-                chessboardWithFigures.append(element);
-            }
-            setOfPossibleBoards.add(chessboardWithFigures.toString());
+        if (boardArray[position] == EMPTY_FIELD_CHAR) {
+            boardArray[position] = figure;
+            setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
         }
         return setOfPossibleBoards;
     }

@@ -1,7 +1,7 @@
 package org.xander.chessboard.figuresPlacement;
 
 public class BoardUtils {
-    String transformArrayToStringBuilder(char[] boardElements) {
+    static String transformArrayToString(char[] boardElements) {
         StringBuilder chessBoardWithFigures = new StringBuilder();
 
         for (char element : boardElements) {

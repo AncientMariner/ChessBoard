@@ -24,6 +24,6 @@ public class BishopsPlacement extends DiagonalFiguresPlacement {
                 placeDiagonallyBelow(boardElements, i, dimension);
             }
         }
-        return boardUtils.transformArrayToStringBuilder(boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
     }
 }
