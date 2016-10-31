@@ -153,7 +153,6 @@ public class ChessboardTest {
                                 && leftOnlyFigures(board).length() == 7
 //                        && boards.size() == 26133
                 ));
-
     }
 
     @Test(expected = IllegalStateException.class)
