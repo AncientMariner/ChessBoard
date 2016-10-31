@@ -67,7 +67,7 @@ public class FigureChainTest {
                                                                                       ".....x\n"),
                 is(true));
 
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> !board.contains("k")
                         && !board.contains("q")
                         && !board.contains("r")
@@ -106,7 +106,7 @@ public class FigureChainTest {
                                                                                       "......\n"),
                 is(true));
 
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains("k")
                         && board.contains("n")
                         && !board.contains("q")
@@ -135,7 +135,7 @@ public class FigureChainTest {
                                                                                       "......\n" +
                                                                                       "......\n" +
                                                                                       "......\n"), is(true));
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains("n")
                         && !board.contains("k")
                         && !board.contains("q")
@@ -176,7 +176,7 @@ public class FigureChainTest {
         strings.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = kingChain.placeFigures(strings);
 
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains("k")
                         && board.contains("q")
                         && board.contains("b")
