@@ -34,17 +34,11 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         if (initialBoardsWithoutAttackPlaces.isEmpty()) {
             initialBoardsWithoutAttackPlaces.addAll(boards);
         }
-
-        Set<String> boardsWithNewFigure = initialBoardsWithoutAttackPlaces
+        Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithoutAttackPlaces
                 .parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
-                .collect(Collectors.toSet());
-
-        Set<String> boardsWithNewFigureAndAttackPlaces = boardsWithNewFigure
-                .parallelStream()
-                .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
                 .collect(Collectors.toSet());
 
