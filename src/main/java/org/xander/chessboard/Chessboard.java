@@ -10,6 +10,7 @@ import org.xander.chessboard.figures.Rook;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
@@ -17,10 +18,11 @@ import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
 import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.EMPTY_FIELD_STRING;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.NEXT_LINE_FIELD_STRING;
 
 public class Chessboard {
     private int dimension;
-    private int boardSize;
     private Map<String, Integer> figureQuantityMap;
     private FiguresChain figureChain;
 
@@ -40,22 +42,13 @@ public class Chessboard {
     }
 
     public String drawEmptyBoard() {
-        int xDimension = dimension;
-        int yDimension = dimension;
-        calculateBoardSizeBasedOn(xDimension, yDimension);
-
         StringBuilder chessBoard = new StringBuilder();
-        for (int y = 0; y < yDimension; y++) {
-            for (int x = 0; x < xDimension; x++) {
-                chessBoard.append(".");
-            }
-            chessBoard.append("\n");
-        }
-        return chessBoard.toString();
-    }
 
-    private void calculateBoardSizeBasedOn(int xDimension, int yDimension) {
-        boardSize = xDimension * yDimension;
+        IntStream.range(0, dimension).forEach((y) -> {
+            IntStream.range(0, dimension).forEach((x) -> chessBoard.append(EMPTY_FIELD_STRING));
+            chessBoard.append(NEXT_LINE_FIELD_STRING);
+        });
+        return chessBoard.toString();
     }
 
     public Set<String> placeFiguresOnEmptyBoard() {
@@ -63,10 +56,6 @@ public class Chessboard {
     }
 
     public Set<String> placeFiguresOnBoard(String initialBoard) {
-        if (initialBoard != null && !initialBoard.isEmpty()) {
-            int length = (int) Math.sqrt(initialBoard.length()) + 1;
-            calculateBoardSizeBasedOn(length, length);
-        }
         int numberOfKings = extractA(KING.toString());
         int numberOfQueens = extractA(QUEEN.toString());
         int numberOfBishops = extractA(BISHOP.toString());
@@ -74,7 +63,7 @@ public class Chessboard {
         int numberOfKnights = extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
-        if (sumOfAllFigures > boardSize) {
+        if (initialBoard != null && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 

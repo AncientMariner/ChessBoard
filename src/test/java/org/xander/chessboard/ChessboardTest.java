@@ -112,6 +112,19 @@ public class ChessboardTest {
                    "xxxxxxxx\n" +
                    "xxxxxxxx\n" +
                    "xxxrxxxx\n"), is(true));
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("k")
+                        && board.contains("q")
+                        && board.contains("b")
+                        && board.contains("r")
+                        && board.contains("n")
+//                        && board.contains("x")
+//                        && board.contains(".")
+                        && leftOnlyFigures(board).length() == 20
+//                        && boards.size() == 26133
+                ));
+
     }
 
     //currently out of memory error, requires optimization
@@ -128,7 +141,19 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withKnight().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
-        System.out.println();
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("k")
+                                && board.contains("q")
+                                && board.contains("b")
+                                && !board.contains("r")
+                                && board.contains("n")
+//                        && board.contains("x")
+//                        && board.contains(".")
+                                && leftOnlyFigures(board).length() == 7
+//                        && boards.size() == 26133
+                ));
+
     }
 
     @Test(expected = IllegalStateException.class)
@@ -155,7 +180,6 @@ public class ChessboardTest {
         chessboard.placeFiguresOnBoard("");
     }
 
-//    @Ignore
     @Test
     public void multipleFigures2() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -166,13 +190,20 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
 
         assertThat("there is no boards", boards.size() > 0, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
-        }
+
+        assertTrue("all elements are not present on each board", boards.parallelStream()
+                .allMatch(board -> board.contains("k")
+                                && !board.contains("q")
+                                && !board.contains("b")
+                                && board.contains("r")
+                                && !board.contains("n")
+                                && board.contains("x")
+                                && board.contains(".")
+                                && leftOnlyFigures(board).length() == 4
+                        && boards.size() == 443442
+                ));
     }
 
-   @Ignore
    @Test
     public void multipleFiguresBothCombinations() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -189,10 +220,18 @@ public class ChessboardTest {
         boards.addAll(boards2);
 
         assertThat("there is no boards", boards.size() > 0, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && !board.contains("b"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
-        }
+
+        assertTrue("all elements are not present on each board", boards.parallelStream()
+               .allMatch(board -> board.contains("k")
+                       && !board.contains("q")
+                       && !board.contains("b")
+                       && board.contains("r")
+                       && !board.contains("n")
+                       && board.contains("x")
+                       && board.contains(".")
+                       && leftOnlyFigures(board).length() == 4
+                       && boards.size() == 1872102
+               ));
     }
 
     @Test
@@ -206,10 +245,20 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
 
         assertThat("there is no boards", boards.size() > 0, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("r") && board.contains("n"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 6);
-        }
+
+        System.out.println(boards.size());
+
+        assertTrue("all elements are not present on each board", boards.parallelStream()
+                .allMatch(board -> board.contains("k")
+                        && !board.contains("q")
+                        && !board.contains("b")
+                        && board.contains("r")
+                        && board.contains("n")
+                        && board.contains("x")
+//                        && !board.contains(".")
+                        && leftOnlyFigures(board).length() == 6
+                        && boards.size() == 54552
+                ));
     }
 
     @Test
@@ -225,10 +274,18 @@ public class ChessboardTest {
                 "b....b\n" +
                 "bbbbbb\n");
         assertThat("there is no boards", boards.size() == 1, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("r") && !board.contains("k"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 20);
-        }
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                        && !board.contains("q")
+                        && board.contains("b")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && board.contains("x")
+                        && !board.contains(".")
+                        && leftOnlyFigures(board).length() == 20
+                        && boards.size() == 1
+                ));
     }
 
     @Test
@@ -244,10 +301,18 @@ public class ChessboardTest {
                 "......\n" +
                 "......\n");
         assertThat("there is no boards", boards.size() > 0, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("r") && !board.contains("k"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 2);
-        }
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                        && !board.contains("q")
+                        && board.contains("b")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && board.contains("x")
+                        && board.contains(".")
+                        && leftOnlyFigures(board).length() == 2
+                        && boards.size() == 521
+                ));
     }
 
     @Test
@@ -263,10 +328,18 @@ public class ChessboardTest {
                 "bbbbbb\n" +
                 "bbbbbb\n");
         assertThat("there is no boards", boards.size() == 1, is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("r") && !board.contains("x"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 36);
-        }
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                        && !board.contains("q")
+                        && board.contains("b")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && !board.contains("x")
+                        && !board.contains(".")
+                        && leftOnlyFigures(board).length() == 36
+                        && boards.size() == 1
+                ));
     }
 
     @Test
@@ -282,6 +355,17 @@ public class ChessboardTest {
         assertThat("more than 1 figure is present",
                 boards.contains("kx\n" + "xx\n"), is(true));
 
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("k")
+                        && !board.contains("q")
+                        && !board.contains("b")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && board.contains("x")
+                        && !board.contains(".")
+                        && leftOnlyFigures(board).length() == 1
+                        && boards.size() == 4
+                ));
     }
     //todo check for board figures legal placement before calculation
 

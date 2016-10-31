@@ -33,14 +33,16 @@ public class FiguresPlacementTest {
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
         Set<String> result = figuresChain.placeFigures(boards);
 
-
-        System.out.println();
-
         assertThat("there are no boards", result.size() > 0, is(true));
-        for (String board : result) {
-            assertTrue("all elements are not present on each board", !board.contains("k") && !board.contains("q") && board.contains("n"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 36);
-        }
+        assertTrue("all elements are not present on each board", result.stream()
+                .allMatch(board -> !board.contains("k")
+                                && !board.contains("q")
+                                && !board.contains("r")
+                                && !board.contains("b")
+                                && board.contains("n")
+                                && leftOnlyFigures(board).length() == 36
+        ));
+
     }
 
     @Test
@@ -53,6 +55,17 @@ public class FiguresPlacementTest {
                 "......\n" +
                 "......\n" +
                 "......\n"), is(true));
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                                && !board.contains("q")
+                                && !board.contains("r")
+                                && !board.contains("n")
+                                && board.contains("b")
+                                && leftOnlyFigures(board).length() == 1
+                                && boards.size() == 36
+                ));
+
     }
 
     @Test
@@ -67,5 +80,14 @@ public class FiguresPlacementTest {
                 "...b..\n" +
                 "......\n" +
                 "......\n"), is(true));
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                                && !board.contains("q")
+                                && !board.contains("r")
+                                && !board.contains("n")
+                                && board.contains("b")
+                                && leftOnlyFigures(board).length() == 1
+                                && boards.size() == 36
+                ));
     }
 }

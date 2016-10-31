@@ -11,13 +11,15 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
+import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public abstract class FiguresPlacement implements PlacementBehavior {
     static final char EMPTY_FIELD_CHAR = '.';
-    private static final String EMPTY_FIELD_STRING = ".";
+    public static final String EMPTY_FIELD_STRING = ".";
     static final char FIELD_UNDER_ATTACK_CHAR = 'x';
     private static final String FIELD_UNDER_ATTACK_STRING = "x";
     static final char NEXT_LINE_FIELD_CHAR = '\n';
+    public static final String NEXT_LINE_FIELD_STRING = "\n";
 
     public Set<String> placeFiguresOnBoards(Set<String> boards) {
         Set<String> initialBoardsWithoutAttackPlaces = boards.parallelStream()
@@ -51,12 +53,12 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     public Set<String> placeFigureOnBoard(char figure, String board) {
         return Stream.iterate(0, index -> index + 1)
                 .limit(board.length())
-                .map(index -> placeFigureAtPosition(figure, index, board))
+                .map(index -> placeFigureAtPositionOnBoard(figure, index, board))
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
 
-    private Set<String> placeFigureAtPosition(char figure, int position, String board) {
+    private Set<String> placeFigureAtPositionOnBoard(char figure, int position, String board) {
         Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
                                                         .range(0, board.length())
                                                         .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
@@ -70,4 +72,30 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         }
         return setOfPossibleBoards;
     }
+
+    @Override
+    public Set<String> placeCertainFigureOnBoard(String board) {
+        return placeFigureOnBoard(getFigure(), board);
+    }
+
+    @Override
+    public String calculateAttackPlaces(String board) {
+        //mind the '\n' character
+        int dimension = (int) Math.sqrt(board.length()) + 1;
+        checkBoard(board, dimension);
+        char[] boardElements = board.toCharArray();
+
+        calculateAttackPlaces(dimension, boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
+    }
+
+    void calculateAttackPlaces(int dimension, char[] boardElements) {
+        IntStream.range(0, boardElements.length)
+                .filter(e -> boardElements[e] == getFigure())
+                .forEach(position -> {
+                    attackPlaceForPosition(dimension, boardElements, position);
+                });
+    }
+    abstract char getFigure();
+    abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);
 }

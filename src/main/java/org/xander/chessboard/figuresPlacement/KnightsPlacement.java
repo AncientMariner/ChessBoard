@@ -1,32 +1,19 @@
 package org.xander.chessboard.figuresPlacement;
 
-import java.util.Set;
-
 import static org.xander.chessboard.figures.Figure.KNIGHT;
-import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
 
 public class KnightsPlacement extends FiguresPlacement {
     @Override
-    public Set<String> placeCertainFigureOnBoard(String board) {
-        return placeFigureOnBoard(KNIGHT.getFigure(), board);
+    public char getFigure() {
+        return KNIGHT.getFigure();
     }
 
     @Override
-    public String calculateAttackPlaces(String board) {
-        char[] boardElements = board.toCharArray();
-        //mind the '\n' character
-        int dimension = (int) Math.sqrt(board.length()) + 1;
-        checkBoard(board, dimension);
-
-        for (int i = 0 ; i < boardElements.length; i++) {
-            if (boardElements[i] == KNIGHT.getFigure()) {
-                placeRight(boardElements, i, dimension);
-                placeBelow(boardElements, i, dimension);
-                placeLeft(boardElements, i, dimension);
-                placeTop(boardElements, i, dimension);
-            }
-        }
-        return BoardUtils.transformArrayToString(boardElements);
+    public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
+        placeRight(boardElements, position, dimension);
+        placeBelow(boardElements, position, dimension);
+        placeLeft(boardElements, position, dimension);
+        placeTop(boardElements, position, dimension);
     }
 
     private void placeTop(char[] boardElements, int position, int dimension) {

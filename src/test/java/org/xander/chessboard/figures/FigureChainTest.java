@@ -67,10 +67,18 @@ public class FigureChainTest {
                                                                                       ".....x\n"),
                 is(true));
 
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("b") && !board.contains("q"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
-        }
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains("k")
+                        && !board.contains("q")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && board.contains("x")
+                        && board.contains(".")
+                        && board.contains("b")
+                        && leftOnlyFigures(board).length() == 4
+                        && boards.size() == 16684
+                ));
+
     }
 
     @Test
@@ -97,10 +105,18 @@ public class FigureChainTest {
                                                                                       "......\n" +
                                                                                       "......\n"),
                 is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("n"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
-        }
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("k")
+                        && board.contains("n")
+                        && !board.contains("q")
+                        && !board.contains("r")
+                        && !board.contains("b")
+                        && board.contains("x")
+                        && board.contains(".")
+                        && leftOnlyFigures(board).length() == 4
+                        && boards.size() == 112970
+                ));
     }
 
     @Test
@@ -120,10 +136,17 @@ public class FigureChainTest {
                         "......\n" +
                         "......\n"),
                 is(true));
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("n"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 4);
-        }
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("n")
+                        && !board.contains("k")
+                        && !board.contains("q")
+                        && !board.contains("r")
+                        && !board.contains("b")
+                        && board.contains("x")
+                        && board.contains(".")
+                        && leftOnlyFigures(board).length() == 4
+                        && boards.size() == 26133
+                ));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -153,9 +176,17 @@ public class FigureChainTest {
         HashSet<String> strings = new HashSet<>();
         strings.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = kingChain.placeFigures(strings);
-        for (String board : boards) {
-            assertTrue("all elements are not present on each board", board.contains("k") && board.contains("q") && board.contains("b"));
-            assertTrue("all elements are not present on each board", leftOnlyFigures(board).length() == 3);
-        }
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains("k")
+                        && board.contains("q")
+                        && board.contains("b")
+                        && !board.contains("r")
+                        && !board.contains("n")
+                        && board.contains("x")
+                        && board.contains(".")
+                        && leftOnlyFigures(board).length() == 3
+                        && boards.size() == 15308
+                ));
     }
 }

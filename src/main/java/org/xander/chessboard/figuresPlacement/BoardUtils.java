@@ -1,13 +1,14 @@
 package org.xander.chessboard.figuresPlacement;
 
+import java.util.stream.IntStream;
+
 public class BoardUtils {
     static String transformArrayToString(char[] boardElements) {
-        StringBuilder chessBoardWithFigures = new StringBuilder();
+        StringBuilder board = new StringBuilder();
 
-        for (char element : boardElements) {
-            chessBoardWithFigures.append(element);
-        }
-        return chessBoardWithFigures.toString();
+        IntStream.range(0, boardElements.length).forEachOrdered((i) -> board.append(boardElements[i]));
+
+        return board.toString();
     }
 
     public static void checkBoard(String board, int dimension) {
