@@ -18,6 +18,8 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.EMPTY_FIELD_STRING;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.FIELD_UNDER_ATTACK_STRING;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.DIMENSION_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
@@ -114,14 +116,14 @@ public class ChessboardTest {
                                 "xxxrxxxx\n"), is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> board.contains("k")
-                        && board.contains("q")
-                        && board.contains("b")
-                        && board.contains("r")
-                        && board.contains("n")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                                && board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && board.contains(ROOK.getFigureAsString())
+                                && board.contains(KNIGHT.getFigureAsString())
 //                        && board.contains("x")
 //                        && board.contains(".")
-                        && leftOnlyFigures(board).length() == 20
+                                && leftOnlyFigures(board).length() == 20
 //                        && boards.size() == 26133
                 ));
 
@@ -143,11 +145,11 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> board.contains("k")
-                                && board.contains("q")
-                                && board.contains("b")
-                                && !board.contains("r")
-                                && board.contains("n")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                                && board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && board.contains(KNIGHT.getFigureAsString())
 //                        && board.contains("x")
 //                        && board.contains(".")
                                 && leftOnlyFigures(board).length() == 7
@@ -191,14 +193,14 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() > 0, is(true));
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains("k")
-                                && !board.contains("q")
-                                && !board.contains("b")
-                                && board.contains("r")
-                                && !board.contains("n")
-                                && board.contains("x")
-                                && board.contains(".")
-                                && leftOnlyFigures(board).length() == 4
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(BISHOP.getFigureAsString())
+                        && board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
+                        && leftOnlyFigures(board).length() == 4
                         && boards.size() == 443442
                 ));
     }
@@ -221,13 +223,13 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() > 0, is(true));
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-               .allMatch(board -> board.contains("k")
-                       && !board.contains("q")
-                       && !board.contains("b")
-                       && board.contains("r")
-                       && !board.contains("n")
-                       && board.contains("x")
-                       && board.contains(".")
+               .allMatch(board -> board.contains(KING.getFigureAsString())
+                       && !board.contains(QUEEN.getFigureAsString())
+                       && !board.contains(BISHOP.getFigureAsString())
+                       && board.contains(ROOK.getFigureAsString())
+                       && !board.contains(KNIGHT.getFigureAsString())
+                       && board.contains(FIELD_UNDER_ATTACK_STRING)
+                       && board.contains(EMPTY_FIELD_STRING)
                        && leftOnlyFigures(board).length() == 4
                        && boards.size() == 1872102
                ));
@@ -246,15 +248,15 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() > 0, is(true));
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains("k")
-                        && !board.contains("q")
-                        && !board.contains("b")
-                        && board.contains("r")
-                        && board.contains("n")
-                        && board.contains("x")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                                && !board.contains(QUEEN.getFigureAsString())
+                                && !board.contains(BISHOP.getFigureAsString())
+                                && board.contains(ROOK.getFigureAsString())
+                                && board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
 //                        && !board.contains(".")
-                        && leftOnlyFigures(board).length() == 6
-                        && boards.size() == 54552
+                                && leftOnlyFigures(board).length() == 6
+                                && boards.size() == 54552
                 ));
     }
 
@@ -273,13 +275,13 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> !board.contains("k")
-                        && !board.contains("q")
-                        && board.contains("b")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && board.contains("x")
-                        && !board.contains(".")
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && board.contains(BISHOP.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && !board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 20
                         && boards.size() == 1
                 ));
@@ -300,13 +302,13 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() > 0, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> !board.contains("k")
-                        && !board.contains("q")
-                        && board.contains("b")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && board.contains("x")
-                        && board.contains(".")
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && board.contains(BISHOP.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 2
                         && boards.size() == 521
                 ));
@@ -327,13 +329,13 @@ public class ChessboardTest {
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> !board.contains("k")
-                        && !board.contains("q")
-                        && board.contains("b")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && !board.contains("x")
-                        && !board.contains(".")
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && board.contains(BISHOP.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && !board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && !board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 36
                         && boards.size() == 1
                 ));
@@ -353,13 +355,13 @@ public class ChessboardTest {
                 boards.contains("kx\n" + "xx\n"), is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
-                .allMatch(board -> board.contains("k")
-                        && !board.contains("q")
-                        && !board.contains("b")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && board.contains("x")
-                        && !board.contains(".")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(BISHOP.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && !board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 1
                         && boards.size() == 4
                 ));

@@ -17,7 +17,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     static final char EMPTY_FIELD_CHAR = '.';
     public static final String EMPTY_FIELD_STRING = ".";
     static final char FIELD_UNDER_ATTACK_CHAR = 'x';
-    static final String FIELD_UNDER_ATTACK_STRING = "x";
+    public static final String FIELD_UNDER_ATTACK_STRING = "x";
     static final char NEXT_LINE_FIELD_CHAR = '\n';
     public static final String NEXT_LINE_FIELD_STRING = "\n";
 

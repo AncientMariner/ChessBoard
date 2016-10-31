@@ -14,6 +14,9 @@ import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
+import static org.xander.chessboard.figures.Figure.ROOK;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.EMPTY_FIELD_STRING;
+import static org.xander.chessboard.figuresPlacement.FiguresPlacement.FIELD_UNDER_ATTACK_STRING;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.EMPTY_BOARD_SIZE_6;
 import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFigures;
 
@@ -21,7 +24,7 @@ public class FigureChainTest {
     @Test
     public void setNextFigure() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
-        figureQuantityMap.put("k", 1);
+        figureQuantityMap.put(KING.getFigureAsString(), 1);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
 
@@ -29,7 +32,7 @@ public class FigureChainTest {
         assertThat("object is null", figuresChain.chain != null, is(true));
         assertThat("object is null", figuresChain.chain != null, is(true));
         assertThat("object is null", figuresChain.figureQuantityMap != null, is(true));
-        assertThat("key is not present", figuresChain.figureQuantityMap.containsKey("k"), is(true));
+        assertThat("key is not present", figuresChain.figureQuantityMap.containsKey(KING.getFigureAsString()), is(true));
         assertThat("value is not present", figuresChain.figureQuantityMap.containsValue(1), is(true));
         assertThat("object is of different type", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
     }
@@ -68,13 +71,13 @@ public class FigureChainTest {
                 is(true));
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> !board.contains("k")
-                        && !board.contains("q")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && board.contains("x")
-                        && board.contains(".")
-                        && board.contains("b")
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
+                        && board.contains(BISHOP.getFigureAsString())
                         && leftOnlyFigures(board).length() == 4
                         && boards.size() == 16684
                 ));
@@ -107,13 +110,13 @@ public class FigureChainTest {
                 is(true));
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains("k")
-                        && board.contains("n")
-                        && !board.contains("q")
-                        && !board.contains("r")
-                        && !board.contains("b")
-                        && board.contains("x")
-                        && board.contains(".")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                        && board.contains(KNIGHT.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(BISHOP.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 4
                         && boards.size() == 112970
                 ));
@@ -136,13 +139,13 @@ public class FigureChainTest {
                                                                                       "......\n" +
                                                                                       "......\n"), is(true));
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains("n")
-                        && !board.contains("k")
-                        && !board.contains("q")
-                        && !board.contains("r")
-                        && !board.contains("b")
-                        && board.contains("x")
-                        && board.contains(".")
+                .allMatch(board -> board.contains(KNIGHT.getFigureAsString())
+                        && !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(BISHOP.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 4
                         && boards.size() == 26133
                 ));
@@ -177,13 +180,13 @@ public class FigureChainTest {
         Set<String> boards = kingChain.placeFigures(strings);
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains("k")
-                        && board.contains("q")
-                        && board.contains("b")
-                        && !board.contains("r")
-                        && !board.contains("n")
-                        && board.contains("x")
-                        && board.contains(".")
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                        && board.contains(QUEEN.getFigureAsString())
+                        && board.contains(BISHOP.getFigureAsString())
+                        && !board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 3
                         && boards.size() == 15308
                 ));
