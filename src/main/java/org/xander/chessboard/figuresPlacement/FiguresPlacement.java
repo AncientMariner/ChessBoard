@@ -50,7 +50,35 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         return boardsWithNewFigureAndAttackPlaces;
     }
 
-    public Set<String> placeFigureOnBoard(char figure, String board) {
+    @Override
+    public String calculateAttackPlaces(String board) {
+        //mind the '\n' character
+        int dimension = (int) Math.sqrt(board.length()) + 1;
+        checkBoard(board, dimension);
+        char[] boardElements = board.toCharArray();
+
+        calculateAttackPlaces(dimension, boardElements);
+        return BoardUtils.transformArrayToString(boardElements);
+    }
+
+    protected void calculateAttackPlaces(int dimension, char[] boardElements) {
+        IntStream.range(0, boardElements.length)
+                .filter(e -> boardElements[e] == getFigure())
+                .forEach(position -> {
+                    attackPlaceForPosition(dimension, boardElements, position);
+                });
+    }
+
+    protected abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);
+
+    @Override
+    public Set<String> placeCertainFigureOnBoard(String board) {
+        return placeFigureOnBoard(getFigure(), board);
+    }
+
+    protected abstract char getFigure();
+
+    Set<String> placeFigureOnBoard(char figure, String board) {
         return Stream.iterate(0, index -> index + 1)
                 .limit(board.length())
                 .map(index -> placeFigureAtPositionOnBoard(figure, index, board))
@@ -72,30 +100,4 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         }
         return setOfPossibleBoards;
     }
-
-    @Override
-    public Set<String> placeCertainFigureOnBoard(String board) {
-        return placeFigureOnBoard(getFigure(), board);
-    }
-
-    @Override
-    public String calculateAttackPlaces(String board) {
-        //mind the '\n' character
-        int dimension = (int) Math.sqrt(board.length()) + 1;
-        checkBoard(board, dimension);
-        char[] boardElements = board.toCharArray();
-
-        calculateAttackPlaces(dimension, boardElements);
-        return BoardUtils.transformArrayToString(boardElements);
-    }
-
-    void calculateAttackPlaces(int dimension, char[] boardElements) {
-        IntStream.range(0, boardElements.length)
-                .filter(e -> boardElements[e] == getFigure())
-                .forEach(position -> {
-                    attackPlaceForPosition(dimension, boardElements, position);
-                });
-    }
-    abstract char getFigure();
-    abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);
 }
