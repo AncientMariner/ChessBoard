@@ -23,14 +23,9 @@ import static org.xander.chessboard.figuresPlacement.FiguresPlacement.NEXT_LINE_
 
 public class Chessboard {
     private int dimension;
-    private Map<String, Integer> figureQuantityMap;
     private FiguresChain figureChain;
 
     private Chessboard() {
-    }
-
-    private Set<String> placeFigures(Set<String> boards) {
-        return figureChain.placeFigures(boards);
     }
 
     public int getDimension() {
@@ -38,7 +33,7 @@ public class Chessboard {
     }
 
     public Map<String, Integer> getFigureQuantityMap() {
-        return figureQuantityMap;
+        return figureChain.getFigureQuantityMap();
     }
 
     public String drawEmptyBoard() {
@@ -56,11 +51,11 @@ public class Chessboard {
     }
 
     public Set<String> placeFiguresOnBoard(String initialBoard) {
-        int numberOfKings = extractA(KING.toString());
-        int numberOfQueens = extractA(QUEEN.toString());
-        int numberOfBishops = extractA(BISHOP.toString());
-        int numberOfRooks = extractA(ROOK.toString());
-        int numberOfKnights = extractA(KNIGHT.toString());
+        int numberOfKings = figureChain.extractA(KING.toString());
+        int numberOfQueens = figureChain.extractA(QUEEN.toString());
+        int numberOfBishops = figureChain.extractA(BISHOP.toString());
+        int numberOfRooks = figureChain.extractA(ROOK.toString());
+        int numberOfKnights = figureChain.extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
         if (initialBoard != null && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
@@ -70,28 +65,8 @@ public class Chessboard {
         checkBoard(initialBoard, dimension);
         HashSet<String> initialBoards = new HashSet<>();
         initialBoards.add(initialBoard);
-        Set<String> boards = placeFigures(initialBoards);
 
-//        String boardWithKnights = knightsPlacement.placeCertainFigureOnBoard(emptyBoard);
-
-//        String boardWithKnightsAndAttackPlaces = knightsPlacement.calculateAttackPlaces(boardWithKnights);
-//        String boardWithKnightsAndRooks = rooksPlacement.placeCertainFigureOnBoard(boardWithKnightsAndAttackPlaces);
-        //todo: in this situation rook should not be standing at the first line
-//        String boardWithKaRaAP = rooksPlacement.calculateAttackPlaces(boardWithKnightsAndRooks);
-
-//        String boardWithKnightsRooksAndBishops = bishopPlacement.placeCertainFigureOnBoard(boardWithKaRaAP);
-
-//        System.out.println(boardWithKnightsRooksAndBishops);
-//        String boardWithKnightsRooksBishopsAndQueens = placeQueens(numberOfQueens, boardWithKnightsRooksAndBishops);
-//        String boardWithAllFigures = placeKings(numberOfKings, boardWithKnightsRooksBishopsAndQueens);
-        return boards;
-    }
-
-    private int extractA(String figure) {
-        if (figureQuantityMap.containsKey(figure)) {
-            return figureQuantityMap.get(figure);
-        }
-        return 0;
+        return figureChain.placeFigures(initialBoards);
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {
@@ -100,6 +75,8 @@ public class Chessboard {
 
     public class Builder {
         private FiguresChain previousFiguresChain;
+        private Map<String, Integer> figureQuantityMap;
+
         private Builder(Map<String, Integer> figureQuantityMap) {
             if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
                 throw new IllegalStateException("please provide the figures to put on the board");
@@ -116,40 +93,40 @@ public class Chessboard {
             if (givenFigures.size() > 0 && givenFigures.stream().anyMatch(e -> !possibleFigures.contains(e))) {
                 throw new IllegalStateException("not desired figure is present");
             }
-            Chessboard.this.figureQuantityMap = figureQuantityMap;
+            this.figureQuantityMap = figureQuantityMap;
         }
 
-        public Builder withDimension(int dimension) {
+        Builder withDimension(int dimension) {
             Chessboard.this.dimension = dimension;
             return this;
         }
 
-        public Builder withKing() {
+        Builder withKing() {
             prepareFiguresChain(new King(figureQuantityMap));
             return this;
         }
 
-        public Builder withQueen() {
+        Builder withQueen() {
             prepareFiguresChain(new Queen(figureQuantityMap));
             return this;
         }
 
-        public Builder withBishop() {
+        Builder withBishop() {
             prepareFiguresChain(new Bishop(figureQuantityMap));
             return this;
         }
 
-        public Builder withRook() {
+        Builder withRook() {
             prepareFiguresChain(new Rook(figureQuantityMap));
             return this;
         }
 
-        public Builder withKnight() {
+        Builder withKnight() {
             prepareFiguresChain(new Knight(figureQuantityMap));
             return this;
         }
 
-        public Chessboard build() {
+        Chessboard build() {
             return Chessboard.this;
         }
 

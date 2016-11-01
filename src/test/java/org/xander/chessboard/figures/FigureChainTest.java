@@ -29,11 +29,13 @@ public class FigureChainTest {
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
 
         figuresChain.setNextFigure(figuresChain1);
-        assertThat("object is null", figuresChain.chain != null, is(true));
-        assertThat("object is null", figuresChain.chain != null, is(true));
-        assertThat("object is null", figuresChain.figureQuantityMap != null, is(true));
-        assertThat("key is not present", figuresChain.figureQuantityMap.containsKey(KING.getFigureAsString()), is(true));
-        assertThat("value is not present", figuresChain.figureQuantityMap.containsValue(1), is(true));
+        assertThat("object is null", figuresChain.getChain() != null, is(true));
+        assertThat("object is null", figuresChain.getChain() != null, is(true));
+
+        if(figuresChain.getFigureQuantityMap() != null) {
+            assertThat("key is not present", figuresChain.getFigureQuantityMap().containsKey(KING.getFigureAsString()), is(true));
+            assertThat("value is not present", figuresChain.getFigureQuantityMap().containsValue(1), is(true));
+        }
         assertThat("object is of different type", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
     }
 

@@ -64,9 +64,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     protected void calculateAttackPlaces(int dimension, char[] boardElements) {
         IntStream.range(0, boardElements.length)
                 .filter(e -> boardElements[e] == getFigure())
-                .forEach(position -> {
-                    attackPlaceForPosition(dimension, boardElements, position);
-                });
+                .forEach(position -> attackPlaceForPosition(dimension, boardElements, position));
     }
 
     protected abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);

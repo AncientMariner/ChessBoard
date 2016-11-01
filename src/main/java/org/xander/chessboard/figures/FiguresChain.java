@@ -8,12 +8,27 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 public abstract class FiguresChain {
-    final Map<String, Integer> figureQuantityMap;
-    PlacementBehavior placementBehavior;
-    FiguresChain chain;
+    private Map<String, Integer> figureQuantityMap;
+    protected PlacementBehavior placementBehavior;
+    private FiguresChain chain;
 
     FiguresChain(Map<String, Integer> figureQuantityMap) {
         this.figureQuantityMap = figureQuantityMap;
+    }
+
+    public Map<String, Integer> getFigureQuantityMap() {
+        return figureQuantityMap;
+    }
+
+    public FiguresChain getChain() {
+        return chain;
+    }
+
+    public int extractA(String figure) {
+        if (getFigureQuantityMap() != null && getFigureQuantityMap().containsKey(figure)) {
+            return getFigureQuantityMap().get(figure);
+        }
+        return 0;
     }
 
     public void setNextFigure(FiguresChain nextChain) {
