@@ -94,7 +94,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
 
     void placeHorizontallyRight(int dimension, char[] boardElements, int position, int rightPosition) {
         while (rightPosition > 0) {
-            if (isPossibleToPlaceRight(position % dimension + rightPosition, dimension)) {
+            if (isPossibleToPlaceRight(position, dimension, rightPosition)) {
                 if (isBoardElementEmpty(boardElements[position + rightPosition])) {
                     boardElements[position + rightPosition] = FIELD_UNDER_ATTACK_CHAR;
                 }
@@ -105,7 +105,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
 
     void placeHorizontallyLeft(int dimension, char[] boardElements, int position, int leftPosition) {
         while (leftPosition > 0) {
-            if (isPossibleToPlaceLeft(position % dimension - leftPosition)) {
+            if (isPossibleToPlaceLeft(position, dimension, leftPosition)) {
                 if (isBoardElementEmpty(boardElements[position - leftPosition])) {
                     boardElements[position - leftPosition] = FIELD_UNDER_ATTACK_CHAR;
                 }
@@ -145,12 +145,12 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         return position >= 0;
     }
 
-    private boolean isPossibleToPlaceRight(int position, int dimension) {
-        return position < dimension;
+    private boolean isPossibleToPlaceRight(int position, int dimension, int rightPosition) {
+        return position % dimension + rightPosition < dimension;
     }
 
-    private boolean isPossibleToPlaceLeft(int position) {
-        return position >= 0;
+    private boolean isPossibleToPlaceLeft(int position, int dimension, int leftPosition) {
+        return position % dimension - leftPosition >= 0;
     }
 
     private boolean isPossibleToPlaceDiagLeftAbove(int position, int dimension, int positionLeftAbove) {
