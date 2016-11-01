@@ -98,4 +98,12 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         }
         return setOfPossibleBoards;
     }
+
+    protected boolean isPossibleToPlaceOnNextLine(char[] boardElements, int position) {
+        return position < boardElements.length;
+    }
+
+    protected boolean isPossibleToPlaceOnPreviousLine(int position) {
+        return position >= 0;
+    }
 }

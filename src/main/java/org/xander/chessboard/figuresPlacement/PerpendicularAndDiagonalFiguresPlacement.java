@@ -25,27 +25,23 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
     }
 
     public void placeVertically(char[] boardElements, int position, int dimension) {
-        if (position + dimension < boardElements.length) {
             int numberOfLinesBelow = 1;
-            while (position + dimension * numberOfLinesBelow < boardElements.length) {
+            while (isPossibleToPlaceOnNextLine(boardElements, position + dimension * numberOfLinesBelow)) {
                 if (boardElements[position + dimension * numberOfLinesBelow] != NEXT_LINE_FIELD_CHAR
                         && boardElements[position + dimension * numberOfLinesBelow] == EMPTY_FIELD_CHAR) {
                     boardElements[position + dimension * numberOfLinesBelow] = FIELD_UNDER_ATTACK_CHAR;
                 }
                 numberOfLinesBelow++;
             }
-        }
 
-        if (position - dimension >= 0) {
             int numberOfLinesAbove = 1;
-            while (position - dimension * numberOfLinesAbove >= 0) {
+            while (isPossibleToPlaceOnPreviousLine(position - dimension * numberOfLinesAbove)) {
                 if (boardElements[position - dimension * numberOfLinesAbove] != NEXT_LINE_FIELD_CHAR
                         && boardElements[position - dimension * numberOfLinesAbove] == EMPTY_FIELD_CHAR) {
                     boardElements[position - dimension * numberOfLinesAbove] = FIELD_UNDER_ATTACK_CHAR;
                 }
                 numberOfLinesAbove++;
             }
-        }
     }
 
     public void placeDiagonallyAbove(char[] boardElements,int position, int dimension){
@@ -81,7 +77,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
     }
 
     public void placeDiagonallyBelow(char[] boardElements,int position, int dimension){
-        if (position + dimension < boardElements.length) {
+        if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)) {
             int positionLeftBelow = 1;
             int attackPlacesOnTheLeft = position % dimension;
             while(attackPlacesOnTheLeft > 0) {

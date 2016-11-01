@@ -17,52 +17,52 @@ public class KnightsPlacement extends FiguresPlacement {
     }
 
     private void placeTop(char[] boardElements, int position, int dimension) {
-        if (position - dimension * 2 + 1 >= 0) {
+        if (isPossibleToPlaceOnPreviousLine(position - dimension * 2 + 1)) {
             if (position % dimension + 1 < dimension)
                 if (boardElements[position - dimension * 2 + 1] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension * 2 + 1] = FIELD_UNDER_ATTACK_CHAR;
         }
-            if (position - dimension * 2 - 1 >= 0) {
-                if (position % dimension - 1 >= 0)
-                if (boardElements[position - dimension * 2 - 1] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension * 2 - 1] = FIELD_UNDER_ATTACK_CHAR;
-            }
+        if (isPossibleToPlaceOnPreviousLine(position - dimension * 2 - 1)) {
+            if (position % dimension - 1 >= 0)
+            if (boardElements[position - dimension * 2 - 1] == EMPTY_FIELD_CHAR)
+                boardElements[position - dimension * 2 - 1] = FIELD_UNDER_ATTACK_CHAR;
+        }
     }
 
     private void placeLeft(char[] boardElements, int position, int dimension) {
         if (position % dimension - 2 >= 0) {
-            if (position + dimension < boardElements.length)
+            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension))
                 if (boardElements[position + dimension - 2] == EMPTY_FIELD_CHAR)
                     boardElements[position + dimension - 2] = FIELD_UNDER_ATTACK_CHAR;
-            if (position - dimension >= 0)
+            if (isPossibleToPlaceOnPreviousLine(position - dimension))
                 if (boardElements[position - dimension - 2] == EMPTY_FIELD_CHAR)
                     boardElements[position - dimension - 2] = FIELD_UNDER_ATTACK_CHAR;
         }
     }
 
+    private void placeRight(char[] boardElements, int position, int dimension) {
+        if (position % dimension + 2 < dimension) {
+            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension))
+                if (boardElements[position + dimension + 2] == EMPTY_FIELD_CHAR)
+                    boardElements[position + dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
+            if (isPossibleToPlaceOnPreviousLine(position - dimension))
+                if (boardElements[position - dimension + 2] == EMPTY_FIELD_CHAR)
+                    boardElements[position - dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
+        }
+    }
+
     private void placeBelow(char[] boardElements, int position, int dimension) {
-        if (position + dimension * 2 + 1 < boardElements.length) {
+        if (isPossibleToPlaceOnNextLine(boardElements, position + dimension * 2 + 1)) {
             if (position % dimension + 1 < dimension)
                 if (boardElements[position + dimension * 2 + 1] == EMPTY_FIELD_CHAR)
                     boardElements[position + dimension * 2 + 1] = FIELD_UNDER_ATTACK_CHAR;
         }
-        if (position + dimension * 2 - 1 < boardElements.length){
+        if (isPossibleToPlaceOnNextLine(boardElements, position + dimension * 2 - 1)){
             if (position % dimension - 1 >= 0) {
                 if (boardElements[position + dimension * 2 - 1] == EMPTY_FIELD_CHAR) {
                     boardElements[position + dimension * 2 - 1] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
-        }
-    }
-
-    private void placeRight(char[] boardElements, int position, int dimension) {
-        if (position % dimension + 2 < dimension) {
-            if (position + dimension < boardElements.length)
-                if (boardElements[position + dimension + 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position + dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
-            if (position - dimension >= 0)
-                if (boardElements[position - dimension + 2] == EMPTY_FIELD_CHAR)
-                    boardElements[position - dimension + 2] = FIELD_UNDER_ATTACK_CHAR;
         }
     }
 }
