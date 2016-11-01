@@ -1,5 +1,7 @@
 package org.xander.chessboard.figuresPlacement;
 
+import static org.xander.chessboard.figuresPlacement.BoardUtils.isBoardElementEmpty;
+
 public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPlacement implements DiagonalPlacement, PerpendicularPlacement {
     void perpendicularPlacement(int position, int dimension, char[] boardElements) {
         placeHorizontallyRight(dimension, boardElements, position, attackPlacesOnTheRight(position, dimension));
@@ -189,10 +191,6 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
 
     private int elementVerticallyAbove(int dimension, int position, int numberOfLinesAbove) {
         return position - dimension * numberOfLinesAbove;
-    }
-
-    private boolean isBoardElementEmpty(char boardElement) {
-        return boardElement != NEXT_LINE_FIELD_CHAR && boardElement == EMPTY_FIELD_CHAR;
     }
 
     private int elementVerticallyBelow(int dimension, int position, int numberOfLinesBelow) {
