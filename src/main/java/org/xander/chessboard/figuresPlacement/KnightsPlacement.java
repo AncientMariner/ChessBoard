@@ -2,7 +2,7 @@ package org.xander.chessboard.figuresPlacement;
 
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 
-public class KnightsPlacement extends FiguresPlacement {
+public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     @Override
     public char getFigure() {
         return KNIGHT.getFigure();
@@ -65,4 +65,6 @@ public class KnightsPlacement extends FiguresPlacement {
             }
         }
     }
+
+
 }
