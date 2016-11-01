@@ -81,7 +81,7 @@ public class FigureChainTest {
                         && board.contains(EMPTY_FIELD_STRING)
                         && board.contains(BISHOP.getFigureAsString())
                         && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 16684
+                        && boards.size() == 16428
                 ));
 
     }
@@ -190,7 +190,7 @@ public class FigureChainTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 3
-                        && boards.size() == 15308
+                        && boards.size() == 15280
                 ));
     }
 }

@@ -191,7 +191,6 @@ public class ChessboardTest {
         Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
 
         assertThat("there is no boards", boards.size() > 0, is(true));
-
         assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
@@ -300,7 +299,6 @@ public class ChessboardTest {
                                                                        "......\n" +
                                                                        "......\n");
         assertThat("there is no boards", boards.size() > 0, is(true));
-
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
@@ -310,7 +308,7 @@ public class ChessboardTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 2
-                        && boards.size() == 521
+                        && boards.size() == 520
                 ));
     }
 
