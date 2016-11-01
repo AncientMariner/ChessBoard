@@ -2,26 +2,22 @@ package org.xander.chessboard.figuresPlacement;
 
 public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPlacement implements DiagonalPlacement, PerpendicularPlacement {
     public void placeHorizontally(char[] boardElements, int position, int dimension) {
-        if (position % dimension < dimension) {
             int rightPosition = 1;
-            while (position % dimension + rightPosition < dimension) {
+            while (isPossibleToPlaceRight(position % dimension + rightPosition, dimension)) {
                 if (boardElements[position + rightPosition] != NEXT_LINE_FIELD_CHAR
                         && boardElements[position + rightPosition] == EMPTY_FIELD_CHAR) {
                     boardElements[position + rightPosition] = FIELD_UNDER_ATTACK_CHAR;
                 }
                 rightPosition++;
             }
-        }
-        if (position % dimension > 0 && position % dimension <= dimension) {
             int leftPosition = 1;
-            while (position % dimension - leftPosition >= 0) {
+            while (isPossibleToPlaceLeft(position % dimension - leftPosition)) {
                 if (boardElements[position - leftPosition] != NEXT_LINE_FIELD_CHAR
                         && boardElements[position - leftPosition] == EMPTY_FIELD_CHAR) {
                     boardElements[position - leftPosition] = FIELD_UNDER_ATTACK_CHAR;
                 }
                 leftPosition++;
             }
-        }
     }
 
     public void placeVertically(char[] boardElements, int position, int dimension) {

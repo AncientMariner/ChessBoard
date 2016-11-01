@@ -17,12 +17,12 @@ public class KingsPlacement extends FiguresPlacement {
     }
 
     private void placeHorizontally(char[] boardElements, int position, int dimension) {
-        if (isPossibleToPlaceOnNextLine(boardElements, position % dimension + 1)) {
+        if (isPossibleToPlaceRight(position % dimension + 1, dimension)) {
             if (boardElements[position + 1] != NEXT_LINE_FIELD_CHAR && boardElements[position + 1] == EMPTY_FIELD_CHAR) {
                 boardElements[position + 1] = FIELD_UNDER_ATTACK_CHAR;
             }
         }
-        if (isPossibleToPlaceOnPreviousLine(position % dimension - 1)) {
+        if (isPossibleToPlaceLeft(position % dimension - 1)) {
             if (boardElements[position - 1] != NEXT_LINE_FIELD_CHAR && boardElements[position - 1] == EMPTY_FIELD_CHAR) {
                 boardElements[position - 1] = FIELD_UNDER_ATTACK_CHAR;
             }
