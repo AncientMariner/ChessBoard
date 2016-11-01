@@ -10,13 +10,11 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
     }
 
     void diagonalPlacement(int position, int dimension, char[] boardElements) {
-        int diagonalStartingCounter = 1;
+        placeDiagonallyAboveLeft(dimension, boardElements, position, attackPlacesOnTheLeft(position, dimension));
+        placeDiagonallyAboveRight(dimension, boardElements, position, attackPlacesOnTheRight(position, dimension));
 
-        placeDiagonallyAboveLeft(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheLeft(position, dimension));
-        placeDiagonallyAboveRight(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheRight(position, dimension));
-
-        placeDiagonallyBelowLeft(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheLeft(position, dimension));
-        placeDiagonallyBelowRight(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheRight(position, dimension));
+        placeDiagonallyBelowLeft(dimension, boardElements, position, attackPlacesOnTheLeft(position, dimension));
+        placeDiagonallyBelowRight(dimension, boardElements, position, attackPlacesOnTheRight(position, dimension));
     }
 
     private int numberOfLinesBelow(int position, int dimension, char[] boardElements) {
@@ -36,11 +34,13 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         return dimension - position % dimension - 1 - 1;
     }
 
-    protected void placeDiagonallyBelowLeft(int dimension, char[] boardElements, int position, int positionLeftBelow, int attackPlacesOnTheLeft) {
+    void placeDiagonallyBelowLeft(int dimension, char[] boardElements, int position, int attackPlacesOnTheLeft) {
+        int positionLeftBelow = 1;
+
         while (attackPlacesOnTheLeft > 0) {
             if (isPossibleToPlaceDiagLeftBelow(boardElements.length, position, dimension, positionLeftBelow)) {
-                if (isBoardElementEmpty(boardElements[position + dimension * positionLeftBelow - positionLeftBelow])) {
-                    boardElements[position + dimension * positionLeftBelow - positionLeftBelow] = FIELD_UNDER_ATTACK_CHAR;
+                if (isBoardElementEmpty(boardElements[elementDiagonallyLeftBelow(dimension, position, positionLeftBelow)])) {
+                    boardElements[elementDiagonallyLeftBelow(dimension, position, positionLeftBelow)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
             positionLeftBelow++;
@@ -48,11 +48,13 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    protected void placeDiagonallyBelowRight(int dimension, char[] boardElements, int position, int positionRightBelow, int attackPlacesOnTheRight) {
+    void placeDiagonallyBelowRight(int dimension, char[] boardElements, int position, int attackPlacesOnTheRight) {
+        int positionRightBelow = 1;
+
         while (attackPlacesOnTheRight > 0) {
             if (isPossibleToPlaceDiagRightBelow(boardElements.length, position, dimension, positionRightBelow)) {
-                if (isBoardElementEmpty(boardElements[position + dimension * positionRightBelow + positionRightBelow])) {
-                    boardElements[position + dimension * positionRightBelow + positionRightBelow] = FIELD_UNDER_ATTACK_CHAR;
+                if (isBoardElementEmpty(boardElements[elementDiagonallyRightBelow(dimension, position, positionRightBelow)])) {
+                    boardElements[elementDiagonallyRightBelow(dimension, position, positionRightBelow)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
             positionRightBelow++;
@@ -60,25 +62,27 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    protected void placeDiagonallyAboveRight(int dimension, char[] boardElements, int position, int positionRightAbove, int attackPlacesOnTheRight) {
+    void placeDiagonallyAboveRight(int dimension, char[] boardElements, int position, int attackPlacesOnTheRight) {
+        int positionRightAbove = 1;
+
         while (attackPlacesOnTheRight > 0) {
             if (isPossibleToPlaceDiagRightAbove(position, dimension, positionRightAbove)) {
-                if (isBoardElementEmpty(boardElements[position - dimension * positionRightAbove + positionRightAbove])) {
-                    boardElements[position - dimension * positionRightAbove + positionRightAbove] = FIELD_UNDER_ATTACK_CHAR;
+                if (isBoardElementEmpty(boardElements[elementDiagonallyRightAbove(dimension, position, positionRightAbove)])) {
+                    boardElements[elementDiagonallyRightAbove(dimension, position, positionRightAbove)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
-
             positionRightAbove++;
             attackPlacesOnTheRight--;
         }
     }
 
-    protected void placeDiagonallyAboveLeft(int dimension, char[] boardElements, int position, int positionLeftAbove, int attackPlacesOnTheLeft) {
-        while (attackPlacesOnTheLeft > 0) {
+    void placeDiagonallyAboveLeft(int dimension, char[] boardElements, int position, int attackPlacesOnTheLeft) {
+        int positionLeftAbove = 1;
 
+        while (attackPlacesOnTheLeft > 0) {
             if (isPossibleToPlaceDiagLeftAbove(position, dimension, positionLeftAbove)) {
-                if (isBoardElementEmpty(boardElements[position - dimension * positionLeftAbove - positionLeftAbove])) {
-                    boardElements[position - dimension * positionLeftAbove - positionLeftAbove] = FIELD_UNDER_ATTACK_CHAR;
+                if (isBoardElementEmpty(boardElements[elementDiagonallyLeftAbove(dimension, position, positionLeftAbove)])) {
+                    boardElements[elementDiagonallyLeftAbove(dimension, position, positionLeftAbove)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
             positionLeftAbove++;
@@ -86,7 +90,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    protected void placeHorizontallyRight(int dimension, char[] boardElements, int position, int rightPosition) {
+    void placeHorizontallyRight(int dimension, char[] boardElements, int position, int rightPosition) {
         while (rightPosition > 0) {
             if (isPossibleToPlaceRight(position % dimension + rightPosition, dimension)) {
                 if (isBoardElementEmpty(boardElements[position + rightPosition])) {
@@ -97,7 +101,7 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    protected void placeHorizontallyLeft(int dimension, char[] boardElements, int position, int leftPosition) {
+    void placeHorizontallyLeft(int dimension, char[] boardElements, int position, int leftPosition) {
         while (leftPosition > 0) {
             if (isPossibleToPlaceLeft(position % dimension - leftPosition)) {
                 if (isBoardElementEmpty(boardElements[position - leftPosition])) {
@@ -108,27 +112,23 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    private boolean isBoardElementEmpty(char boardElement) {
-        return boardElement != NEXT_LINE_FIELD_CHAR && boardElement == EMPTY_FIELD_CHAR;
-    }
-
-    protected void placeVerticallyAbove(int dimension, char[] boardElements, int position, int numberOfLinesAbove) {
+    void placeVerticallyAbove(int dimension, char[] boardElements, int position, int numberOfLinesAbove) {
         while (numberOfLinesAbove > 0) {
-            if (isPossibleToPlaceOnPreviousLine(position - dimension * numberOfLinesAbove)) {
+            if (isPossibleToPlaceOnPreviousLine(elementVerticallyAbove(dimension, position, numberOfLinesAbove))) {
 
-                if (isBoardElementEmpty(boardElements[position - dimension * numberOfLinesAbove])) {
-                    boardElements[position - dimension * numberOfLinesAbove] = FIELD_UNDER_ATTACK_CHAR;
+                if (isBoardElementEmpty(boardElements[elementVerticallyAbove(dimension, position, numberOfLinesAbove)])) {
+                    boardElements[elementVerticallyAbove(dimension, position, numberOfLinesAbove)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
             numberOfLinesAbove--;
         }
     }
 
-    protected void placeVerticallyBelow(int dimension, char[] boardElements, int position, int numberOfLinesBelow) {
+    void placeVerticallyBelow(int dimension, char[] boardElements, int position, int numberOfLinesBelow) {
         while (numberOfLinesBelow > 0) {
-            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension * numberOfLinesBelow)) {
-                if (isBoardElementEmpty(boardElements[position + dimension * numberOfLinesBelow])) {
-                    boardElements[position + dimension * numberOfLinesBelow] = FIELD_UNDER_ATTACK_CHAR;
+            if (isPossibleToPlaceOnNextLine(boardElements, elementVerticallyBelow(dimension, position, numberOfLinesBelow))) {
+                if (isBoardElementEmpty(boardElements[elementVerticallyBelow(dimension, position, numberOfLinesBelow)])) {
+                    boardElements[elementVerticallyBelow(dimension, position, numberOfLinesBelow)] = FIELD_UNDER_ATTACK_CHAR;
                 }
             }
             numberOfLinesBelow--;
@@ -152,22 +152,50 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
     }
 
     private boolean isPossibleToPlaceDiagLeftAbove(int position, int dimension, int positionLeftAbove) {
-        return position - dimension * positionLeftAbove - positionLeftAbove >= 0
-                && (position - dimension * positionLeftAbove - positionLeftAbove) % dimension >= 0;
+        return elementDiagonallyLeftAbove(dimension, position, positionLeftAbove) >= 0
+                && (elementDiagonallyLeftAbove(dimension, position, positionLeftAbove)) % dimension >= 0;
     }
 
     private boolean isPossibleToPlaceDiagRightAbove(int position, int dimension, int positionRightAbove) {
-        return position - dimension * positionRightAbove + positionRightAbove >= 0
-                && (position - dimension * positionRightAbove + positionRightAbove) % dimension < dimension - 1;
+        return elementDiagonallyRightAbove(dimension, position, positionRightAbove) >= 0
+                && (elementDiagonallyRightAbove(dimension, position, positionRightAbove)) % dimension < dimension - 1;
     }
 
     private boolean isPossibleToPlaceDiagLeftBelow(int boardElementsLength, int position, int dimension, int positionLeftBelow) {
-        return (position + dimension * positionLeftBelow - positionLeftBelow) % dimension < dimension
-                && position + dimension * positionLeftBelow - positionLeftBelow < boardElementsLength;
+        return (elementDiagonallyLeftBelow(dimension, position, positionLeftBelow)) % dimension < dimension
+                && elementDiagonallyLeftBelow(dimension, position, positionLeftBelow) < boardElementsLength;
     }
 
     private boolean isPossibleToPlaceDiagRightBelow(int boardElementsLength, int position, int dimension, int positionRightBelow) {
-        return position + dimension * positionRightBelow + positionRightBelow < boardElementsLength
-                && (position + dimension * positionRightBelow + positionRightBelow) % dimension < dimension;
+        return elementDiagonallyRightBelow(dimension, position, positionRightBelow) < boardElementsLength
+                && (elementDiagonallyRightBelow(dimension, position, positionRightBelow)) % dimension < dimension;
+    }
+
+    private int elementDiagonallyLeftBelow(int dimension, int position, int positionLeftBelow) {
+        return elementVerticallyBelow(dimension, position, positionLeftBelow) - positionLeftBelow;
+    }
+
+    private int elementDiagonallyRightBelow(int dimension, int position, int positionRightBelow) {
+        return position + dimension * positionRightBelow + positionRightBelow;
+    }
+
+    private int elementDiagonallyRightAbove(int dimension, int position, int positionRightAbove) {
+        return elementVerticallyAbove(dimension, position, positionRightAbove) + positionRightAbove;
+    }
+
+    private int elementDiagonallyLeftAbove(int dimension, int position, int positionLeftAbove) {
+        return position - dimension * positionLeftAbove - positionLeftAbove;
+    }
+
+    private int elementVerticallyAbove(int dimension, int position, int numberOfLinesAbove) {
+        return position - dimension * numberOfLinesAbove;
+    }
+
+    private boolean isBoardElementEmpty(char boardElement) {
+        return boardElement != NEXT_LINE_FIELD_CHAR && boardElement == EMPTY_FIELD_CHAR;
+    }
+
+    private int elementVerticallyBelow(int dimension, int position, int numberOfLinesBelow) {
+        return position + dimension * numberOfLinesBelow;
     }
 }

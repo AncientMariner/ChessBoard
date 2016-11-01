@@ -25,10 +25,10 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     }
 
     void diagonalPlacement(int position, int dimension, char[] boardElements) {
-        placeDiagonallyAboveLeft(dimension, boardElements, position, NEIGHBOUR_POSITION, NEIGHBOUR_POSITION);
-        placeDiagonallyAboveRight(dimension, boardElements, position, NEIGHBOUR_POSITION, NEIGHBOUR_POSITION);
+        placeDiagonallyAboveLeft(dimension, boardElements, position, NEIGHBOUR_POSITION);
+        placeDiagonallyAboveRight(dimension, boardElements, position, NEIGHBOUR_POSITION);
 
-        placeDiagonallyBelowLeft(dimension, boardElements, position, NEIGHBOUR_POSITION, NEIGHBOUR_POSITION);
-        placeDiagonallyBelowRight(dimension, boardElements, position, NEIGHBOUR_POSITION, NEIGHBOUR_POSITION);
+        placeDiagonallyBelowLeft(dimension, boardElements, position, NEIGHBOUR_POSITION);
+        placeDiagonallyBelowRight(dimension, boardElements, position, NEIGHBOUR_POSITION);
     }
 }
