@@ -1,6 +1,7 @@
 package org.xander.chessboard.figuresPlacement;
 
 interface PerpendicularPlacement {
-    void placeHorizontally(char[] boardElements, int position, int dimension);
-    void placeVertically(char[] boardElements, int position, int dimension);
+//    void placeHorizontallyLeft(char[] boardElements, int position, int dimension);
+//    void placeHorizontallyRight(char[] boardElements, int position, int dimension);
+//    void placeVertically(char[] boardElements, int position, int dimension);
 }

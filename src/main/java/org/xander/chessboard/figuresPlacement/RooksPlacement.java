@@ -10,7 +10,6 @@ public class RooksPlacement extends PerpendicularFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        placeHorizontally(boardElements, position, dimension);
-        placeVertically(boardElements, position, dimension);
+        perpendicularPlacement(position, dimension, boardElements);
     }
 }

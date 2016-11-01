@@ -10,7 +10,6 @@ public class BishopsPlacement extends DiagonalFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        placeDiagonallyAbove(boardElements, position, dimension);
-        placeDiagonallyBelow(boardElements, position, dimension);
+        diagonalPlacement(position, dimension, boardElements);
     }
 }

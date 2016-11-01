@@ -10,9 +10,7 @@ public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        placeHorizontally(boardElements, position, dimension);
-        placeVertically(boardElements, position, dimension);
-        placeDiagonallyAbove(boardElements, position, dimension);
-        placeDiagonallyBelow(boardElements, position, dimension);
+        perpendicularPlacement(position, dimension, boardElements);
+        diagonalPlacement(position, dimension, boardElements);
     }
 }
