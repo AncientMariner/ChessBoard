@@ -2,31 +2,38 @@ package org.xander.chessboard.figuresPlacement;
 
 public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPlacement implements DiagonalPlacement, PerpendicularPlacement {
     void perpendicularPlacement(int position, int dimension, char[] boardElements) {
-        //mind the \n character and counting from 0
-        int attackPlacesOnTheRight = dimension - position % dimension - 1 - 1;
-        int attackPlacesOnTheLeft = position % dimension;
-        int numberOfLinesAbove = position / dimension;
-        int numberOfLinesBelow = (boardElements.length - position) / dimension;
+        placeHorizontallyRight(dimension, boardElements, position, attackPlacesOnTheRight(position, dimension));
+        placeHorizontallyLeft(dimension, boardElements, position, attackPlacesOnTheLeft(position, dimension));
 
-        placeHorizontallyRight(dimension, boardElements, position, attackPlacesOnTheRight);
-        placeHorizontallyLeft(dimension, boardElements, position, attackPlacesOnTheLeft);
-
-        placeVerticallyAbove(dimension, boardElements, position, numberOfLinesAbove);
-        placeVerticallyBelow(dimension, boardElements, position, numberOfLinesBelow);
+        placeVerticallyAbove(dimension, boardElements, position, numberOfLinesAbove(position, dimension));
+        placeVerticallyBelow(dimension, boardElements, position, numberOfLinesBelow(position, dimension, boardElements));
     }
 
     void diagonalPlacement(int position, int dimension, char[] boardElements) {
+        int diagonalStartingCounter = 1;
+
+        placeDiagonallyAboveLeft(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheLeft(position, dimension));
+        placeDiagonallyAboveRight(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheRight(position, dimension));
+
+        placeDiagonallyBelowLeft(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheLeft(position, dimension));
+        placeDiagonallyBelowRight(dimension, boardElements, position, diagonalStartingCounter, attackPlacesOnTheRight(position, dimension));
+    }
+
+    private int numberOfLinesBelow(int position, int dimension, char[] boardElements) {
+        return numberOfLinesAbove(boardElements.length - position, dimension);
+    }
+
+    private int numberOfLinesAbove(int position, int dimension) {
+        return position / dimension;
+    }
+
+    private int attackPlacesOnTheLeft(int position, int dimension) {
+        return position % dimension;
+    }
+
+    private int attackPlacesOnTheRight(int position, int dimension) {
         //mind the \n character and counting from 0
-        int attackPlacesOnTheRight = dimension - position % dimension - 1 - 1 ;
-        int attackPlacesOnTheLeft = position % dimension;
-        int neighbourPosition = 1;
-
-
-        placeDiagonallyAboveLeft(dimension, boardElements, position, neighbourPosition, attackPlacesOnTheLeft);
-        placeDiagonallyAboveRight(dimension, boardElements, position, neighbourPosition, attackPlacesOnTheRight);
-
-        placeDiagonallyBelowLeft(dimension, boardElements, position, neighbourPosition, attackPlacesOnTheLeft);
-        placeDiagonallyBelowRight(dimension, boardElements, position, neighbourPosition, attackPlacesOnTheRight);
+        return dimension - position % dimension - 1 - 1;
     }
 
 
@@ -131,38 +138,38 @@ public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPl
         }
     }
 
-    protected boolean isPossibleToPlaceOnNextLine(char[] boardElements, int position) {
+    boolean isPossibleToPlaceOnNextLine(char[] boardElements, int position) {
         return position < boardElements.length;
     }
 
-    protected boolean isPossibleToPlaceOnPreviousLine(int position) {
+    boolean isPossibleToPlaceOnPreviousLine(int position) {
         return position >= 0;
     }
 
-    protected boolean isPossibleToPlaceRight(int position, int dimension) {
+    private boolean isPossibleToPlaceRight(int position, int dimension) {
         return position < dimension;
     }
 
-    protected boolean isPossibleToPlaceLeft(int position) {
+    private boolean isPossibleToPlaceLeft(int position) {
         return position >= 0;
     }
 
-    protected boolean isPossibleToPlaceDiagLeftAbove(int position, int dimension, int positionLeftAbove) {
+    private boolean isPossibleToPlaceDiagLeftAbove(int position, int dimension, int positionLeftAbove) {
         return position - dimension * positionLeftAbove - positionLeftAbove >= 0
                 && (position - dimension * positionLeftAbove - positionLeftAbove) % dimension >= 0;
     }
 
-    protected boolean isPossibleToPlaceDiagRightAbove(int position, int dimension, int positionRightAbove) {
+    private boolean isPossibleToPlaceDiagRightAbove(int position, int dimension, int positionRightAbove) {
         return position - dimension * positionRightAbove + positionRightAbove >= 0
                 && (position - dimension * positionRightAbove + positionRightAbove) % dimension < dimension - 1;
     }
 
-    protected boolean isPossibleToPlaceDiagLeftBelow(int boardElementsLength, int position, int dimension, int positionLeftBelow) {
+    private boolean isPossibleToPlaceDiagLeftBelow(int boardElementsLength, int position, int dimension, int positionLeftBelow) {
         return (position + dimension * positionLeftBelow - positionLeftBelow) % dimension < dimension
                 && position + dimension * positionLeftBelow - positionLeftBelow < boardElementsLength;
     }
 
-    protected boolean isPossibleToPlaceDiagRightBelow(int boardElementsLength, int position, int dimension, int positionRightBelow) {
+    private boolean isPossibleToPlaceDiagRightBelow(int boardElementsLength, int position, int dimension, int positionRightBelow) {
         return position + dimension * positionRightBelow + positionRightBelow < boardElementsLength
                 && (position + dimension * positionRightBelow + positionRightBelow) % dimension < dimension;
     }
