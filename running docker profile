@@ -1,0 +1,7 @@
+//remove not needed images
+docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
+
+//package the image
+mvn package docker:build -Pdocker
+//start the image
+mvn install docker:start -Pdocker
