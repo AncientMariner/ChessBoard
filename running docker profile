@@ -5,3 +5,6 @@ docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
 mvn package docker:build -Pdocker
 //start the image
 mvn install docker:start -Pdocker
+
+//connect to a docker container via id
+docker exec -it <5ded>  bash
