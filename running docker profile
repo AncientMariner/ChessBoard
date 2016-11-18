@@ -8,3 +8,10 @@ mvn install docker:start -Pdocker
 
 //connect to a docker container via id
 docker exec -it <5ded>  bash
+
+//run as a separate auto removable container
+//maven
+docker run -it --rm -v "$PWD":/home/xander/IdeaProjects/ChessBoard -w /home/xander/IdeaProjects/ChessBoard maven:3.3-jdk-8 mvn clean test
+
+//gradle
+docker run -it --rm -v "$PWD":/home/xander/IdeaProjects/ChessBoard -w /home/xander/IdeaProjects/ChessBoard frekele/gradle gradle test
