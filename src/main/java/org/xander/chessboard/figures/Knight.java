@@ -19,6 +19,6 @@ public class Knight extends FiguresChain {
 
     @Override
     public String getName() {
-        return Figure.KNIGHT.name();
+        return Figure.KNIGHT.toString();
     }
 }

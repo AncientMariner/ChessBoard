@@ -13,6 +13,6 @@ public class KnightTest {
     public void getName() {
         FiguresChain figuresChain = new Knight(new HashMap<>());
         assertThat("object is null", figuresChain.placementBehavior instanceof KnightsPlacement, is(true));
-        assertThat("object name is different", figuresChain.getName().equals(Figure.KNIGHT.name()) , is(true));
+        assertThat("object name is different", figuresChain.getName().equals(Figure.KNIGHT.toString()) , is(true));
     }
 }

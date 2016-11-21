@@ -10,11 +10,11 @@ public class RooksPlacement extends PerpendicularFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        perpendicularPlacement(position, dimension, boardElements);
+        perpendicularAttackPlacement(position, dimension, boardElements);
     }
 
     @Override
     protected boolean possibleAttackPlaceForPositionCalculate(int dimension, char[] boardElements, int position) {
-        return perpendicularPlacementCalculate(position, dimension, boardElements);
+        return perpendicularAttackPlacementCalculate(position, dimension, boardElements);
     }
 }

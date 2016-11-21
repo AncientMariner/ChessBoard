@@ -10,13 +10,13 @@ public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        perpendicularPlacement(position, dimension, boardElements);
-        diagonalPlacement(position, dimension, boardElements);
+        perpendicularAttackPlacement(position, dimension, boardElements);
+        diagonalAttackPlacement(position, dimension, boardElements);
     }
 
     @Override
     protected boolean possibleAttackPlaceForPositionCalculate(int dimension, char[] boardElements, int position) {
-        return perpendicularPlacementCalculate(position, dimension, boardElements)
-            && diagonalPlacementCalculate(position, dimension, boardElements);
+        return perpendicularAttackPlacementCalculate(position, dimension, boardElements)
+            && diagonalAttackPlacementCalculate(position, dimension, boardElements);
     }
 }

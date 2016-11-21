@@ -12,6 +12,6 @@ public class King extends FiguresChain {
 
     @Override
     public String getName() {
-        return Figure.KING.name();
+        return Figure.KING.toString();
     }
 }

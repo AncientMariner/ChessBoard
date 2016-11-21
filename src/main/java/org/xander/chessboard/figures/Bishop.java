@@ -12,6 +12,6 @@ public class Bishop extends FiguresChain {
 
     @Override
     public String getName() {
-        return Figure.BISHOP.name();
+        return Figure.BISHOP.toString();
     }
 }

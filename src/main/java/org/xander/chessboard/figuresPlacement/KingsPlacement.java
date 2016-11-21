@@ -12,42 +12,42 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
 
     @Override
     public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
-        perpendicularPlacement(position, dimension, boardElements);
-        diagonalPlacement(position, dimension, boardElements);
+        perpendicularAttackPlacement(position, dimension, boardElements);
+        diagonalAttackPlacement(position, dimension, boardElements);
     }
 
-    void perpendicularPlacement(int position, int dimension, char[] boardElements) {
-        placeHorizontallyRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
-        placeHorizontallyLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
-        placeVerticallyAbove(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
-        placeVerticallyBelow(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+    void perpendicularAttackPlacement(int position, int dimension, char[] boardElements) {
+        attackPlaceHorizontallyRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceHorizontallyLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceVerticallyAbove(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceVerticallyBelow(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
     }
 
-    void diagonalPlacement(int position, int dimension, char[] boardElements) {
-        placeDiagonallyAboveLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
-        placeDiagonallyAboveRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+    void diagonalAttackPlacement(int position, int dimension, char[] boardElements) {
+        attaclkPlaceDiagonallyAboveLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceDiagonallyAboveRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
 
-        placeDiagonallyBelowLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
-        placeDiagonallyBelowRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceDiagonallyBelowLeft(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+        attackPlaceDiagonallyBelowRight(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
     }
 
-    boolean perpendicularPlacementCalculate(int position, int dimension, char[] boardElements) {
-        return placeHorizontallyRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeHorizontallyLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeVerticallyAboveCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeVerticallyBelowCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+    boolean perpendicularAttackPlacementCalculate(int position, int dimension, char[] boardElements) {
+        return attackPlaceHorizontallyRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceHorizontallyLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceVerticallyAboveCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceVerticallyBelowCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
     }
 
-    boolean diagonalPlacementCalculate(int position, int dimension, char[] boardElements) {
-        return placeDiagonallyAboveLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeDiagonallyAboveRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeDiagonallyBelowLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
-                && placeDiagonallyBelowRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
+    boolean diagonalAttackPlacementCalculate(int position, int dimension, char[] boardElements) {
+        return attackPlaceDiagonallyAboveLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceDiagonallyAboveRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceDiagonallyBelowLeftCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION)
+                && attackPlaceDiagonallyBelowRightCalc(dimension, boardElements, position, KING_NEIGHBOUR_POSITION);
     }
 
     @Override
     protected boolean possibleAttackPlaceForPositionCalculate(int dimension, char[] boardElements, int position) {
-        return perpendicularPlacementCalculate(position, dimension, boardElements)
-                && diagonalPlacementCalculate(position, dimension, boardElements);
+        return perpendicularAttackPlacementCalculate(position, dimension, boardElements)
+                && diagonalAttackPlacementCalculate(position, dimension, boardElements);
     }
 }
