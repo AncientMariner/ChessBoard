@@ -4,7 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xander.chessboard.figures.Figure;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
     private final Figure FIGURE = Figure.ROOK;
@@ -16,9 +19,22 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
 
     @Test
     public void placeRook() {
-        placeFigure(FIGURE);
+        String expectedBoard = FIGURE.getFigureAsString() + ".....\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n";
+        String expectedBoardWithTwoRooks = FIGURE.getFigureAsString() + ".....\n" +
+                "."+  FIGURE.getFigureAsString()+ "....\n" +
+                "......\n" +
+                "......\n" +
+                "......\n" +
+                "......\n";
+        Set<String> boards = figuresPlacement.placeCertainFigureOnBoard(expectedBoard);
+        assertTrue(boards.size() == 25);
+        assertTrue(boards.contains(expectedBoardWithTwoRooks));
     }
-
 
     @Test
     public void areaOfBishopAttackTopLeftCorner() {
@@ -70,6 +86,7 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
 
     @Test
     public void areaOfBishopAttackAllCorners() {
+        //todo make method to detect illegal placement
         String expectedBoard = "rxxxxr\n" +
                                "x....x\n" +
                                "x....x\n" +

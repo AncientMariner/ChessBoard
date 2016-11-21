@@ -67,7 +67,12 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .forEach(position -> attackPlaceForPosition(dimension, boardElements, position));
     }
 
+    protected boolean isFigurePlacementPossible(int dimension, char[] boardElements, int position) {
+        return possibleAttackPlaceForPositionCalculate(dimension, boardElements, position);
+    }
+
     protected abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);
+    protected abstract boolean possibleAttackPlaceForPositionCalculate(int dimension, char[] boardElements, int position);
 
     @Override
     public Set<String> placeCertainFigureOnBoard(String board) {
@@ -85,16 +90,21 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
     private Set<String> placeFigureAtPositionOnBoard(char figure, int position, String board) {
+        int dimension = (int) Math.sqrt(board.length()) + 1;
+        checkBoard(board, dimension);
+
         Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
                                                         .range(0, board.length())
                                                         .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
                                                         .boxed()
                                                         .count());
         char[] boardArray = board.toCharArray();
-
         if (boardArray[position] == EMPTY_FIELD_CHAR) {
-            boardArray[position] = figure;
-            setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
+            //todo check whether already existing figures are not under attack
+            if (isFigurePlacementPossible(dimension, boardArray, position)) {
+                boardArray[position] = figure;
+                setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
+            }
         }
         return setOfPossibleBoards;
     }

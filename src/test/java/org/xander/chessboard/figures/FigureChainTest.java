@@ -120,7 +120,7 @@ public class FigureChainTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 112970
+                        && boards.size() == 59392
                 ));
     }
 
@@ -190,7 +190,7 @@ public class FigureChainTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 3
-                        && boards.size() == 15280
+                        && boards.size() == 8768
                 ));
     }
 }
