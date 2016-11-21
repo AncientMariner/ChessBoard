@@ -115,7 +115,7 @@ public class ChessboardTest {
                                 "xxxxxxxx\n" +
                                 "xxxrxxxx\n"), is(true));
 
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
                                 && board.contains(QUEEN.getFigureAsString())
                                 && board.contains(BISHOP.getFigureAsString())
@@ -126,12 +126,44 @@ public class ChessboardTest {
                                 && leftOnlyFigures(board).length() == 20
 //                        && boards.size() == 26133
                 ));
+    }
+
+    @Test
+    public void placeFiguresOnBoardSize7() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.toString(), 2);
+        figureQuantityMap.put(QUEEN.toString(), 3);
+        figureQuantityMap.put(BISHOP.toString(), 4);
+        figureQuantityMap.put(ROOK.toString(), 5);
+        figureQuantityMap.put(KNIGHT.toString(), 6);
+
+        int dimension = 7;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
+
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
+        assertThat("more than 1 figure is present",
+                boards.contains("xxxxxqx\n" +
+                                "xxqxxxx\n" +
+                                "bxxxxxb\n" +
+                                "xxxrxxx\n" +
+                                "bxxxxxk\n" +
+                                "xxxxqxx\n" +
+                                "nbxxxxk\n"), is(true));
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> board.contains(KING.getFigureAsString())
+                                && board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && board.contains(ROOK.getFigureAsString())
+                                && board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && leftOnlyFigures(board).length() > 10
+                                && boards.size() == 32
+                ));
 
     }
 
-    //currently out of memory error, requires optimization
-    //todo uncomment!!!
-    @Ignore
+// todo make different combinations
     @Test
     public void readmeRequirement() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -145,17 +177,15 @@ public class ChessboardTest {
 
         Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
-                                && board.contains(QUEEN.getFigureAsString())
-                                && board.contains(BISHOP.getFigureAsString())
-                                && !board.contains(ROOK.getFigureAsString())
-                                && board.contains(KNIGHT.getFigureAsString())
-//                        && board.contains("x")
-//                        && board.contains(".")
-                                && leftOnlyFigures(board).length() == 7
-//                        && boards.size() == 26133
-                ));
+                    && board.contains(QUEEN.getFigureAsString())
+                    && board.contains(BISHOP.getFigureAsString())
+                    && !board.contains(ROOK.getFigureAsString())
+                    && board.contains(KNIGHT.getFigureAsString())
+                    && board.contains(FIELD_UNDER_ATTACK_STRING)
+                    && leftOnlyFigures(board).length() == 7
+                    && boards.size() == 3063828));
     }
 
     @Test(expected = IllegalStateException.class)
