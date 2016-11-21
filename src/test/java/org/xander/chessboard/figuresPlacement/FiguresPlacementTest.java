@@ -22,14 +22,13 @@ import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFig
 public class FiguresPlacementTest {
     @Test
     public void numberOfFigureOnBoard() {
-
         HashSet<String> boards = new HashSet<>();
         boards.add("nnnnnn\n" +
-                      "nnnnnn\n" +
-                      "nnnnnn\n" +
-                      "nnnnnn\n" +
-                      "nnnnnn\n" +
-                      "nnnnnn\n");
+                   "nnnnnn\n" +
+                   "nnnnnn\n" +
+                   "nnnnnn\n" +
+                   "nnnnnn\n" +
+                   "nnnnnn\n");
 
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 3);
@@ -59,7 +58,6 @@ public class FiguresPlacementTest {
                                                                 "......\n" +
                                                                 "......\n" +
                                                                 "......\n"), is(true));
-
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
@@ -69,7 +67,6 @@ public class FiguresPlacementTest {
                         && leftOnlyFigures(board).length() == 1
                         && boards.size() == 36
                 ));
-
     }
 
     @Test
@@ -81,7 +78,7 @@ public class FiguresPlacementTest {
         assertThat("board is different", boards.contains("......\n" +
                                                                 "......\n" +
                                                                 "......\n" +
-                                                                "...b..\n" +
+                                                                "..."+ BISHOP.getFigureAsString() +"..\n" +
                                                                 "......\n" +
                                                                 "......\n"), is(true));
         assertTrue("all elements are not present on each board", boards.stream()

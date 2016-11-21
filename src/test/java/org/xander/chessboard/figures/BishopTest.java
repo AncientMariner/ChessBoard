@@ -14,6 +14,6 @@ public class BishopTest {
         FiguresChain figuresChain = new Bishop(new HashMap<>());
 
         assertThat("object is null", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
-        assertThat("object name is different", figuresChain.getName().equals(Figure.BISHOP.name()) , is(true));
+        assertThat("object name is different", figuresChain.getName().equals(Figure.BISHOP.toString()) , is(true));
     }
 }

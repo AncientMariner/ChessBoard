@@ -13,6 +13,6 @@ public class RookTest {
     public void getName() {
         FiguresChain figuresChain = new Rook(new HashMap<>());
         assertThat("object is null", figuresChain.placementBehavior instanceof RooksPlacement, is(true));
-        assertThat("object name is different", figuresChain.getName().equals(Figure.ROOK.name()) , is(true));
+        assertThat("object name is different", figuresChain.getName().equals(Figure.ROOK.toString()) , is(true));
     }
 }

@@ -12,6 +12,6 @@ public class Queen extends FiguresChain {
 
     @Override
     public String getName() {
-        return Figure.QUEEN.name();
+        return Figure.QUEEN.toString();
     }
 }

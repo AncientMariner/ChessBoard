@@ -104,7 +104,7 @@ public class ChessboardTest {
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("kxkxqxxx\n" +
                                 "xxxxxxqx\n" +
@@ -130,6 +130,7 @@ public class ChessboardTest {
     }
 
     //currently out of memory error, requires optimization
+    //todo uncomment!!!
     @Ignore
     @Test
     public void readmeRequirement() {
@@ -142,7 +143,7 @@ public class ChessboardTest {
         int dimension = 7;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
@@ -169,7 +170,7 @@ public class ChessboardTest {
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        chessboard.placeFiguresOnEmptyBoard();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -188,7 +189,7 @@ public class ChessboardTest {
         figureQuantityMap.put(ROOK.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(7).withKing().withRook().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertThat("there is no boards", boards.size() > 0, is(true));
         assertTrue("all elements are not present on each board", boards.parallelStream()
@@ -200,7 +201,7 @@ public class ChessboardTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 443442
+                        && boards.size() == 153064
                 ));
     }
 
@@ -230,7 +231,7 @@ public class ChessboardTest {
                        && board.contains(FIELD_UNDER_ATTACK_STRING)
                        && board.contains(EMPTY_FIELD_STRING)
                        && leftOnlyFigures(board).length() == 4
-                       && boards.size() == 1872102
+                       && boards.size() == 657390
                ));
     }
 
@@ -242,10 +243,9 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(5).withKing().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertThat("there is no boards", boards.size() > 0, is(true));
-
         assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
                                 && !board.contains(QUEEN.getFigureAsString())
@@ -253,9 +253,8 @@ public class ChessboardTest {
                                 && board.contains(ROOK.getFigureAsString())
                                 && board.contains(KNIGHT.getFigureAsString())
                                 && board.contains(FIELD_UNDER_ATTACK_STRING)
-//                        && !board.contains(".")
                                 && leftOnlyFigures(board).length() == 6
-                                && boards.size() == 54552
+                                && boards.size() == 1156
                 ));
     }
 
@@ -348,7 +347,7 @@ public class ChessboardTest {
         int dimension = 2;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("kx\n" + "xx\n"), is(true));
 
@@ -364,6 +363,67 @@ public class ChessboardTest {
                         && boards.size() == 4
                 ));
     }
-    //todo check for board figures legal placement before calculation
 
+    @Test
+    public void smallBoardDimension2() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(BISHOP.toString(), 1);
+        figureQuantityMap.put(ROOK.toString(), 1);
+
+        int dimension = 2;
+        Chessboard chessboard1 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withBishop().build();
+        Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withBishop().withRook().build();
+
+        Set<String> boards = new HashSet<>();
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
+
+        assertThat("more than 1 figure is present", boards.contains("rx\n" + "x.\n"), is(true));
+        assertThat("more than 1 figure is present", boards.contains("xr\n" + ".x\n"), is(true));
+        assertThat("more than 1 figure is present", boards.contains(".b\n" + "x.\n"), is(true));
+        assertThat("more than 1 figure is present", boards.contains("b.\n" + ".x\n"), is(true));
+
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
+                        && leftOnlyFigures(board).length() == 1
+                        && boards.size() == 8
+                ));
+    }
+
+    @Test
+    public void smallBoardDimension3() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(BISHOP.toString(), 1);
+        figureQuantityMap.put(ROOK.toString(), 1);
+
+        int dimension = 3;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withBishop().build();
+
+        Set<String> boards = new HashSet<>();
+        boards.addAll(chessboard.placeFiguresOnEmptyBoard());
+        assertThat("more than 1 figure is present", boards.contains("bx.\n" +
+                                                                           ".x.\n" +
+                                                                           "xrx\n"), is(true));
+        assertThat("more than 1 figure is present", boards.contains(".bx\n" +
+                                                                           "xxr\n" +
+                                                                           "..x\n"), is(false));
+        assertThat("more than 1 figure is present", boards.contains(".xx\n" +
+                                                                           "b.x\n" +
+                                                                           "xxr\n"), is(true));
+        assertTrue("all elements are not present on each board", boards.stream()
+                .allMatch(board -> !board.contains(KING.getFigureAsString())
+                        && !board.contains(QUEEN.getFigureAsString())
+                        && board.contains(BISHOP.getFigureAsString())
+                        && board.contains(ROOK.getFigureAsString())
+                        && !board.contains(KNIGHT.getFigureAsString())
+                        && board.contains(FIELD_UNDER_ATTACK_STRING)
+                        && board.contains(EMPTY_FIELD_STRING)
+                        && leftOnlyFigures(board).length() == 2
+                        && boards.size() == 16
+                ));
+    }
 }

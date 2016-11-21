@@ -3,29 +3,8 @@ package org.xander.chessboard.figuresPlacement;
 import org.junit.Test;
 import org.xander.chessboard.figures.Figure;
 
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
-
 public class FiguresAttackPlacesTest {
     PlacementBehavior figuresPlacement;
-
-    void placeFigure(Figure figure) {
-        String expectedBoard = figure.getFigureAsString() + ".....\n" +
-                                                            "......\n" +
-                                                            "......\n" +
-                                                            "......\n" +
-                                                            "......\n" +
-                                                            "......\n";
-        String expectedBoardWithTwoBishops = figure.getFigureAsString() +figure.getFigureAsString() + "....\n" +
-                                                                                                    "......\n" +
-                                                                                                    "......\n" +
-                                                                                                    "......\n" +
-                                                                                                    "......\n" +
-                                                                                                    "......\n";
-        Set<String> boards = figuresPlacement.placeCertainFigureOnBoard(expectedBoard);
-        assertTrue(boards.contains(expectedBoardWithTwoBishops));
-    }
 
     String calculateAttackOfTheFigureOnBoard(Figure figure) {
         String expectedBoard = figure.getFigureAsString() + ".....\n" +

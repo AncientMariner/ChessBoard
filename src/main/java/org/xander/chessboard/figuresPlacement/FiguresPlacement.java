@@ -61,13 +61,18 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         return BoardUtils.transformArrayToString(boardElements);
     }
 
-    protected void calculateAttackPlaces(int dimension, char[] boardElements) {
+    private void calculateAttackPlaces(int dimension, char[] boardElements) {
         IntStream.range(0, boardElements.length)
                 .filter(e -> boardElements[e] == getFigure())
-                .forEach(position -> attackPlaceForPosition(dimension, boardElements, position));
+                .forEach(position -> attackPlaceForPosition(position, boardElements, dimension));
     }
 
-    protected abstract void attackPlaceForPosition(int dimension, char[] boardElements, int position);
+    private boolean isFigurePlacementOnPositionPossible(int position, char[] boardElements, int dimension) {
+        return isAttackPlacesForPositionNotHarmingToAnotherFigures(position, boardElements, dimension);
+    }
+
+    protected abstract void attackPlaceForPosition(int position, char[] boardElements, int dimension);
+    protected abstract boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension);
 
     @Override
     public Set<String> placeCertainFigureOnBoard(String board) {
@@ -85,16 +90,20 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
     private Set<String> placeFigureAtPositionOnBoard(char figure, int position, String board) {
+        int dimension = (int) Math.sqrt(board.length()) + 1;
+        checkBoard(board, dimension);
+
         Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
                                                         .range(0, board.length())
                                                         .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
                                                         .boxed()
                                                         .count());
         char[] boardArray = board.toCharArray();
-
         if (boardArray[position] == EMPTY_FIELD_CHAR) {
-            boardArray[position] = figure;
-            setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
+            if (isFigurePlacementOnPositionPossible(position, boardArray, dimension)) {
+                boardArray[position] = figure;
+                setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
+            }
         }
         return setOfPossibleBoards;
     }

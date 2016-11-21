@@ -12,6 +12,6 @@ public class Rook extends FiguresChain {
 
     @Override
     public String getName() {
-        return Figure.ROOK.name();
+        return Figure.ROOK.toString();
     }
 }
