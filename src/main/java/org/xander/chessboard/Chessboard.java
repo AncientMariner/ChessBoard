@@ -36,7 +36,7 @@ public class Chessboard {
         return figureChain.getFigureQuantityMap();
     }
 
-    public String drawEmptyBoard() {
+    private String drawEmptyBoard() {
         StringBuilder chessBoard = new StringBuilder();
 
         IntStream.range(0, dimension).forEach((y) -> {

@@ -2,7 +2,7 @@ package org.xander.chessboard.figuresPlacement;
 
 import static org.xander.chessboard.figuresPlacement.BoardUtils.isBoardElementAnotherFigure;
 import static org.xander.chessboard.figuresPlacement.BoardUtils.isBoardElementEmpty;
-public abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPlacement implements DiagonalPlacement, PerpendicularPlacement {
+abstract class PerpendicularAndDiagonalFiguresPlacement extends FiguresPlacement {
     void perpendicularAttackPlacement(int position, int dimension, char[] boardElements) {
         attackPlaceHorizontallyRight(position, boardElements, dimension, attackPlacesOnTheRight(position, dimension));
         attackPlaceHorizontallyLeft(position, boardElements, dimension, attackPlacesOnTheLeft(position, dimension));

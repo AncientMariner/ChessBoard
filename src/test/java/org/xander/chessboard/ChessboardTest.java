@@ -104,7 +104,7 @@ public class ChessboardTest {
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("kxkxqxxx\n" +
                                 "xxxxxxqx\n" +
@@ -143,7 +143,7 @@ public class ChessboardTest {
         int dimension = 7;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
@@ -170,7 +170,7 @@ public class ChessboardTest {
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        chessboard.placeFiguresOnEmptyBoard();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -189,7 +189,7 @@ public class ChessboardTest {
         figureQuantityMap.put(ROOK.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(7).withKing().withRook().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertThat("there is no boards", boards.size() > 0, is(true));
         assertTrue("all elements are not present on each board", boards.parallelStream()
@@ -243,7 +243,7 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(5).withKing().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertThat("there is no boards", boards.size() > 0, is(true));
         assertTrue("all elements are not present on each board", boards.parallelStream()
@@ -347,7 +347,7 @@ public class ChessboardTest {
         int dimension = 2;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnBoard(chessboard.drawEmptyBoard());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("kx\n" + "xx\n"), is(true));
 
@@ -375,8 +375,8 @@ public class ChessboardTest {
         Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withBishop().withRook().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnBoard(chessboard1.drawEmptyBoard()));
-        boards.addAll(chessboard2.placeFiguresOnBoard(chessboard2.drawEmptyBoard()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
 
         assertThat("more than 1 figure is present", boards.contains("rx\n" + "x.\n"), is(true));
         assertThat("more than 1 figure is present", boards.contains("xr\n" + ".x\n"), is(true));

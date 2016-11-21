@@ -61,13 +61,13 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         return BoardUtils.transformArrayToString(boardElements);
     }
 
-    protected void calculateAttackPlaces(int dimension, char[] boardElements) {
+    private void calculateAttackPlaces(int dimension, char[] boardElements) {
         IntStream.range(0, boardElements.length)
                 .filter(e -> boardElements[e] == getFigure())
                 .forEach(position -> attackPlaceForPosition(position, boardElements, dimension));
     }
 
-    protected boolean isFigurePlacementOnPositionPossible(int position, char[] boardElements, int dimension) {
+    private boolean isFigurePlacementOnPositionPossible(int position, char[] boardElements, int dimension) {
         return isAttackPlacesForPositionNotHarmingToAnotherFigures(position, boardElements, dimension);
     }
 

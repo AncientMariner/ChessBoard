@@ -86,7 +86,6 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
 
     @Test
     public void areaOfBishopAttackAllCorners() {
-        //todo make method to detect illegal placement
         String expectedBoard = "rxxxxr\n" +
                                "x....x\n" +
                                "x....x\n" +
@@ -230,4 +229,6 @@ public class RooksAttackPlacesTest extends FiguresAttackPlacesTest {
         String actual = figuresPlacement.calculateAttackPlaces(board);
         assertEquals(expectedBoardWithTwoRooks, actual);
     }
+
+    //todo make method to detect illegal placement on the initial board provided by user
 }
