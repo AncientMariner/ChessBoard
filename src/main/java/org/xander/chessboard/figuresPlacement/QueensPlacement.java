@@ -15,8 +15,8 @@ public class QueensPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     }
 
     @Override
-    protected boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
-        return perpendicularAttackPlacementCalculate(position, dimension, boardElements)
-            && diagonalAttackPlacementCalculate(position, boardElements, dimension);
+    protected boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension) {
+        return isPerpendicularAttackPlacementNotHarming(position, dimension, boardElements)
+            && isDiagonalAttackPlacementNotHarming(position, boardElements, dimension);
     }
 }

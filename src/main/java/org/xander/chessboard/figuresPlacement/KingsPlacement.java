@@ -31,23 +31,23 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         attackPlaceDiagonallyBelowRight(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
-    boolean perpendicularAttackPlacementCalculate(int position, int dimension, char[] boardElements) {
-        return attackPlaceHorizontallyRightCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceHorizontallyLeftCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceVerticallyAboveCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceVerticallyBelowCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
+    boolean isPerpendicularAttackPlacementNotHarming(int position, int dimension, char[] boardElements) {
+        return isAttackPlaceHorizontallyRightNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceHorizontallyLeftNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceVerticallyAboveNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceVerticallyBelowNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
-    boolean diagonalAttackPlacementCalculate(int position, char[] boardElements, int dimension) {
-        return attackPlaceDiagonallyAboveLeftCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceDiagonallyAboveRightCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceDiagonallyBelowLeftCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
-                && attackPlaceDiagonallyBelowRightCalc(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
+    boolean isDiagonalAttackPlacementNotHarming(int position, char[] boardElements, int dimension) {
+        return isAttackPlaceDiagonallyAboveLeftNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceDiagonallyAboveRightNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceDiagonallyBelowLeftNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
+                && isAttackPlaceDiagonallyBelowRightNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
     @Override
-    protected boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
-        return perpendicularAttackPlacementCalculate(position, dimension, boardElements)
-                && diagonalAttackPlacementCalculate(position, boardElements, dimension);
+    protected boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension) {
+        return isPerpendicularAttackPlacementNotHarming(position, dimension, boardElements)
+                && isDiagonalAttackPlacementNotHarming(position, boardElements, dimension);
     }
 }

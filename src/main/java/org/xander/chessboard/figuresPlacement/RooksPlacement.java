@@ -14,7 +14,7 @@ public class RooksPlacement extends PerpendicularFiguresPlacement {
     }
 
     @Override
-    protected boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
-        return perpendicularAttackPlacementCalculate(position, dimension, boardElements);
+    protected boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension) {
+        return isPerpendicularAttackPlacementNotHarming(position, dimension, boardElements);
     }
 }

@@ -365,7 +365,7 @@ public class ChessboardTest {
     }
 
     @Test
-    public void smallBoard2Test() {
+    public void smallBoardDimension2() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 1);
         figureQuantityMap.put(ROOK.toString(), 1);
@@ -395,31 +395,25 @@ public class ChessboardTest {
     }
 
     @Test
-    public void smallBoardTest() {
+    public void smallBoardDimension3() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 1);
         figureQuantityMap.put(ROOK.toString(), 1);
 
         int dimension = 3;
-        Chessboard chessboard1 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withBishop().build();
-        Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withBishop().withRook().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withBishop().build();
 
         Set<String> boards = new HashSet<>();
-
-//        remove chessobard
-
-        boards.addAll(chessboard1.placeFiguresOnBoard(chessboard1.drawEmptyBoard()));
+        boards.addAll(chessboard.placeFiguresOnEmptyBoard());
         assertThat("more than 1 figure is present", boards.contains("bx.\n" +
                                                                            ".x.\n" +
                                                                            "xrx\n"), is(true));
-        //todo definitely make sure at least one board exists with all figures present
         assertThat("more than 1 figure is present", boards.contains(".bx\n" +
                                                                            "xxr\n" +
                                                                            "..x\n"), is(false));
         assertThat("more than 1 figure is present", boards.contains(".xx\n" +
                                                                            "b.x\n" +
                                                                            "xxr\n"), is(true));
-
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
@@ -432,6 +426,4 @@ public class ChessboardTest {
                         && boards.size() == 16
                 ));
     }
-    //todo check for board figures legal placement before calculation
-
 }

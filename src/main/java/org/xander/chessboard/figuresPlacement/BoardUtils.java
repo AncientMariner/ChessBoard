@@ -30,7 +30,8 @@ public class BoardUtils {
     }
 
     static boolean isBoardElementAnotherFigure(char boardElement) {
-        return boardElement != NEXT_LINE_FIELD_CHAR && (boardElement == BISHOP.getFigure()
+        return !isBoardElementEmpty(boardElement)
+                && (boardElement == BISHOP.getFigure()
                 || boardElement == ROOK.getFigure()
                 || boardElement == KING.getFigure()
                 || boardElement == KNIGHT.getFigure()

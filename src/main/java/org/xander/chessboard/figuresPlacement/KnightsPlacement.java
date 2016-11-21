@@ -19,11 +19,11 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
     }
 
     @Override
-    protected boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
-        return attackPlaceAboveCalc(position, boardElements, dimension)
-                && attackPlaceBelowCalc(position, boardElements, dimension)
-                && attackPlaceLeftCalc(position, boardElements, dimension)
-                && attackPlaceRightCalc(position, boardElements, dimension);
+    protected boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension) {
+        return isAttackPlaceAboveNotHarming(position, boardElements, dimension)
+                && isAttackPlaceBelowNotHarming(position, boardElements, dimension)
+                && isAttackPlaceLeftNotHarming(position, boardElements, dimension)
+                && isAttackPlaceRightNotHarming(position, boardElements, dimension);
     }
 
     private void attackPlaceAbove(int position, char[] boardElements, int dimension) {
@@ -39,7 +39,7 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         }
     }
 
-    private boolean attackPlaceAboveCalc(int position, char[] boardElements, int dimension) {
+    private boolean isAttackPlaceAboveNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceOnPreviousLine(positionAboveRight(position, dimension))
                 && isPositionInRangeOnTheRight(position, dimension)) {
             if (isBoardElementAnotherFigure(boardElements[positionAboveRight(position, dimension)])) {
@@ -68,7 +68,7 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         }
     }
 
-    private boolean attackPlaceBelowCalc(int position, char[] boardElements, int dimension) {
+    private boolean isAttackPlaceBelowNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceOnNextLine(boardElements, positionBelowRight(position, dimension))
                 && isPositionInRangeOnTheRight(position, dimension)) {
             if (isBoardElementAnotherFigure(boardElements[positionBelowRight(position, dimension)])) {
@@ -97,7 +97,7 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         }
     }
 
-    private boolean attackPlaceLeftCalc(int position, char[] boardElements, int dimension) {
+    private boolean isAttackPlaceLeftNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceLeft(position, dimension)) {
             if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)) {
                 if (isBoardElementAnotherFigure(boardElements[positionLeftBelow(position, dimension)])) {
@@ -127,7 +127,7 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         }
     }
 
-    private boolean attackPlaceRightCalc(int position, char[] boardElements, int dimension) {
+    private boolean isAttackPlaceRightNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceRight(position, dimension)) {
             if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)) {
                 if (isBoardElementAnotherFigure(boardElements[positionRightBelow(position, dimension)])) {

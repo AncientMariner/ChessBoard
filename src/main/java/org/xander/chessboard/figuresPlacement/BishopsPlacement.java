@@ -14,7 +14,7 @@ public class BishopsPlacement extends DiagonalFiguresPlacement {
     }
 
     @Override
-    public boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
-        return diagonalAttackPlacementCalculate(position, boardElements, dimension);
+    public boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension) {
+        return isDiagonalAttackPlacementNotHarming(position, boardElements, dimension);
     }
 }
