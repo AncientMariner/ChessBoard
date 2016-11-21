@@ -9,12 +9,12 @@ public class BishopsPlacement extends DiagonalFiguresPlacement {
     }
 
     @Override
-    public void attackPlaceForPosition(int dimension, char[] boardElements, int position) {
+    public void attackPlaceForPosition(int position, char[] boardElements, int dimension) {
         diagonalAttackPlacement(position, dimension, boardElements);
     }
 
     @Override
-    public boolean possibleAttackPlaceForPositionCalculate(int dimension, char[] boardElements, int position) {
-        return diagonalAttackPlacementCalculate(position, dimension, boardElements);
+    public boolean possibleAttackPlaceForPositionCalculate(int position, char[] boardElements, int dimension) {
+        return diagonalAttackPlacementCalculate(position, boardElements, dimension);
     }
 }
