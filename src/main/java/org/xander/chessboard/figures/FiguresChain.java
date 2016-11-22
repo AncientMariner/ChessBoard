@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public abstract class FiguresChain {
     private Map<String, Integer> figureQuantityMap;
-    protected PlacementBehavior placementBehavior;
+    PlacementBehavior placementBehavior;
     private FiguresChain chain;
 
     FiguresChain(Map<String, Integer> figureQuantityMap) {
@@ -43,7 +43,7 @@ public abstract class FiguresChain {
         return boardsToReturn;
     }
 
-    Set<String> placePartOfChain(Set<String> boards) {
+    private Set<String> placePartOfChain(Set<String> boards) {
         Integer numberOfFigures = figureQuantityMap.get(getName());
         if (numberOfFigures != null) {
             IntStream.range(0, numberOfFigures)

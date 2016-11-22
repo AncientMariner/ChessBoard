@@ -4,6 +4,7 @@ import org.xander.chessboard.figures.Bishop;
 import org.xander.chessboard.figures.FiguresChain;
 import org.xander.chessboard.figures.King;
 import org.xander.chessboard.figures.Knight;
+import org.xander.chessboard.figures.NoMoreFigures;
 import org.xander.chessboard.figures.Queen;
 import org.xander.chessboard.figures.Rook;
 
@@ -126,7 +127,13 @@ public class Chessboard {
             return this;
         }
 
+        private Builder noMoreFigures() {
+            prepareFiguresChain(new NoMoreFigures(figureQuantityMap));
+            return this;
+        }
+
         Chessboard build() {
+            noMoreFigures();
             return Chessboard.this;
         }
 
