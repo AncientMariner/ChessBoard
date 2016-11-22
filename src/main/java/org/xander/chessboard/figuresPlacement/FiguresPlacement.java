@@ -22,9 +22,10 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     public static final String NEXT_LINE_FIELD_STRING = "\n";
 
     public Stream<String> placeFiguresOnBoards(Stream<String> boardsStream) {
-        Set<String> boards = boardsStream.collect(Collectors.toSet());
+        Set<String> initialBoardsWithoutAttackPlaces = boardsStream.collect(Collectors.toSet());
 
-        Set<String> initialBoardsWithoutAttackPlaces = boards.parallelStream()
+        Set<String> initialBoardsWithAttackPlaces = initialBoardsWithoutAttackPlaces
+                .parallelStream()
                 .filter(board -> board.contains(KING.getFigureAsString())
                               || board.contains(QUEEN.getFigureAsString())
                               || board.contains(BISHOP.getFigureAsString())
@@ -33,15 +34,15 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .filter(e -> !e.contains(FIELD_UNDER_ATTACK_STRING))
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? boards : set));
+                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
 
-        Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithoutAttackPlaces
+        Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithAttackPlaces
                 .parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
+                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithAttackPlaces : set));
 
         return boardsWithNewFigureAndAttackPlaces.stream();
     }
@@ -54,7 +55,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         char[] boardElements = board.toCharArray();
 
         calculateAttackPlaces(dimension, boardElements);
-        return BoardUtils.transformArrayToString(boardElements);
+        return new String(boardElements);
     }
 
     private void calculateAttackPlaces(int dimension, char[] boardElements) {
@@ -69,13 +70,12 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     protected abstract void attackPlaceForPosition(int position, char[] boardElements, int dimension);
     protected abstract boolean isAttackPlacesForPositionNotHarmingToAnotherFigures(int position, char[] boardElements, int dimension);
+    protected abstract char getFigure();
 
     @Override
     public Set<String> placeCertainFigureOnBoard(String board) {
         return placeFigureOnBoard(getFigure(), board);
     }
-
-    protected abstract char getFigure();
 
     Set<String> placeFigureOnBoard(char figure, String board) {
         return Stream.iterate(0, index -> index + 1)
@@ -98,7 +98,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         if (boardArray[position] == EMPTY_FIELD_CHAR) {
             if (isFigurePlacementOnPositionPossible(position, boardArray, dimension)) {
                 boardArray[position] = figure;
-                setOfPossibleBoards.add(BoardUtils.transformArrayToString(boardArray));
+                setOfPossibleBoards.add(new String(boardArray));
             }
         }
         return setOfPossibleBoards;

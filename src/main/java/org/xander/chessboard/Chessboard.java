@@ -61,7 +61,7 @@ public class Chessboard {
         int numberOfKnights = figureChain.extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
-        if (!Objects.isNull(initialBoard) && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
+        if (Objects.nonNull(initialBoard) && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 

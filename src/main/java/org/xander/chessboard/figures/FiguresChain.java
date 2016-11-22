@@ -41,7 +41,7 @@ public abstract class FiguresChain {
 
     public Stream<String> placeFigures(Stream<String> boards) {
         Stream<String> boardsToReturn = placePartOfChain(boards);
-        if (!Objects.isNull(chain)) {
+        if (Objects.nonNull(chain)) {
             return this.chain.placeFigures(boardsToReturn);
         }
         return boardsToReturn;
@@ -50,7 +50,7 @@ public abstract class FiguresChain {
     private Stream<String> placePartOfChain(Stream<String> boardsStream) {
         Set<String> boards = boardsStream.collect(Collectors.toSet());
         Integer numberOfFigures = figureQuantityMap.get(getName());
-        if (!Objects.isNull(numberOfFigures)) {
+        if (Objects.nonNull(numberOfFigures)) {
             IntStream.range(0, numberOfFigures)
                     .filter(e -> figureQuantityMap.containsKey(getName()))
                     .forEach(e -> {
