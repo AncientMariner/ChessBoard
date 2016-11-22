@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
@@ -48,11 +49,11 @@ public class Chessboard {
         return chessBoard.toString();
     }
 
-    public Set<String> placeFiguresOnEmptyBoard() {
+    public Stream<String> placeFiguresOnEmptyBoard() {
         return placeFiguresOnBoard(drawEmptyBoard());
     }
 
-    public Set<String> placeFiguresOnBoard(String initialBoard) {
+    public Stream<String> placeFiguresOnBoard(String initialBoard) {
         int numberOfKings = figureChain.extractA(KING.toString());
         int numberOfQueens = figureChain.extractA(QUEEN.toString());
         int numberOfBishops = figureChain.extractA(BISHOP.toString());
@@ -68,7 +69,7 @@ public class Chessboard {
         HashSet<String> initialBoards = new HashSet<>();
         initialBoards.add(initialBoard);
 
-        return figureChain.placeFigures(initialBoards);
+        return figureChain.placeFigures(initialBoards.stream());
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {

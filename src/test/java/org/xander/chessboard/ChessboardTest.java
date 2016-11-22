@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -104,7 +105,7 @@ public class ChessboardTest {
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
         assertThat("more than 1 figure is present",
                 boards.contains("kxkxqxxx\n" +
                                 "xxxxxxqx\n" +
@@ -140,7 +141,7 @@ public class ChessboardTest {
         int dimension = 7;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withRook().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
         assertThat("more than 1 figure is present",
                 boards.contains("xxxxxqx\n" +
                                 "xxqxxxx\n" +
@@ -175,7 +176,7 @@ public class ChessboardTest {
         int dimension = 7;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKing().withQueen().withBishop().withKnight().build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())
@@ -239,8 +240,8 @@ public class ChessboardTest {
         Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withKing().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
 
         return boards;
     }
@@ -281,7 +282,7 @@ public class ChessboardTest {
 //        Chessboard chessboard6 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withKing().withBishop().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
 //        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
 //        boards.addAll(chessboard3.placeFiguresOnEmptyBoard());
 //        boards.addAll(chessboard4.placeFiguresOnEmptyBoard());
@@ -319,12 +320,12 @@ public class ChessboardTest {
         Chessboard chessboard6 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKnight().withKing().withRook().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard3.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard4.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard5.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard6.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard3.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard4.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard5.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard6.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
         return boards;
     }
 
@@ -361,7 +362,7 @@ public class ChessboardTest {
                                                                        "b....b\n" +
                                                                        "b....b\n" +
                                                                        "b....b\n" +
-                                                                       "bbbbbb\n");
+                                                                       "bbbbbb\n").collect(Collectors.toSet());
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
@@ -377,13 +378,30 @@ public class ChessboardTest {
                 ));
     }
 
+
+    @Test
+    public void onlyRookOnFilledBoard() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(ROOK.toString(), 2);
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withRook().build();
+
+        Set<String> boards = chessboard.placeFiguresOnBoard("rrrrrr\n" +
+                                                                       "r....r\n" +
+                                                                       "r....r\n" +
+                                                                       "r....r\n" +
+                                                                       "r....r\n" +
+                                                                       "rrrrrr\n").collect(Collectors.toSet());
+        assertThat("there is no boards", boards.size() == 1, is(true));
+
+    }
+
     @Test
     public void onlyBishopOnEmptyBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
         assertThat("there is no boards", boards.size() > 0, is(true));
         assertTrue("all elements are not present on each board", boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
@@ -409,7 +427,7 @@ public class ChessboardTest {
                                                                        "bbbbbb\n" +
                                                                        "bbbbbb\n" +
                                                                        "bbbbbb\n" +
-                                                                       "bbbbbb\n");
+                                                                       "bbbbbb\n").collect(Collectors.toSet());
         assertThat("there is no boards", boards.size() == 1, is(true));
 
         assertTrue("all elements are not present on each board", boards.stream()
@@ -452,8 +470,8 @@ public class ChessboardTest {
         Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withQueen().withKing().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
 
         return boards;
     }
@@ -488,8 +506,8 @@ public class ChessboardTest {
         Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withBishop().withRook().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
         return boards;
     }
 

@@ -21,7 +21,9 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     static final char NEXT_LINE_FIELD_CHAR = '\n';
     public static final String NEXT_LINE_FIELD_STRING = "\n";
 
-    public Set<String> placeFiguresOnBoards(Set<String> boards) {
+    public Stream<String> placeFiguresOnBoards(Stream<String> boardsStream) {
+        Set<String> boards = boardsStream.collect(Collectors.toSet());
+
         Set<String> initialBoardsWithoutAttackPlaces = boards.parallelStream()
                 .filter(board -> board.contains(KING.getFigureAsString())
                               || board.contains(QUEEN.getFigureAsString())
@@ -31,23 +33,17 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .filter(e -> !e.contains(FIELD_UNDER_ATTACK_STRING))
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.toSet());
+                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? boards : set));
 
-        if (initialBoardsWithoutAttackPlaces.isEmpty()) {
-            initialBoardsWithoutAttackPlaces.addAll(boards);
-        }
         Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithoutAttackPlaces
                 .parallelStream()
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.toSet());
+                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
 
-        if (boardsWithNewFigureAndAttackPlaces.isEmpty()) {
-            boardsWithNewFigureAndAttackPlaces.addAll(initialBoardsWithoutAttackPlaces);
-        }
-        return boardsWithNewFigureAndAttackPlaces;
+        return boardsWithNewFigureAndAttackPlaces.stream();
     }
 
     @Override

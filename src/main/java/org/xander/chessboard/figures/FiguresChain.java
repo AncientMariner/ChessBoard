@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public abstract class FiguresChain {
     private Map<String, Integer> figureQuantityMap;
@@ -37,15 +39,16 @@ public abstract class FiguresChain {
         this.chain = nextChain;
     }
 
-    public Set<String> placeFigures(Set<String> boards) {
-        Set<String> boardsToReturn = placePartOfChain(boards);
+    public Stream<String> placeFigures(Stream<String> boards) {
+        Stream<String> boardsToReturn = placePartOfChain(boards);
         if (!Objects.isNull(chain)) {
             return this.chain.placeFigures(boardsToReturn);
         }
         return boardsToReturn;
     }
 
-    private Set<String> placePartOfChain(Set<String> boards) {
+    private Stream<String> placePartOfChain(Stream<String> boardsStream) {
+        Set<String> boards = boardsStream.collect(Collectors.toSet());
         Integer numberOfFigures = figureQuantityMap.get(getName());
         if (!Objects.isNull(numberOfFigures)) {
             IntStream.range(0, numberOfFigures)
@@ -53,7 +56,7 @@ public abstract class FiguresChain {
                     .forEach(e -> {
                         Set<String> boardsToReturn = new HashSet<>();
 
-                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
+                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards.stream()).collect(Collectors.toSet()));
 
                         boards.clear();
                         boards.addAll(boardsToReturn);
@@ -61,7 +64,7 @@ public abstract class FiguresChain {
                         boardsToReturn.clear();
                     });
         }
-        return boards;
+        return boards.stream();
     }
 
     abstract String getName();

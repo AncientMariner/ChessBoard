@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -51,7 +52,7 @@ public class FigureChainTest {
         Set<String> objects = new HashSet<>();
         objects.add("....\n");
 
-        figuresChain.placeFigures(objects);
+        figuresChain.placeFigures(objects.stream());
     }
 
     @Test
@@ -64,7 +65,7 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = figuresChain.placeFigures(objects);
+        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
         assertThat("figures are standing on different places", boards.contains("bbbb..\n" +
                                                                                       "xxxxx.\n" +
                                                                                       "xxxxxx\n" +
@@ -103,7 +104,7 @@ public class FigureChainTest {
                        "......\n" +
                        "......\n" +
                        "......\n");
-        Set<String> boards = figuresChain.placeFigures(objects);
+        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
         assertThat("figures are standing on different places", boards.contains("kxkxnn\n" +
                                                                                       "xxxx..\n" +
                                                                                       "...xxx\n" +
@@ -134,7 +135,7 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = figuresChain.placeFigures(objects);
+        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
         assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
                                                                                       "xxxxxx\n" +
                                                                                       "xxxxx.\n" +
@@ -162,7 +163,7 @@ public class FigureChainTest {
         Set<String> objects = new HashSet<>();
         objects.add("....\n");
 
-        new Knight(figureQuantityMap).placeFigures(objects);
+        new Knight(figureQuantityMap).placeFigures(objects.stream());
     }
 
     @Test
@@ -180,7 +181,10 @@ public class FigureChainTest {
 
         HashSet<String> strings = new HashSet<>();
         strings.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = kingChain.placeFigures(strings);
+        Set<String> boards = kingChain.placeFigures(strings.stream()).collect(Collectors.toSet());
+//        int sum = kingChain.placeFigures(strings.stream()).parallel().map(e -> 1).mapToInt(Integer::new).sum();
+//        int sum = kingChain.placeFigures(strings.stream()).parallel().map(e -> 1).reduce(0, (x, y) -> x + y);
+
 
         assertTrue("all elements are not present on each board", boards.parallelStream()
                 .allMatch(board -> board.contains(KING.getFigureAsString())

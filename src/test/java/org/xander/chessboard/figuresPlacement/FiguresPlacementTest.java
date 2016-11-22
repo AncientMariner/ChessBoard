@@ -7,6 +7,7 @@ import org.xander.chessboard.figures.FiguresChain;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -34,7 +35,7 @@ public class FiguresPlacementTest {
         figureQuantityMap.put(BISHOP.toString(), 3);
 
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
-        Set<String> result = figuresChain.placeFigures(boards);
+        Set<String> result = figuresChain.placeFigures(boards.stream()).collect(Collectors.toSet());
 
         assertThat("there are no boards", result.size() > 0, is(true));
         assertTrue("all elements are not present on each board", result.stream()
