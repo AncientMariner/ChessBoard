@@ -1,5 +1,6 @@
 package org.xander.chessboard.figuresPlacement;
 
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
@@ -20,7 +21,7 @@ public class BoardUtils {
     }
 
     public static void checkBoard(String board, int dimension) {
-        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
+        if (Objects.isNull(board) || board.isEmpty() || board.length() % dimension != 0) {
             throw new IllegalStateException("There is something wrong with your board");
         }
     }

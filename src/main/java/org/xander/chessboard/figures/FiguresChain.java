@@ -4,6 +4,7 @@ import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -25,7 +26,8 @@ public abstract class FiguresChain {
     }
 
     public int extractA(String figure) {
-        if (getFigureQuantityMap() != null && getFigureQuantityMap().containsKey(figure)) {
+        Objects.requireNonNull(getFigureQuantityMap(), "figure quantity map is null");
+        if (getFigureQuantityMap().containsKey(figure)) {
             return getFigureQuantityMap().get(figure);
         }
         return 0;
@@ -37,7 +39,7 @@ public abstract class FiguresChain {
 
     public Set<String> placeFigures(Set<String> boards) {
         Set<String> boardsToReturn = placePartOfChain(boards);
-        if (chain != null) {
+        if (!Objects.isNull(chain)) {
             return this.chain.placeFigures(boardsToReturn);
         }
         return boardsToReturn;
@@ -45,18 +47,18 @@ public abstract class FiguresChain {
 
     private Set<String> placePartOfChain(Set<String> boards) {
         Integer numberOfFigures = figureQuantityMap.get(getName());
-        if (numberOfFigures != null) {
+        if (!Objects.isNull(numberOfFigures)) {
             IntStream.range(0, numberOfFigures)
                     .filter(e -> figureQuantityMap.containsKey(getName()))
                     .forEach(e -> {
-                                    Set<String> boardsToReturn = new HashSet<>();
+                        Set<String> boardsToReturn = new HashSet<>();
 
-                                    boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
+                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
 
-                                    boards.clear();
-                                    boards.addAll(boardsToReturn);
+                        boards.clear();
+                        boards.addAll(boardsToReturn);
 
-                                    boardsToReturn.clear();
+                        boardsToReturn.clear();
                     });
         }
         return boards;

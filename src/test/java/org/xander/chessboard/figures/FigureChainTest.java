@@ -5,6 +5,7 @@ import org.xander.chessboard.figuresPlacement.BishopsPlacement;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,10 +30,10 @@ public class FigureChainTest {
         FiguresChain figuresChain1 = new Queen(figureQuantityMap);
 
         figuresChain.setNextFigure(figuresChain1);
-        assertThat("object is null", figuresChain.getChain() != null, is(true));
-        assertThat("object is null", figuresChain.getChain() != null, is(true));
+        assertThat("object is null", Objects.isNull(figuresChain.getChain()), is(false));
+        assertThat("object is null", Objects.isNull(figuresChain.getChain()), is(false));
 
-        if(figuresChain.getFigureQuantityMap() != null) {
+        if(!Objects.isNull(figuresChain.getFigureQuantityMap())) {
             assertThat("key is not present", figuresChain.getFigureQuantityMap().containsKey(KING.getFigureAsString()), is(true));
             assertThat("value is not present", figuresChain.getFigureQuantityMap().containsValue(1), is(true));
         }

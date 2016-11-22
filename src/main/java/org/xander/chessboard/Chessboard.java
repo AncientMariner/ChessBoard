@@ -10,6 +10,7 @@ import org.xander.chessboard.figures.Rook;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -59,7 +60,7 @@ public class Chessboard {
         int numberOfKnights = figureChain.extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
-        if (initialBoard != null && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
+        if (!Objects.isNull(initialBoard) && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 
@@ -79,7 +80,7 @@ public class Chessboard {
         private Map<String, Integer> figureQuantityMap;
 
         private Builder(Map<String, Integer> figureQuantityMap) {
-            if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
+            if (Objects.isNull(figureQuantityMap) || figureQuantityMap.isEmpty()) {
                 throw new IllegalStateException("please provide the figures to put on the board");
             }
             Set<String> possibleFigures = new HashSet<>();
@@ -138,7 +139,7 @@ public class Chessboard {
         }
 
         private void prepareFiguresChain(FiguresChain figure) {
-            if (Chessboard.this.figureChain == null) {
+            if (Objects.isNull(Chessboard.this.figureChain)) {
                 Chessboard.this.figureChain = figure;
                 previousFiguresChain = figure;
             } else {

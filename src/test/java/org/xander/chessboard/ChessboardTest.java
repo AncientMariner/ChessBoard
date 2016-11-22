@@ -245,7 +245,7 @@ public class ChessboardTest {
         return boards;
     }
 
-    //takes at learst 1,5 minutes
+    //takes at least 1,5 minutes
     @Ignore
     @Test
     public void kingRookAndBishop() {
