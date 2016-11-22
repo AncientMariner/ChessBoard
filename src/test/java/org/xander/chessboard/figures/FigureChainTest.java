@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
@@ -74,18 +73,18 @@ public class FigureChainTest {
                                                                                       ".....x\n"),
                 is(true));
 
-        assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> !board.contains(KING.getFigureAsString())
+        assertThat("all elements are not present on each board", boards
+                .parallelStream()
+                .filter(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
                         && !board.contains(KNIGHT.getFigureAsString())
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && board.contains(BISHOP.getFigureAsString())
-                        && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 16428
-                ));
-
+                        && leftOnlyFigures(board).length() == 4)
+                .map(e -> 1)
+                .reduce(0, (x, y) -> x + y), is(16428));
     }
 
     @Test
@@ -113,17 +112,18 @@ public class FigureChainTest {
                                                                                       "......\n"),
                 is(true));
 
-        assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains(KING.getFigureAsString())
+        assertThat("all elements are not present on each board", boards
+                .parallelStream()
+                .filter(board -> board.contains(KING.getFigureAsString())
                         && board.contains(KNIGHT.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
                         && !board.contains(BISHOP.getFigureAsString())
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
-                        && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 59392
-                ));
+                        && leftOnlyFigures(board).length() == 4)
+                .map(e -> 1)
+                .reduce(0, (x, y) -> x + y), is(59392));
     }
 
     @Test
@@ -142,8 +142,10 @@ public class FigureChainTest {
                                                                                       "......\n" +
                                                                                       "......\n" +
                                                                                       "......\n"), is(true));
-        assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains(KNIGHT.getFigureAsString())
+
+        assertThat("all elements are not present on each board", boards
+                .parallelStream()
+                .filter(board -> board.contains(KNIGHT.getFigureAsString())
                         && !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
@@ -151,8 +153,9 @@ public class FigureChainTest {
                         && board.contains(FIELD_UNDER_ATTACK_STRING)
                         && board.contains(EMPTY_FIELD_STRING)
                         && leftOnlyFigures(board).length() == 4
-                        && boards.size() == 26133
-                ));
+                )
+                .map(e -> 1)
+                .reduce(0, (x, y) -> x + y), is(26133));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -181,21 +184,18 @@ public class FigureChainTest {
 
         HashSet<String> strings = new HashSet<>();
         strings.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = kingChain.placeFigures(strings.stream()).collect(Collectors.toSet());
 //        int sum = kingChain.placeFigures(strings.stream()).parallel().map(e -> 1).mapToInt(Integer::new).sum();
-//        int sum = kingChain.placeFigures(strings.stream()).parallel().map(e -> 1).reduce(0, (x, y) -> x + y);
-
-
-        assertTrue("all elements are not present on each board", boards.parallelStream()
-                .allMatch(board -> board.contains(KING.getFigureAsString())
-                        && board.contains(QUEEN.getFigureAsString())
-                        && board.contains(BISHOP.getFigureAsString())
-                        && !board.contains(ROOK.getFigureAsString())
-                        && !board.contains(KNIGHT.getFigureAsString())
-                        && board.contains(FIELD_UNDER_ATTACK_STRING)
-                        && board.contains(EMPTY_FIELD_STRING)
-                        && leftOnlyFigures(board).length() == 3
-                        && boards.size() == 8768
-                ));
+        assertThat("all elements are not present on each board", kingChain.placeFigures(strings.stream())
+                .parallel()
+                .filter(board -> board.contains(KING.getFigureAsString())
+                            && board.contains(QUEEN.getFigureAsString())
+                            && board.contains(BISHOP.getFigureAsString())
+                            && !board.contains(ROOK.getFigureAsString())
+                            && !board.contains(KNIGHT.getFigureAsString())
+                            && board.contains(FIELD_UNDER_ATTACK_STRING)
+                            && board.contains(EMPTY_FIELD_STRING)
+                            && leftOnlyFigures(board).length() == 3)
+                .map(e -> 1)
+                .reduce(0, (x, y) -> x + y), is(8768));
     }
 }
