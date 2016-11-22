@@ -97,12 +97,7 @@ public class FigureChainTest {
         figuresChain.setNextFigure(new Knight(figureQuantityMap));
 
         Set<String> objects = new HashSet<>();
-        objects.add("......\n" +
-                       "......\n" +
-                       "......\n" +
-                       "......\n" +
-                       "......\n" +
-                       "......\n");
+        objects.add(EMPTY_BOARD_SIZE_6);
         Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
         assertThat("figures are standing on different places", boards.contains("kxkxnn\n" +
                                                                                       "xxxx..\n" +

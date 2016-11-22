@@ -129,9 +129,8 @@ public class Chessboard {
             return this;
         }
 
-        private Builder noMoreFigures() {
+        private void noMoreFigures() {
             prepareFiguresChain(new NoMoreFigures(figureQuantityMap));
-            return this;
         }
 
         Chessboard build() {

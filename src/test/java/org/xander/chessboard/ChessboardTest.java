@@ -361,7 +361,7 @@ public class ChessboardTest {
     public void onlyBishopOnFilledBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 2);
-        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).withBishop().build();
 
         assertThat("all elements are not present on each board", chessboard.placeFiguresOnBoard("bbbbbb\n" +
                                                                                                                   "b....b\n" +
@@ -387,7 +387,7 @@ public class ChessboardTest {
     public void onlyRookOnFilledBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(ROOK.toString(), 2);
-        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withRook().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).withRook().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard("rrrrrr\n" +
                                                                        "r....r\n" +
@@ -403,7 +403,7 @@ public class ChessboardTest {
     public void onlyBishopOnEmptyBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 2);
-        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).withBishop().build();
 
         Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
 
@@ -425,7 +425,7 @@ public class ChessboardTest {
     public void bishopOnFullBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 2);
-        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(6).withBishop().build();
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).withBishop().build();
 
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnBoard("bbbbbb\n" +

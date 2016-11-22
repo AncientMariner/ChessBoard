@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public abstract class FiguresChain {
-    private Map<String, Integer> figureQuantityMap;
+    private final Map<String, Integer> figureQuantityMap;
     PlacementBehavior placementBehavior;
     private FiguresChain chain;
 
