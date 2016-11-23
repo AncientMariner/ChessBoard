@@ -196,6 +196,7 @@ public class ChessboardTest {
                 .reduce(0, (x, y) -> x + y), is(3063828));
     }
 
+
     @Test(expected = IllegalStateException.class)
     public void placeMoreFiguresOnBoardThanBoardSize() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -382,7 +383,6 @@ public class ChessboardTest {
                 .reduce(0, (x, y) -> x + y), is(1));
     }
 
-
     @Test
     public void onlyRookOnFilledBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -547,5 +547,160 @@ public class ChessboardTest {
                         && leftOnlyFigures(board).length() == 2)
                 .map(e -> 1)
                 .reduce(0, (x, y) -> x + y), is(16));
+    }
+
+    /**
+     * The following examples with queens are taken from:
+     * https://en.wikipedia.org/wiki/Eight_queens_puzzle
+     * */
+    @Test
+    public void fiveQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size5 = 5;
+
+        assertBoardsSize(size5, buildBoardWithQueens(figureQuantityMap, size5), 10);
+    }
+
+    @Test
+    public void sixQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size6 = 6;
+
+        assertBoardsSize(size6, buildBoardWithQueens(figureQuantityMap, size6), 4);
+    }
+
+    @Test
+    public void sevenQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size7 = 7;
+
+        assertBoardsSize(size7, buildBoardWithQueens(figureQuantityMap, size7), 40);
+    }
+
+    @Test
+    public void eightQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size8 = 8;
+
+        assertBoardsSize(size8, buildBoardWithQueens(figureQuantityMap, size8), 92);
+    }
+
+    @Test
+    public void nineQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size9 = 9;
+
+        assertBoardsSize(size9, buildBoardWithQueens(figureQuantityMap, size9), 352);
+    }
+
+    //takes too much time
+    @Ignore
+    @Test
+    public void tenQueens() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size10 = 10;
+
+        assertBoardsSize(size10, buildBoardWithQueens(figureQuantityMap, size10), 724);
+    }
+
+    private Chessboard buildBoardWithQueens(Map<String, Integer> figureQuantityMap, int dimension) {
+        figureQuantityMap.put(QUEEN.toString(), dimension);
+
+        return Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withQueen().build();
+    }
+
+    private void assertBoardsSize(int size8, Chessboard chessboard, int expectedBoardsSize) {
+        assertThat("all elements are not present on each board",
+                chessboard.placeFiguresOnEmptyBoard()
+                        .parallel()
+                        .filter(board -> !board.contains(KING.getFigureAsString())
+                                && board.contains(QUEEN.getFigureAsString())
+                                && !board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && !board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && leftOnlyFigures(board).length() == size8)
+                        .map(e -> 1)
+                        .reduce(0, (x, y) -> x + y), is(expectedBoardsSize));
+    }
+
+    /**
+     * On an 8×8 board one can place
+     * 32 knights,
+     * or 14 bishops, 16 kings
+     * or eight rooks,
+     * so that no two pieces attack each other
+     *
+     * The following examples with rooks are taken from:
+     * https://en.wikipedia.org/wiki/Rook_polynomial
+     * */
+    @Test
+    public void eightRooks() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        int size8 = 8;
+        figureQuantityMap.put(ROOK.toString(), size8);
+
+        int dimension = size8;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().build();
+
+        assertThat("all elements are not present on each board",
+                chessboard.placeFiguresOnEmptyBoard()
+                        .parallel()
+                        .filter(board -> !board.contains(KING.getFigureAsString())
+                                && !board.contains(QUEEN.getFigureAsString())
+                                && !board.contains(BISHOP.getFigureAsString())
+                                && board.contains(ROOK.getFigureAsString())
+                                && !board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && leftOnlyFigures(board).length() == size8)
+                        .map(e -> 1)
+                        .reduce(0, (x, y) -> x + y), is(40320));
+    }
+
+    @Ignore
+    @Test
+    public void statementOfMaxFiguresOnBoard32Knights() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KNIGHT.toString(), 32);
+
+        int dimension = 8;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKnight().build();
+        Stream<String> stringStream = chessboard.placeFiguresOnEmptyBoard();
+//        assertThat("all elements are not present on each board",
+//                chessboard.placeFiguresOnEmptyBoard()
+//                        .parallel()
+//                        .filter(board -> !board.contains(KING.getFigureAsString())
+//                                && !board.contains(QUEEN.getFigureAsString())
+//                                && !board.contains(BISHOP.getFigureAsString())
+//                                && !board.contains(ROOK.getFigureAsString())
+//                                && board.contains(KNIGHT.getFigureAsString())
+//                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+//                                && leftOnlyFigures(board).length() == 8)
+//                        .map(e -> 1)
+//                        .reduce(0, (x, y) -> x + y), is(3063828));
+    }
+
+    @Ignore
+    @Test
+    public void statementOfMaxFiguresOnBoard14Bishops16Kings() {
+        Map<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(BISHOP.toString(), 14);
+        figureQuantityMap.put(KING.toString(), 16);
+
+        int dimension = 8;
+        Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withBishop().withKing().build();
+
+        assertThat("all elements are not present on each board",
+                chessboard.placeFiguresOnEmptyBoard()
+                        .parallel()
+                        .filter(board -> board.contains(KING.getFigureAsString())
+                                && !board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && !board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && leftOnlyFigures(board).length() == 8)
+                        .map(e -> 1)
+                        .reduce(0, (x, y) -> x + y), is(3063828));
     }
 }
