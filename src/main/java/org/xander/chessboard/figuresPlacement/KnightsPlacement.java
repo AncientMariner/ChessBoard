@@ -99,16 +99,13 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
 
     private boolean isAttackPlaceLeftNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceLeft(position, dimension)) {
-            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)) {
-                if (isBoardElementAnotherFigure(boardElements[positionLeftBelow(position, dimension)])) {
-                    return false;
-                }
+            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)
+                    && isBoardElementAnotherFigure(boardElements[positionLeftBelow(position, dimension)])) {
+                return false;
             }
             if (isPossibleToPlaceOnPreviousLine(position - dimension)
-                    ) {
-                if (isBoardElementAnotherFigure(boardElements[positionLeftAbove(position, dimension)])) {
-                    return false;
-                }
+                    && isBoardElementAnotherFigure(boardElements[positionLeftAbove(position, dimension)])) {
+                return false;
             }
         }
         return true;
@@ -129,15 +126,13 @@ public class KnightsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
 
     private boolean isAttackPlaceRightNotHarming(int position, char[] boardElements, int dimension) {
         if (isPossibleToPlaceRight(position, dimension)) {
-            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)) {
-                if (isBoardElementAnotherFigure(boardElements[positionRightBelow(position, dimension)])) {
-                    return false;
-                }
+            if (isPossibleToPlaceOnNextLine(boardElements, position + dimension)
+                    && isBoardElementAnotherFigure(boardElements[positionRightBelow(position, dimension)])) {
+                return false;
             }
-            if (isPossibleToPlaceOnPreviousLine(position - dimension)) {
-                if (isBoardElementAnotherFigure(boardElements[positionRightAbove(position, dimension)])) {
-                    return false;
-                }
+            if (isPossibleToPlaceOnPreviousLine(position - dimension)
+                    && isBoardElementAnotherFigure(boardElements[positionRightAbove(position, dimension)])) {
+                return false;
             }
         }
         return true;
