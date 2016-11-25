@@ -11,7 +11,7 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
-import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
+import static org.xander.chessboard.figuresPlacement.BoardUtils.isBoardLegal;
 
 public abstract class FiguresPlacement implements PlacementBehavior {
     static final char EMPTY_FIELD_CHAR = '.';
@@ -34,7 +34,8 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .filter(e -> !e.contains(FIELD_UNDER_ATTACK_STRING))
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
+                .collect(Collectors.collectingAndThen(Collectors.toSet(),
+                        set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
 
         Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithAttackPlaces
                 .parallelStream()
@@ -42,7 +43,8 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .map(this::placeCertainFigureOnBoard)
                 .flatMap(Set::stream)
                 .map(this::calculateAttackPlaces)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), set -> set.isEmpty() ? initialBoardsWithAttackPlaces : set));
+                .collect(Collectors.collectingAndThen(Collectors.toSet(),
+                        set -> set.isEmpty() ? initialBoardsWithAttackPlaces : set));
 
         return boardsWithNewFigureAndAttackPlaces.stream();
     }
@@ -51,7 +53,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     public String calculateAttackPlaces(String board) {
         //mind the '\n' character
         int dimension = (int) Math.sqrt(board.length()) + 1;
-        checkBoard(board, dimension);
+        isBoardLegal(board, dimension);
         char[] boardElements = board.toCharArray();
 
         calculateAttackPlaces(dimension, boardElements);
@@ -87,7 +89,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     private Set<String> placeFigureAtPositionOnBoard(char figure, int position, String board) {
         int dimension = (int) Math.sqrt(board.length()) + 1;
-        checkBoard(board, dimension);
+        isBoardLegal(board, dimension);
 
         Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
                                                         .range(0, board.length())

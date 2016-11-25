@@ -20,7 +20,7 @@ import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
 import static org.xander.chessboard.figures.Figure.QUEEN;
 import static org.xander.chessboard.figures.Figure.ROOK;
-import static org.xander.chessboard.figuresPlacement.BoardUtils.checkBoard;
+import static org.xander.chessboard.figuresPlacement.BoardUtils.isBoardLegal;
 import static org.xander.chessboard.figuresPlacement.FiguresPlacement.EMPTY_FIELD_STRING;
 import static org.xander.chessboard.figuresPlacement.FiguresPlacement.NEXT_LINE_FIELD_STRING;
 
@@ -65,7 +65,7 @@ public class Chessboard {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 
-        checkBoard(initialBoard, dimension);
+        isBoardLegal(initialBoard, dimension);
         HashSet<String> initialBoards = new HashSet<>();
         initialBoards.add(initialBoard);
 
