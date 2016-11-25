@@ -11,7 +11,7 @@ import static org.xander.chessboard.figuresPlacement.FiguresPlacement.EMPTY_FIEL
 import static org.xander.chessboard.figuresPlacement.FiguresPlacement.NEXT_LINE_FIELD_CHAR;
 
 public class BoardUtils {
-    public static void checkBoard(String board, int dimension) {
+    public static void isBoardLegal(String board, int dimension) {
         if (Objects.isNull(board) || board.isEmpty() || board.length() % dimension != 0) {
             throw new IllegalStateException("There is something wrong with your board");
         }
