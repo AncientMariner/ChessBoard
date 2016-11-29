@@ -41,6 +41,33 @@ public class FigureChainTest {
     }
 
     @Test(expected = IllegalStateException.class)
+    public void figureQuantityMapIsNull() {
+        new Bishop(null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void figureChainIsNull() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(KING.getFigureAsString(), 1);
+        FiguresChain figuresChain = new Bishop(figureQuantityMap);
+        figuresChain.setNextFigure(null);
+    }
+
+    @Test
+    public void extractANullFigure() {
+        HashMap<String, Integer> figureQuantityMap = new HashMap<>();
+        figureQuantityMap.put(null, null);
+        FiguresChain figuresChain = new Bishop(figureQuantityMap);
+        assertThat("null figure is present", figuresChain.extractA(null), is(0));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void placeFiguresNullBoardsNegative() {
+        FiguresChain figuresChain = new Bishop(new HashMap<>());
+        figuresChain.placeFigures(null);
+    }
+
+    @Test(expected = IllegalStateException.class)
     public void placeFiguresBishopNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 4);
@@ -55,7 +82,7 @@ public class FigureChainTest {
     }
 
     @Test
-    public void placeFiguresNegative() {
+    public void placeFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 4);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);

@@ -1,6 +1,7 @@
 package org.xander.chessboard.figuresPlacement;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -51,6 +52,9 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     @Override
     public String calculateAttackPlaces(String board) {
+        if (Objects.isNull(board)) {
+            throw new IllegalStateException("board is null");
+        }
         //mind the '\n' character
         int dimension = (int) Math.sqrt(board.length()) + 1;
         isBoardLegal(board, dimension);

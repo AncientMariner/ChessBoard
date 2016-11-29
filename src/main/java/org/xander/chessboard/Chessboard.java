@@ -138,13 +138,13 @@ public class Chessboard {
             return Chessboard.this;
         }
 
-        private void prepareFiguresChain(FiguresChain figure) {
+        private void prepareFiguresChain(FiguresChain figuresChain) {
             if (Objects.isNull(Chessboard.this.figureChain)) {
-                Chessboard.this.figureChain = figure;
-                previousFiguresChain = figure;
+                Chessboard.this.figureChain = figuresChain;
+                previousFiguresChain = figuresChain;
             } else {
-                previousFiguresChain.setNextFigure(figure);
-                previousFiguresChain = figure;
+                previousFiguresChain.setNextFigure(figuresChain);
+                previousFiguresChain = figuresChain;
             }
         }
     }

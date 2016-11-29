@@ -98,4 +98,9 @@ public class FiguresAttackPlacesTest {
                        ".......\n";
         new KingsPlacement().calculateAttackPlaces(board);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateAreaNegativeNullBoard() {
+        new KingsPlacement().calculateAttackPlaces(null);
+    }
 }

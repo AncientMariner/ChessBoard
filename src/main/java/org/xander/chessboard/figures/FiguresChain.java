@@ -12,10 +12,13 @@ import java.util.stream.Stream;
 
 public abstract class FiguresChain {
     private final Map<String, Integer> figureQuantityMap;
-    PlacementBehavior placementBehavior;
+    protected PlacementBehavior placementBehavior;
     private FiguresChain chain;
 
     FiguresChain(Map<String, Integer> figureQuantityMap) {
+        if (Objects.isNull(figureQuantityMap)) {
+            throw new IllegalStateException("figureQuantity map is null, however should not be");
+        }
         this.figureQuantityMap = figureQuantityMap;
     }
 
@@ -27,19 +30,26 @@ public abstract class FiguresChain {
         return chain;
     }
 
+    public void setNextFigure(FiguresChain nextChain) {
+        if (Objects.isNull(nextChain)) {
+            throw new IllegalStateException("next part of the chain is null, please provide non-null chain");
+        }
+        this.chain = nextChain;
+    }
+
     public int extractA(String figure) {
-        Objects.requireNonNull(getFigureQuantityMap(), "figure quantity map is null");
-        if (getFigureQuantityMap().containsKey(figure)) {
+        if (Objects.nonNull(figure)
+                && Objects.nonNull(getFigureQuantityMap())
+                && getFigureQuantityMap().containsKey(figure)) {
             return getFigureQuantityMap().get(figure);
         }
         return 0;
     }
 
-    public void setNextFigure(FiguresChain nextChain) {
-        this.chain = nextChain;
-    }
-
     public Stream<String> placeFigures(Stream<String> boards) {
+        if (Objects.isNull(boards)) {
+            throw new IllegalStateException("boars are null");
+        }
         Stream<String> boardsToReturn = placePartOfChain(boards);
         if (Objects.nonNull(chain)) {
             return this.chain.placeFigures(boardsToReturn);
