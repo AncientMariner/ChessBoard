@@ -15,7 +15,7 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         perpendicularAttackPlacement(position, dimension, boardElements);
         diagonalAttackPlacement(position, dimension, boardElements);
     }
-
+    @Override
     void perpendicularAttackPlacement(int position, int dimension, char[] boardElements) {
         attackPlaceHorizontallyRight(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
         attackPlaceHorizontallyLeft(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
@@ -23,6 +23,7 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         attackPlaceVerticallyBelow(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
+    @Override
     void diagonalAttackPlacement(int position, int dimension, char[] boardElements) {
         attaclkPlaceDiagonallyAboveLeft(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
         attackPlaceDiagonallyAboveRight(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
@@ -31,6 +32,7 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
         attackPlaceDiagonallyBelowRight(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
+    @Override
     boolean isPerpendicularAttackPlacementNotHarming(int position, int dimension, char[] boardElements) {
         return isAttackPlaceHorizontallyRightNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
                 && isAttackPlaceHorizontallyLeftNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
@@ -38,6 +40,7 @@ public class KingsPlacement extends PerpendicularAndDiagonalFiguresPlacement {
                 && isAttackPlaceVerticallyBelowNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION);
     }
 
+    @Override
     boolean isDiagonalAttackPlacementNotHarming(int position, char[] boardElements, int dimension) {
         return isAttackPlaceDiagonallyAboveLeftNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
                 && isAttackPlaceDiagonallyAboveRightNotHarming(position, boardElements, dimension, KING_NEIGHBOUR_POSITION)
