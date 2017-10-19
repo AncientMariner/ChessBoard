@@ -105,28 +105,23 @@ public class Chessboard {
         }
 
         Builder withKing() {
-            prepareFiguresChain(new King(figureQuantityMap));
-            return this;
+            return prepareFiguresChain(new King(figureQuantityMap));
         }
 
         Builder withQueen() {
-            prepareFiguresChain(new Queen(figureQuantityMap));
-            return this;
+            return prepareFiguresChain(new Queen(figureQuantityMap));
         }
 
         Builder withBishop() {
-            prepareFiguresChain(new Bishop(figureQuantityMap));
-            return this;
+            return prepareFiguresChain(new Bishop(figureQuantityMap));
         }
 
         Builder withRook() {
-            prepareFiguresChain(new Rook(figureQuantityMap));
-            return this;
+            return prepareFiguresChain(new Rook(figureQuantityMap));
         }
 
         Builder withKnight() {
-            prepareFiguresChain(new Knight(figureQuantityMap));
-            return this;
+            return prepareFiguresChain(new Knight(figureQuantityMap));
         }
 
         private void noMoreFigures() {
@@ -138,7 +133,7 @@ public class Chessboard {
             return Chessboard.this;
         }
 
-        private void prepareFiguresChain(FiguresChain figuresChain) {
+        private Builder prepareFiguresChain(FiguresChain figuresChain) {
             if (Objects.isNull(Chessboard.this.figureChain)) {
                 Chessboard.this.figureChain = figuresChain;
                 previousFiguresChain = figuresChain;
@@ -146,6 +141,7 @@ public class Chessboard {
                 previousFiguresChain.setNextFigure(figuresChain);
                 previousFiguresChain = figuresChain;
             }
+            return this;
         }
     }
 }
