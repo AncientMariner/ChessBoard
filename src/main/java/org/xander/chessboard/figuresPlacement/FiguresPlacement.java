@@ -22,10 +22,9 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     static final char NEXT_LINE_FIELD_CHAR = '\n';
     public static final String NEXT_LINE_FIELD_STRING = "\n";
 
-    public Stream<String> placeFiguresOnBoards(Stream<String> boardsStream) {
-        Set<String> initialBoardsWithoutAttackPlaces = boardsStream.collect(Collectors.toSet());
+    public Set<String> placeFiguresOnBoards(Set<String> boards) {
 
-        Set<String> initialBoardsWithAttackPlaces = initialBoardsWithoutAttackPlaces
+        Set<String> initialBoardsWithAttackPlaces = boards
                 .parallelStream()
                 .filter(board -> board.contains(KING.getFigureAsString())
                               || board.contains(QUEEN.getFigureAsString())
@@ -36,7 +35,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .filter(e -> e.contains(EMPTY_FIELD_STRING))
                 .map(this::calculateAttackPlaces)
                 .collect(Collectors.collectingAndThen(Collectors.toSet(),
-                        set -> set.isEmpty() ? initialBoardsWithoutAttackPlaces : set));
+                        set -> set.isEmpty() ? boards : set));
 
         Set<String> boardsWithNewFigureAndAttackPlaces = initialBoardsWithAttackPlaces
                 .parallelStream()
@@ -47,7 +46,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
                 .collect(Collectors.collectingAndThen(Collectors.toSet(),
                         set -> set.isEmpty() ? initialBoardsWithAttackPlaces : set));
 
-        return boardsWithNewFigureAndAttackPlaces.stream();
+        return boardsWithNewFigureAndAttackPlaces;
     }
 
     @Override
