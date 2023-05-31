@@ -2,7 +2,6 @@ package org.xander.chessboard.figures;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
 
 /**class made to avoid cyclic dependency while building a chain
  * set this class as a last in a builder
