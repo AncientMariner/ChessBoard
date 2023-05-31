@@ -1,6 +1,7 @@
 package org.xander.chessboard.figures;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**class made to avoid cyclic dependency while building a chain
@@ -12,7 +13,7 @@ public class NoMoreFigures extends FiguresChain {
     }
 
     @Override
-    public Stream<String> placeFigures(Stream<String> boards) {
+    public Set<String> placeFigures(Set<String> boards) {
         //this is finishing element to avoid cycling in figures
         return boards;
     }

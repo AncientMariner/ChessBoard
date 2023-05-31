@@ -1,20 +1,21 @@
 package org.xander.chessboard.figures;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class NoMoreFiguresTest {
     @Test
     public void placeFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         NoMoreFigures noMoreFigures = new NoMoreFigures(figureQuantityMap);
-        Stream<String> stringStream = noMoreFigures.placeFigures(new HashSet<String>().stream());
+        Set<String> stringStream = noMoreFigures.placeFigures(new HashSet<>());
         assertThat("value is present, however should not be", stringStream, CoreMatchers.is(stringStream));
     }
 

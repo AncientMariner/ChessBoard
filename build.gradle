@@ -1,21 +1,33 @@
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'idea'
 
 group = 'org.xander.chessboard'
 version = '1.0-SNAPSHOT'
 
 description = """ChessBoard"""
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
+
 repositories {
-    jcenter()
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.3'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 dependencies {
-    testCompile 'junit:junit:4.11'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.hamcrest:hamcrest-core:2.2"
 }

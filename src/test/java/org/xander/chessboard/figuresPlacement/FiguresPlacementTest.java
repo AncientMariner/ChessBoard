@@ -1,6 +1,6 @@
 package org.xander.chessboard.figuresPlacement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xander.chessboard.figures.Bishop;
 import org.xander.chessboard.figures.FiguresChain;
 
@@ -10,8 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
@@ -35,17 +35,17 @@ public class FiguresPlacementTest {
         figureQuantityMap.put(BISHOP.toString(), 3);
 
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
-        Set<String> result = figuresChain.placeFigures(boards.stream()).collect(Collectors.toSet());
+        Set<String> result = figuresChain.placeFigures(boards);
 
         assertThat("there are no boards", result.size() > 0, is(true));
-        assertTrue("all elements are not present on each board", result.stream()
+        assertTrue(result.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
                         && !board.contains(BISHOP.getFigureAsString())
                         && board.contains(KNIGHT.getFigureAsString())
                         && leftOnlyFigures(board).length() == 36
-        ));
+                ), "all elements are not present on each board");
 
     }
 
@@ -59,7 +59,7 @@ public class FiguresPlacementTest {
                                                                 "......\n" +
                                                                 "......\n" +
                                                                 "......\n"), is(true));
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue(boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
@@ -67,7 +67,7 @@ public class FiguresPlacementTest {
                         && board.contains(BISHOP.getFigureAsString())
                         && leftOnlyFigures(board).length() == 1
                         && boards.size() == 36
-                ));
+                ), "all elements are not present on each board");
     }
 
     @Test
@@ -79,10 +79,10 @@ public class FiguresPlacementTest {
         assertThat("board is different", boards.contains("......\n" +
                                                                 "......\n" +
                                                                 "......\n" +
-                                                                "..."+ BISHOP.getFigureAsString() +"..\n" +
+                                                                "..." + BISHOP.getFigureAsString() + "..\n" +
                                                                 "......\n" +
                                                                 "......\n"), is(true));
-        assertTrue("all elements are not present on each board", boards.stream()
+        assertTrue(boards.stream()
                 .allMatch(board -> !board.contains(KING.getFigureAsString())
                         && !board.contains(QUEEN.getFigureAsString())
                         && !board.contains(ROOK.getFigureAsString())
@@ -90,6 +90,6 @@ public class FiguresPlacementTest {
                         && board.contains(BISHOP.getFigureAsString())
                         && leftOnlyFigures(board).length() == 1
                         && boards.size() == 36
-                ));
+                ), "all elements are not present on each board");
     }
 }
