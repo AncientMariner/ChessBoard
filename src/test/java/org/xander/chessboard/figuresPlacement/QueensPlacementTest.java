@@ -1,18 +1,19 @@
 package org.xander.chessboard.figuresPlacement;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xander.chessboard.figures.Figure;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class QueensPlacementTest extends FiguresAttackPlacesTest {
     private final Figure FIGURE = Figure.QUEEN;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         figuresPlacement = new QueensPlacement();
     }
@@ -26,7 +27,7 @@ public class QueensPlacementTest extends FiguresAttackPlacesTest {
                 "......\n" +
                 "......\n";
         String expectedBoardWithTwoQueens = FIGURE.getFigureAsString() + ".....\n" +
-                ".." + FIGURE.getFigureAsString()+ "...\n" +
+                ".." + FIGURE.getFigureAsString() + "...\n" +
                 "......\n" +
                 "......\n" +
                 "......\n" +
@@ -83,6 +84,7 @@ public class QueensPlacementTest extends FiguresAttackPlacesTest {
         String actual = calculateAttackOfTheFigureOnBoardBottomRight(FIGURE);
         assertEquals(expectedBoardWithTwoQueens, actual);
     }
+
     @Test
     public void calculateAreaOfTheQueenAttackAllCorners() {
         String expectedBoardWithTwoQueens = "qxxxxq\n" +

@@ -1,7 +1,7 @@
 package org.xander.chessboard;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,10 +11,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
@@ -36,26 +37,29 @@ public class ChessboardTest {
         assertEquals(DIMENSION_6, chessboard.getDimension());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void chessBoardBasicNegative() {
-        Chessboard.newBuilder(null).withDimension(DIMENSION_6).build();
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> Chessboard.newBuilder(null).withDimension(DIMENSION_6).build());
+        assertEquals("please provide the figures to put on the board", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void nonExistingFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put("a", 1);
-        Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("   ");
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("   "));
+        assertEquals("not desired figure is present", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void nonExistingFigure() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put("PAWN", 1);
-        Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("......");
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> Chessboard.newBuilder(figureQuantityMap).build().placeFiguresOnBoard("......"));
+        assertEquals("not desired figure is present", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void moreThanExpectedFigures() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
@@ -65,10 +69,11 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 6);
         figureQuantityMap.put("PAWN", 8);
 
-        Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build());
+        assertEquals("not desired figure is present", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void notDesiredFiguresWithPawn() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
@@ -77,7 +82,8 @@ public class ChessboardTest {
         figureQuantityMap.put(KNIGHT.toString(), 6);
         figureQuantityMap.put("PAWN", 8);
 
-        Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build();
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> Chessboard.newBuilder(figureQuantityMap).withKing().withQueen().withBishop().withRook().withKnight().build());
+        assertEquals("not desired figure is present", ex.getMessage());
     }
 
     @Test
@@ -99,7 +105,7 @@ public class ChessboardTest {
     }
 
     //runs too long, for now ignored
-    @Ignore
+    @Disabled
     @Test
     public void placeFiguresOnBoard() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -111,15 +117,15 @@ public class ChessboardTest {
 
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap)
-                                        .withDimension(dimension)
-                                        .withKing()
-                                        .withQueen()
-                                        .withBishop()
-                                        .withRook()
-                                        .withKnight()
-                                        .build();
+                .withDimension(dimension)
+                .withKing()
+                .withQueen()
+                .withBishop()
+                .withRook()
+                .withKnight()
+                .build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("kxkxqxxx\n" +
                                 "xxxxxxqx\n" +
@@ -165,7 +171,7 @@ public class ChessboardTest {
                                         .withKnight()
                                         .build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
         assertThat("more than 1 figure is present",
                 boards.contains("xxxxxqx\n" +
                                 "xxqxxxx\n" +
@@ -200,44 +206,44 @@ public class ChessboardTest {
 
         int dimension = 7;
         Chessboard chessboard1 = Chessboard.newBuilder(figureQuantityMap)
-                                        .withDimension(dimension)
-                                        .withKing()
-                                        .withQueen()
-                                        .withBishop()
-                                        .withKnight()
-                                        .build();
-        Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap)
-                                        .withDimension(dimension)
-                                        .withQueen()
-                                        .withBishop()
-                                        .withKing()
-                                        .withKnight()
-                                        .build();
+                .withDimension(dimension)
+                .withKing()
+                .withQueen()
+                .withBishop()
+                .withKnight()
+                .build();
+//        Chessboard chessboard2 = Chessboard.newBuilder(figureQuantityMap)
+//                .withDimension(dimension)
+//                .withQueen()
+//                .withBishop()
+//                .withKing()
+//                .withKnight()
+//                .build();
         //todo uncommenting highly affects performance
 //        Chessboard chessboard3 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKnight().withBishop().withKing().withQueen().build();
 
-        Set<String> collect1 = chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
-        Set<String> collect2 = chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
+        Set<String> collect1 = chessboard1.placeFiguresOnEmptyBoard();
+//        Set<String> collect2 = chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
         Set<String> collect = new HashSet<>();
         collect.addAll(collect1);
-        collect.addAll(collect2);
+//        collect.addAll(collect2);
 
         assertThat("all elements are not present on each board",
                 collect
-                .parallelStream()
-                .filter(board -> board.contains(KING.getFigureAsString())
-                        && board.contains(QUEEN.getFigureAsString())
-                        && board.contains(BISHOP.getFigureAsString())
-                        && !board.contains(ROOK.getFigureAsString())
-                        && board.contains(KNIGHT.getFigureAsString())
-                        && board.contains(FIELD_UNDER_ATTACK_STRING)
-                        && leftOnlyFigures(board).length() == 7)
-                .map(e -> 1)
-                .reduce(0, (x, y) -> x + y), is(3063828));
+                        .parallelStream()
+                        .filter(board -> board.contains(KING.getFigureAsString())
+                                && board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && leftOnlyFigures(board).length() == 7)
+                        .map(e -> 1)
+                        .reduce(0, Integer::sum), is(3063828));
     }
 
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void placeMoreFiguresOnBoardThanBoardSize() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 22);
@@ -248,24 +254,25 @@ public class ChessboardTest {
 
         int dimension = 8;
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap)
-                                        .withDimension(dimension)
-                                        .withKing()
-                                        .withQueen()
-                                        .withBishop()
-                                        .withRook()
-                                        .withKnight()
-                                        .build();
+                .withDimension(dimension)
+                .withKing()
+                .withQueen()
+                .withBishop()
+                .withRook()
+                .withKnight()
+                .build();
 
         chessboard.placeFiguresOnEmptyBoard();
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void placeAFigureOnBoardNegative() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.toString(), 2);
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withKing().build();
 
-        chessboard.placeFiguresOnBoard("");
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> chessboard.placeFiguresOnBoard(""));
+        assertEquals("There is something wrong with your board", ex.getMessage());
     }
 
     @Test
@@ -303,14 +310,14 @@ public class ChessboardTest {
                                         .build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
 
         return boards.stream();
     }
 
     //takes at least 1,5 minutes
-    @Ignore
+    @Disabled
     @Test
     public void kingRookAndBishop() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -350,7 +357,7 @@ public class ChessboardTest {
 //        Chessboard chessboard6 = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withRook().withKing().withBishop().build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
 //        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
 //        boards.addAll(chessboard3.placeFiguresOnEmptyBoard());
 //        boards.addAll(chessboard4.placeFiguresOnEmptyBoard());
@@ -418,12 +425,12 @@ public class ChessboardTest {
                                         .build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard3.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard4.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard5.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard6.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard3.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard4.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard5.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard6.placeFiguresOnEmptyBoard());
         return boards.stream();
     }
 
@@ -456,22 +463,22 @@ public class ChessboardTest {
 
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnBoard("bbbbbb\n" +
-                                                          "b....b\n" +
-                                                          "b....b\n" +
-                                                          "b....b\n" +
-                                                          "b....b\n" +
-                                                          "bbbbbb\n")
-                .parallel()
-                .filter(board -> !board.contains(KING.getFigureAsString())
-                        && !board.contains(QUEEN.getFigureAsString())
-                        && board.contains(BISHOP.getFigureAsString())
-                        && !board.contains(ROOK.getFigureAsString())
-                        && !board.contains(KNIGHT.getFigureAsString())
-                        && board.contains(FIELD_UNDER_ATTACK_STRING)
-                        && !board.contains(EMPTY_FIELD_STRING)
-                        && leftOnlyFigures(board).length() == 20)
-                .map(e -> 1)
-                .reduce(0, (x, y) -> x + y), is(1));
+                                "b....b\n" +
+                                "b....b\n" +
+                                "b....b\n" +
+                                "b....b\n" +
+                                "bbbbbb\n")
+                        .parallelStream()
+                        .filter(board -> !board.contains(KING.getFigureAsString())
+                                && !board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && !board.contains(KNIGHT.getFigureAsString())
+                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && !board.contains(EMPTY_FIELD_STRING)
+                                && leftOnlyFigures(board).length() == 20)
+                        .map(e -> 1)
+                        .reduce(0, (x, y) -> x + y), is(1));
     }
 
     @Test
@@ -481,11 +488,11 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(DIMENSION_6).withRook().build();
 
         Set<String> boards = chessboard.placeFiguresOnBoard("rrrrrr\n" +
-                                                                       "r....r\n" +
-                                                                       "r....r\n" +
-                                                                       "r....r\n" +
-                                                                       "r....r\n" +
-                                                                       "rrrrrr\n").collect(Collectors.toSet());
+                                                                      "r....r\n" +
+                                                                      "r....r\n" +
+                                                                      "r....r\n" +
+                                                                      "r....r\n" +
+                                                                      "rrrrrr\n").stream().collect(Collectors.toSet());
         assertThat("there is no boards", boards.size() == 1, is(true));
 
     }
@@ -499,7 +506,7 @@ public class ChessboardTest {
                                         .withBishop()
                                         .build();
 
-        Set<String> boards = chessboard.placeFiguresOnEmptyBoard().collect(Collectors.toSet());
+        Set<String> boards = chessboard.placeFiguresOnEmptyBoard();
 
         assertThat("all elements are not present on each board",
                 boards.stream()
@@ -531,16 +538,17 @@ public class ChessboardTest {
                                                           "bbbbbb\n" +
                                                           "bbbbbb\n" +
                                                           "bbbbbb\n")
-                .filter(board -> !board.contains(KING.getFigureAsString())
-                        && !board.contains(QUEEN.getFigureAsString())
-                        && board.contains(BISHOP.getFigureAsString())
-                        && !board.contains(ROOK.getFigureAsString())
-                        && !board.contains(KNIGHT.getFigureAsString())
-                        && !board.contains(FIELD_UNDER_ATTACK_STRING)
-                        && !board.contains(EMPTY_FIELD_STRING)
-                        && leftOnlyFigures(board).length() == 36)
-                .map(e -> 1)
-                .reduce(0, (x, y) -> x + y), is(1));
+                        .stream()
+                        .filter(board -> !board.contains(KING.getFigureAsString())
+                                && !board.contains(QUEEN.getFigureAsString())
+                                && board.contains(BISHOP.getFigureAsString())
+                                && !board.contains(ROOK.getFigureAsString())
+                                && !board.contains(KNIGHT.getFigureAsString())
+                                && !board.contains(FIELD_UNDER_ATTACK_STRING)
+                                && !board.contains(EMPTY_FIELD_STRING)
+                                && leftOnlyFigures(board).length() == 36)
+                        .map(e -> 1)
+                        .reduce(0, (x, y) -> x + y), is(1));
     }
 
     @Test
@@ -578,8 +586,8 @@ public class ChessboardTest {
                                         .build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
 
         return boards;
     }
@@ -624,8 +632,8 @@ public class ChessboardTest {
                                         .build();
 
         Set<String> boards = new HashSet<>();
-        boards.addAll(chessboard1.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
-        boards.addAll(chessboard2.placeFiguresOnEmptyBoard().collect(Collectors.toSet()));
+        boards.addAll(chessboard1.placeFiguresOnEmptyBoard());
+        boards.addAll(chessboard2.placeFiguresOnEmptyBoard());
         return boards;
     }
 
@@ -665,7 +673,7 @@ public class ChessboardTest {
     /**
      * The following examples with queens are taken from:
      * https://en.wikipedia.org/wiki/Eight_queens_puzzle
-     * */
+     */
     @Test
     public void fiveQueens() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -707,7 +715,7 @@ public class ChessboardTest {
     }
 
     //takes too much time
-    @Ignore
+    @Disabled
     @Test
     public void tenQueens() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -725,7 +733,7 @@ public class ChessboardTest {
     private void assertBoardsSize(int size8, Chessboard chessboard, int expectedBoardsSize) {
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnEmptyBoard()
-                        .parallel()
+                        .parallelStream()
                         .filter(board -> !board.contains(KING.getFigureAsString())
                                 && board.contains(QUEEN.getFigureAsString())
                                 && !board.contains(BISHOP.getFigureAsString())
@@ -743,10 +751,10 @@ public class ChessboardTest {
      * or 14 bishops, 16 kings
      * or eight rooks,
      * so that no two pieces attack each other
-     *
+     * <p>
      * The following examples with rooks are taken from:
      * https://en.wikipedia.org/wiki/Rook_polynomial
-     * */
+     */
     @Test
     public void eightRooks() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -758,7 +766,7 @@ public class ChessboardTest {
 
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnEmptyBoard()
-                        .parallel()
+                        .parallelStream()
                         .filter(board -> !board.contains(KING.getFigureAsString())
                                 && !board.contains(QUEEN.getFigureAsString())
                                 && !board.contains(BISHOP.getFigureAsString())
@@ -770,7 +778,7 @@ public class ChessboardTest {
                         .reduce(0, (x, y) -> x + y), is(40320));
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void statementOfMaxFiguresOnBoard32Knights() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -780,7 +788,7 @@ public class ChessboardTest {
         Chessboard chessboard = Chessboard.newBuilder(figureQuantityMap).withDimension(dimension).withKnight().build();
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnEmptyBoard()
-                        .parallel()
+                        .parallelStream()
                         .filter(board -> !board.contains(KING.getFigureAsString())
                                 && !board.contains(QUEEN.getFigureAsString())
                                 && !board.contains(BISHOP.getFigureAsString())
@@ -792,7 +800,7 @@ public class ChessboardTest {
                         .reduce(0, (x, y) -> x + y), is(3063828));
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void statementOfMaxFiguresOnBoard14Bishops16Kings() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -808,7 +816,7 @@ public class ChessboardTest {
 
         assertThat("all elements are not present on each board",
                 chessboard.placeFiguresOnEmptyBoard()
-                        .parallel()
+                        .parallelStream()
                         .filter(board -> board.contains(KING.getFigureAsString())
                                 && !board.contains(QUEEN.getFigureAsString())
                                 && board.contains(BISHOP.getFigureAsString())

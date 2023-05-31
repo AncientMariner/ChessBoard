@@ -3,6 +3,7 @@ package org.xander.chessboard.figures;
 import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -46,19 +47,18 @@ public abstract class FiguresChain {
         return 0;
     }
 
-    public Stream<String> placeFigures(Stream<String> boards) {
+    public Set<String> placeFigures(Set<String> boards) {
         if (Objects.isNull(boards)) {
             throw new IllegalStateException("boars are null");
         }
-        Stream<String> boardsToReturn = placePartOfChain(boards);
+        Set<String> boardsToReturn = placePartOfChain(boards);
         if (Objects.nonNull(chain)) {
             return this.chain.placeFigures(boardsToReturn);
         }
         return boardsToReturn;
     }
 
-    private Stream<String> placePartOfChain(Stream<String> boardsStream) {
-        Set<String> boards = boardsStream.collect(Collectors.toSet());
+    private Set<String> placePartOfChain(Set<String> boards) {
         Integer numberOfFigures = figureQuantityMap.get(getName());
         if (Objects.nonNull(numberOfFigures)) {
             IntStream.range(0, numberOfFigures)
@@ -74,7 +74,7 @@ public abstract class FiguresChain {
                         boardsToReturn.clear();
                     });
         }
-        return boards.stream();
+        return boards;
     }
 
     abstract String getName();

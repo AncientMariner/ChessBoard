@@ -1,6 +1,6 @@
 package org.xander.chessboard.figures;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xander.chessboard.figuresPlacement.BishopsPlacement;
 
 import java.util.HashMap;
@@ -10,7 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
@@ -24,6 +26,7 @@ import static org.xander.chessboard.figuresPlacement.FiguresTestUtil.leftOnlyFig
 public class FigureChainTest {
     @Test
     public void setNextFigure() {
+
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.getFigureAsString(), 1);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
@@ -33,24 +36,26 @@ public class FigureChainTest {
         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
 
-        if(!Objects.isNull(figuresChain.getFigureQuantityMap())) {
+        if (!Objects.isNull(figuresChain.getFigureQuantityMap())) {
             assertThat("key is not present", figuresChain.getFigureQuantityMap().containsKey(KING.getFigureAsString()), is(true));
             assertThat("value is not present", figuresChain.getFigureQuantityMap().containsValue(1), is(true));
         }
         assertThat("object is of different type", figuresChain.placementBehavior instanceof BishopsPlacement, is(true));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void figureQuantityMapIsNull() {
-        new Bishop(null);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> new Bishop(null));
+        assertEquals("figureQuantity map is null, however should not be", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void figureChainIsNull() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KING.getFigureAsString(), 1);
         FiguresChain figuresChain = new Bishop(figureQuantityMap);
-        figuresChain.setNextFigure(null);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> figuresChain.setNextFigure(null));
+        assertEquals("next part of the chain is null, please provide non-null chain", ex.getMessage());
     }
 
     @Test
@@ -61,13 +66,14 @@ public class FigureChainTest {
         assertThat("null figure is present", figuresChain.extractA(null), is(0));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void placeFiguresNullBoardsNegative() {
         FiguresChain figuresChain = new Bishop(new HashMap<>());
-        figuresChain.placeFigures(null);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> figuresChain.placeFigures(null));
+        assertEquals("boars are null", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void placeFiguresBishopNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(BISHOP.toString(), 4);
@@ -78,7 +84,8 @@ public class FigureChainTest {
         Set<String> objects = new HashSet<>();
         objects.add("....\n");
 
-        figuresChain.placeFigures(objects.stream());
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> figuresChain.placeFigures(objects));
+        assertEquals("There is something wrong with your board", ex.getMessage());
     }
 
     @Test
@@ -91,7 +98,7 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
+        Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("bbbb..\n" +
                                                                                       "xxxxx.\n" +
                                                                                       "xxxxxx\n" +
@@ -125,7 +132,7 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
+        Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("kxkxnn\n" +
                                                                                       "xxxx..\n" +
                                                                                       "...xxx\n" +
@@ -157,7 +164,7 @@ public class FigureChainTest {
 
         Set<String> objects = new HashSet<>();
         objects.add(EMPTY_BOARD_SIZE_6);
-        Set<String> boards = figuresChain.placeFigures(objects.stream()).collect(Collectors.toSet());
+        Set<String> boards = figuresChain.placeFigures(objects);
         assertThat("figures are standing on different places", boards.contains("nnnn..\n" +
                                                                                       "xxxxxx\n" +
                                                                                       "xxxxx.\n" +
@@ -180,7 +187,7 @@ public class FigureChainTest {
                 .reduce(0, (x, y) -> x + y), is(26133));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void placeFiguresKnightNegative() {
         HashMap<String, Integer> figureQuantityMap = new HashMap<>();
         figureQuantityMap.put(KNIGHT.toString(), 4);
@@ -188,7 +195,8 @@ public class FigureChainTest {
         Set<String> objects = new HashSet<>();
         objects.add("....\n");
 
-        new Knight(figureQuantityMap).placeFigures(objects.stream());
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> new Knight(figureQuantityMap).placeFigures(objects));
+        assertEquals("There is something wrong with your board", ex.getMessage());
     }
 
     @Test
@@ -204,11 +212,11 @@ public class FigureChainTest {
         kingChain.setNextFigure(queenChain);
         queenChain.setNextFigure(bishopChain);
 
-        HashSet<String> strings = new HashSet<>();
+        Set<String> strings = new HashSet<>();
         strings.add(EMPTY_BOARD_SIZE_6);
 //        int sum = kingChain.placeFigures(strings.stream()).parallel().map(e -> 1).mapToInt(Integer::new).sum();
-        assertThat("all elements are not present on each board", kingChain.placeFigures(strings.stream())
-                .parallel()
+        assertThat("all elements are not present on each board", kingChain.placeFigures(strings)
+                .parallelStream()
                 .filter(board -> board.contains(KING.getFigureAsString())
                             && board.contains(QUEEN.getFigureAsString())
                             && board.contains(BISHOP.getFigureAsString())

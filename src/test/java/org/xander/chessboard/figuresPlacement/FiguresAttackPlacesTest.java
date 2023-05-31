@@ -1,7 +1,10 @@
 package org.xander.chessboard.figuresPlacement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xander.chessboard.figures.Figure;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FiguresAttackPlacesTest {
     PlacementBehavior figuresPlacement;
@@ -77,7 +80,7 @@ public class FiguresAttackPlacesTest {
     }
 
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void calculateAreaNegativeSmallBoard() {
         String board = "..\n" +
                        ".....\n" +
@@ -85,10 +88,11 @@ public class FiguresAttackPlacesTest {
                        "...\n" +
                        "....\n" +
                        "..\n";
-        new BishopsPlacement().calculateAttackPlaces(board);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> new BishopsPlacement().calculateAttackPlaces(board));
+        assertEquals("There is something wrong with your board", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void calculateAreaNegativeBigBoard() {
         String board = ".......\n" +
                        ".......\n" +
@@ -96,11 +100,13 @@ public class FiguresAttackPlacesTest {
                        ".......\n" +
                        ".......\n" +
                        ".......\n";
-        new KingsPlacement().calculateAttackPlaces(board);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> new KingsPlacement().calculateAttackPlaces(board));
+        assertEquals("There is something wrong with your board", ex.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void calculateAreaNegativeNullBoard() {
-        new KingsPlacement().calculateAttackPlaces(null);
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> new KingsPlacement().calculateAttackPlaces(null));
+        assertEquals("board is null", ex.getMessage());
     }
 }

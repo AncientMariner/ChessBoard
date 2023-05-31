@@ -9,6 +9,7 @@ import org.xander.chessboard.figures.Queen;
 import org.xander.chessboard.figures.Rook;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -49,11 +50,11 @@ public class Chessboard {
         return chessBoard.toString();
     }
 
-    public Stream<String> placeFiguresOnEmptyBoard() {
+    public Set<String> placeFiguresOnEmptyBoard() {
         return placeFiguresOnBoard(drawEmptyBoard());
     }
 
-    public Stream<String> placeFiguresOnBoard(String initialBoard) {
+    public Set<String> placeFiguresOnBoard(String initialBoard) {
         int numberOfKings = figureChain.extractA(KING.toString());
         int numberOfQueens = figureChain.extractA(QUEEN.toString());
         int numberOfBishops = figureChain.extractA(BISHOP.toString());
@@ -69,7 +70,7 @@ public class Chessboard {
         HashSet<String> initialBoards = new HashSet<>();
         initialBoards.add(initialBoard);
 
-        return figureChain.placeFigures(initialBoards.stream());
+        return figureChain.placeFigures(initialBoards);
     }
 
     public static Builder newBuilder(Map<String, Integer> figureQuantityMap) {
