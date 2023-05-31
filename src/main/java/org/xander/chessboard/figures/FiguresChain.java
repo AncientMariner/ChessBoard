@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public abstract class FiguresChain {
@@ -64,7 +63,7 @@ public abstract class FiguresChain {
                     .forEach(e -> {
                         Set<String> boardsToReturn = new HashSet<>();
 
-                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards.stream()).collect(Collectors.toSet()));
+                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
 
                         boards.clear();
                         boards.addAll(boardsToReturn);
