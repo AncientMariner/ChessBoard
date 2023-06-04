@@ -1,7 +1,5 @@
 package org.xander.chessboard.figuresPlacement;
 
-import java.util.Objects;
-
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
 import static org.xander.chessboard.figures.Figure.KNIGHT;
@@ -12,7 +10,7 @@ import static org.xander.chessboard.figuresPlacement.FiguresPlacement.NEXT_LINE_
 
 public class BoardUtils {
     public static void isBoardLegal(String board, int dimension) {
-        if (Objects.isNull(board) || board.isEmpty() || board.length() % dimension != 0) {
+        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
             throw new IllegalStateException("There is something wrong with your board");
         }
     }

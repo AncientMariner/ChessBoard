@@ -35,7 +35,7 @@ public class FigureChainTest {
         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
 
-        if (!Objects.isNull(figuresChain.getFigureQuantityMap())) {
+        if (figuresChain.getFigureQuantityMap() != null) {
             assertThat("key is not present", figuresChain.getFigureQuantityMap().containsKey(KING.getFigureAsString()), is(true));
             assertThat("value is not present", figuresChain.getFigureQuantityMap().containsValue(1), is(true));
         }

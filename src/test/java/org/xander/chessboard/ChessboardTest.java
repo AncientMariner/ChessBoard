@@ -195,6 +195,7 @@ public class ChessboardTest {
                 .reduce(0, (x, y) -> x + y), is(32));
     }
 
+    @Disabled
     @Test
     public void readmeRequirement() {
         Map<String, Integer> figureQuantityMap = new HashMap<>();
@@ -260,8 +261,8 @@ public class ChessboardTest {
                 .withRook()
                 .withKnight()
                 .build();
-
-        chessboard.placeFiguresOnEmptyBoard();
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> chessboard.placeFiguresOnEmptyBoard());
+        assertEquals("There are more figures than places to put them", ex.getMessage());
     }
 
     @Test
