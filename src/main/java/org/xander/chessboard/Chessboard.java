@@ -10,9 +10,7 @@ import org.xander.chessboard.figures.Rook;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
 import static org.xander.chessboard.figures.Figure.KING;
@@ -41,10 +39,12 @@ public class Chessboard {
     private String drawEmptyBoard() {
         StringBuilder chessBoard = new StringBuilder();
 
-        IntStream.range(0, dimension).forEach((y) -> {
-            IntStream.range(0, dimension).forEach((x) -> chessBoard.append(EMPTY_FIELD_STRING));
+        for (int y = 0; y < dimension; y++) {
+            for (int x = 0; x < dimension; x++) {
+                chessBoard.append(EMPTY_FIELD_STRING);
+            }
             chessBoard.append(NEXT_LINE_FIELD_STRING);
-        });
+        }
         return chessBoard.toString();
     }
 
@@ -60,7 +60,7 @@ public class Chessboard {
         int numberOfKnights = figureChain.extractA(KNIGHT.toString());
         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
 
-        if (Objects.nonNull(initialBoard) && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
+        if (initialBoard != null && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
             throw new IllegalStateException("There are more figures than places to put them");
         }
 
@@ -80,7 +80,7 @@ public class Chessboard {
         private Map<String, Integer> figureQuantityMap;
 
         private Builder(Map<String, Integer> figureQuantityMap) {
-            if (Objects.isNull(figureQuantityMap) || figureQuantityMap.isEmpty()) {
+            if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
                 throw new IllegalStateException("please provide the figures to put on the board");
             }
             Set<String> possibleFigures = new HashSet<>();
@@ -133,7 +133,7 @@ public class Chessboard {
         }
 
         private Builder prepareFiguresChain(FiguresChain figuresChain) {
-            if (Objects.isNull(Chessboard.this.figureChain)) {
+            if (Chessboard.this.figureChain == null) {
                 Chessboard.this.figureChain = figuresChain;
                 previousFiguresChain = figuresChain;
             } else {

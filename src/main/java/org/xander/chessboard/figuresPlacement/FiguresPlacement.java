@@ -1,10 +1,8 @@
 package org.xander.chessboard.figuresPlacement;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.xander.chessboard.figures.Figure.BISHOP;
@@ -51,7 +49,7 @@ public abstract class FiguresPlacement implements PlacementBehavior {
 
     @Override
     public String calculateAttackPlaces(String board) {
-        if (Objects.isNull(board)) {
+        if (board == null) {
             throw new IllegalStateException("board is null");
         }
         //mind the '\n' character
@@ -64,9 +62,11 @@ public abstract class FiguresPlacement implements PlacementBehavior {
     }
 
     private void calculateAttackPlaces(int dimension, char[] boardElements) {
-        IntStream.range(0, boardElements.length)
-                .filter(e -> boardElements[e] == getFigure())
-                .forEach(position -> attackPlaceForPosition(position, boardElements, dimension));
+        for (int i = 0; i < boardElements.length; i++) {
+            if (boardElements[i] == getFigure()) {
+                attackPlaceForPosition(i, boardElements, dimension);
+            }
+        }
     }
 
     private boolean isFigurePlacementOnPositionPossible(int position, char[] boardElements, int dimension) {
@@ -94,11 +94,13 @@ public abstract class FiguresPlacement implements PlacementBehavior {
         int dimension = (int) Math.sqrt(board.length()) + 1;
         isBoardLegal(board, dimension);
 
-        Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
-                                                        .range(0, board.length())
-                                                        .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
-                                                        .boxed()
-                                                        .count());
+        long count = 0L;
+        for (int i = 0; i < board.length(); i++) {
+            if (board.charAt(i) == EMPTY_FIELD_CHAR) {
+                count++;
+            }
+        }
+        Set<String> setOfPossibleBoards = new HashSet<>((int) count);
         char[] boardArray = board.toCharArray();
         if (boardArray[position] == EMPTY_FIELD_CHAR) {
             if (isFigurePlacementOnPositionPossible(position, boardArray, dimension)) {

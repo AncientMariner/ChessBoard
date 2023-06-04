@@ -4,9 +4,7 @@ import org.xander.chessboard.figuresPlacement.PlacementBehavior;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public abstract class FiguresChain {
     private final Map<String, Integer> figureQuantityMap;
@@ -14,7 +12,7 @@ public abstract class FiguresChain {
     private FiguresChain chain;
 
     FiguresChain(Map<String, Integer> figureQuantityMap) {
-        if (Objects.isNull(figureQuantityMap)) {
+        if (figureQuantityMap == null) {
             throw new IllegalStateException("figureQuantity map is null, however should not be");
         }
         this.figureQuantityMap = figureQuantityMap;
@@ -29,15 +27,15 @@ public abstract class FiguresChain {
     }
 
     public void setNextFigure(FiguresChain nextChain) {
-        if (Objects.isNull(nextChain)) {
+        if (nextChain == null) {
             throw new IllegalStateException("next part of the chain is null, please provide non-null chain");
         }
         this.chain = nextChain;
     }
 
     public int extractA(String figure) {
-        if (Objects.nonNull(figure)
-                && Objects.nonNull(getFigureQuantityMap())
+        if (figure != null
+                && getFigureQuantityMap() != null
                 && getFigureQuantityMap().containsKey(figure)) {
             return getFigureQuantityMap().get(figure);
         }
@@ -45,32 +43,26 @@ public abstract class FiguresChain {
     }
 
     public Set<String> placeFigures(Set<String> boards) {
-        if (Objects.isNull(boards)) {
+        if (boards == null) {
             throw new IllegalStateException("boars are null");
         }
         Set<String> boardsToReturn = placePartOfChain(boards);
-        if (Objects.nonNull(chain)) {
+        if (chain != null) {
             return this.chain.placeFigures(boardsToReturn);
         }
         return boardsToReturn;
     }
 
     private Set<String> placePartOfChain(Set<String> boards) {
-        Integer numberOfFigures = figureQuantityMap.get(getName());
-        if (Objects.nonNull(numberOfFigures)) {
-            IntStream.range(0, numberOfFigures)
-                    .filter(e -> figureQuantityMap.containsKey(getName()))
-                    .forEach(e -> {
-                        Set<String> boardsToReturn = new HashSet<>();
+        for (int i = 0; i < figureQuantityMap.getOrDefault(getName(), 0); i++) {
+               if (figureQuantityMap.containsKey(getName())) {
+                    Set<String> boardsToReturn = new HashSet<>(placementBehavior.placeFiguresOnBoards(boards));
+                    boards.clear();
+                    boards.addAll(boardsToReturn);
 
-                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
-
-                        boards.clear();
-                        boards.addAll(boardsToReturn);
-
-                        boardsToReturn.clear();
-                    });
-        }
+                    boardsToReturn.clear();
+                }
+            }
         return boards;
     }
 

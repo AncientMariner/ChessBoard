@@ -1,0 +1,317 @@
+Subject: [PATCH] patch to apply
+---
+Index: src/test/java/org/xander/chessboard/figures/FigureChainTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/xander/chessboard/figures/FigureChainTest.java b/src/test/java/org/xander/chessboard/figures/FigureChainTest.java
+--- a/src/test/java/org/xander/chessboard/figures/FigureChainTest.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/test/java/org/xander/chessboard/figures/FigureChainTest.java	(date 1685715570265)
+@@ -35,7 +35,7 @@
+         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
+         assertThat("object is null", Objects.nonNull(figuresChain.getChain()), is(true));
+ 
+-        if (!Objects.isNull(figuresChain.getFigureQuantityMap())) {
++        if (figuresChain.getFigureQuantityMap() != null) {
+             assertThat("key is not present", figuresChain.getFigureQuantityMap().containsKey(KING.getFigureAsString()), is(true));
+             assertThat("value is not present", figuresChain.getFigureQuantityMap().containsValue(1), is(true));
+         }
+Index: src/main/java/org/xander/chessboard/figures/FiguresChain.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/xander/chessboard/figures/FiguresChain.java b/src/main/java/org/xander/chessboard/figures/FiguresChain.java
+--- a/src/main/java/org/xander/chessboard/figures/FiguresChain.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/main/java/org/xander/chessboard/figures/FiguresChain.java	(date 1685715823913)
+@@ -4,9 +4,7 @@
+ 
+ import java.util.HashSet;
+ import java.util.Map;
+-import java.util.Objects;
+ import java.util.Set;
+-import java.util.stream.IntStream;
+ 
+ public abstract class FiguresChain {
+     private final Map<String, Integer> figureQuantityMap;
+@@ -14,7 +12,7 @@
+     private FiguresChain chain;
+ 
+     FiguresChain(Map<String, Integer> figureQuantityMap) {
+-        if (Objects.isNull(figureQuantityMap)) {
++        if (figureQuantityMap == null) {
+             throw new IllegalStateException("figureQuantity map is null, however should not be");
+         }
+         this.figureQuantityMap = figureQuantityMap;
+@@ -29,15 +27,15 @@
+     }
+ 
+     public void setNextFigure(FiguresChain nextChain) {
+-        if (Objects.isNull(nextChain)) {
++        if (nextChain == null) {
+             throw new IllegalStateException("next part of the chain is null, please provide non-null chain");
+         }
+         this.chain = nextChain;
+     }
+ 
+     public int extractA(String figure) {
+-        if (Objects.nonNull(figure)
+-                && Objects.nonNull(getFigureQuantityMap())
++        if (figure != null
++                && getFigureQuantityMap() != null
+                 && getFigureQuantityMap().containsKey(figure)) {
+             return getFigureQuantityMap().get(figure);
+         }
+@@ -45,32 +43,26 @@
+     }
+ 
+     public Set<String> placeFigures(Set<String> boards) {
+-        if (Objects.isNull(boards)) {
++        if (boards == null) {
+             throw new IllegalStateException("boars are null");
+         }
+         Set<String> boardsToReturn = placePartOfChain(boards);
+-        if (Objects.nonNull(chain)) {
++        if (chain != null) {
+             return this.chain.placeFigures(boardsToReturn);
+         }
+         return boardsToReturn;
+     }
+ 
+     private Set<String> placePartOfChain(Set<String> boards) {
+-        Integer numberOfFigures = figureQuantityMap.get(getName());
+-        if (Objects.nonNull(numberOfFigures)) {
+-            IntStream.range(0, numberOfFigures)
+-                    .filter(e -> figureQuantityMap.containsKey(getName()))
+-                    .forEach(e -> {
+-                        Set<String> boardsToReturn = new HashSet<>();
+-
+-                        boardsToReturn.addAll(placementBehavior.placeFiguresOnBoards(boards));
+-
+-                        boards.clear();
+-                        boards.addAll(boardsToReturn);
++        for (int i = 0; i < figureQuantityMap.getOrDefault(getName(), 0); i++) {
++               if (figureQuantityMap.containsKey(getName())) {
++                    Set<String> boardsToReturn = new HashSet<>(placementBehavior.placeFiguresOnBoards(boards));
++                    boards.clear();
++                    boards.addAll(boardsToReturn);
+ 
+-                        boardsToReturn.clear();
+-                    });
+-        }
++                    boardsToReturn.clear();
++                }
++            }
+         return boards;
+     }
+ 
+Index: src/main/java/org/xander/chessboard/Chessboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/xander/chessboard/Chessboard.java b/src/main/java/org/xander/chessboard/Chessboard.java
+--- a/src/main/java/org/xander/chessboard/Chessboard.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/main/java/org/xander/chessboard/Chessboard.java	(date 1685715823935)
+@@ -10,9 +10,7 @@
+ 
+ import java.util.HashSet;
+ import java.util.Map;
+-import java.util.Objects;
+ import java.util.Set;
+-import java.util.stream.IntStream;
+ 
+ import static org.xander.chessboard.figures.Figure.BISHOP;
+ import static org.xander.chessboard.figures.Figure.KING;
+@@ -41,10 +39,12 @@
+     private String drawEmptyBoard() {
+         StringBuilder chessBoard = new StringBuilder();
+ 
+-        IntStream.range(0, dimension).forEach((y) -> {
+-            IntStream.range(0, dimension).forEach((x) -> chessBoard.append(EMPTY_FIELD_STRING));
++        for (int y = 0; y < dimension; y++) {
++            for (int x = 0; x < dimension; x++) {
++                chessBoard.append(EMPTY_FIELD_STRING);
++            }
+             chessBoard.append(NEXT_LINE_FIELD_STRING);
+-        });
++        }
+         return chessBoard.toString();
+     }
+ 
+@@ -60,7 +60,7 @@
+         int numberOfKnights = figureChain.extractA(KNIGHT.toString());
+         int sumOfAllFigures = numberOfBishops + numberOfKings + numberOfKnights + numberOfQueens + numberOfRooks;
+ 
+-        if (Objects.nonNull(initialBoard) && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
++        if (initialBoard != null && !initialBoard.isEmpty() && sumOfAllFigures > initialBoard.length()) {
+             throw new IllegalStateException("There are more figures than places to put them");
+         }
+ 
+@@ -80,7 +80,7 @@
+         private Map<String, Integer> figureQuantityMap;
+ 
+         private Builder(Map<String, Integer> figureQuantityMap) {
+-            if (Objects.isNull(figureQuantityMap) || figureQuantityMap.isEmpty()) {
++            if (figureQuantityMap == null || figureQuantityMap.isEmpty()) {
+                 throw new IllegalStateException("please provide the figures to put on the board");
+             }
+             Set<String> possibleFigures = new HashSet<>();
+@@ -133,7 +133,7 @@
+         }
+ 
+         private Builder prepareFiguresChain(FiguresChain figuresChain) {
+-            if (Objects.isNull(Chessboard.this.figureChain)) {
++            if (Chessboard.this.figureChain == null) {
+                 Chessboard.this.figureChain = figuresChain;
+                 previousFiguresChain = figuresChain;
+             } else {
+Index: src/test/java/org/xander/chessboard/ChessboardTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/xander/chessboard/ChessboardTest.java b/src/test/java/org/xander/chessboard/ChessboardTest.java
+--- a/src/test/java/org/xander/chessboard/ChessboardTest.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/test/java/org/xander/chessboard/ChessboardTest.java	(date 1685715662310)
+@@ -195,6 +195,7 @@
+                 .reduce(0, (x, y) -> x + y), is(32));
+     }
+ 
++//    @Disabled
+     @Test
+     public void readmeRequirement() {
+         Map<String, Integer> figureQuantityMap = new HashMap<>();
+@@ -227,18 +228,21 @@
+         collect.addAll(collect1);
+ //        collect.addAll(collect2);
+ 
+-        assertThat("all elements are not present on each board",
+-                collect
+-                        .parallelStream()
+-                        .filter(board -> board.contains(KING.getFigureAsString())
+-                                && board.contains(QUEEN.getFigureAsString())
+-                                && board.contains(BISHOP.getFigureAsString())
+-                                && !board.contains(ROOK.getFigureAsString())
+-                                && board.contains(KNIGHT.getFigureAsString())
+-                                && board.contains(FIELD_UNDER_ATTACK_STRING)
+-                                && leftOnlyFigures(board).length() == 7)
+-                        .map(e -> 1)
+-                        .reduce(0, Integer::sum), is(3063828));
++        Integer reduce = 0;
++        for (String board : collect) {
++            if (board.contains(KING.getFigureAsString())
++                    && board.contains(QUEEN.getFigureAsString())
++                    && board.contains(BISHOP.getFigureAsString())
++                    && !board.contains(ROOK.getFigureAsString())
++                    && board.contains(KNIGHT.getFigureAsString())
++                    && board.contains(FIELD_UNDER_ATTACK_STRING)
++                    && leftOnlyFigures(board).length() == 7) {
++                Integer integer = 1;
++                reduce = reduce + integer;
++            }
++        }
++        assertThat("all elements are not present on each board",
++                reduce, is(3063828));
+     }
+ 
+ 
+@@ -260,8 +264,8 @@
+                 .withRook()
+                 .withKnight()
+                 .build();
+-
+-        chessboard.placeFiguresOnEmptyBoard();
++        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> chessboard.placeFiguresOnEmptyBoard());
++        assertEquals("There are more figures than places to put them", ex.getMessage());
+     }
+ 
+     @Test
+Index: src/main/java/org/xander/chessboard/figuresPlacement/BoardUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/xander/chessboard/figuresPlacement/BoardUtils.java b/src/main/java/org/xander/chessboard/figuresPlacement/BoardUtils.java
+--- a/src/main/java/org/xander/chessboard/figuresPlacement/BoardUtils.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/main/java/org/xander/chessboard/figuresPlacement/BoardUtils.java	(date 1685715823940)
+@@ -1,7 +1,5 @@
+ package org.xander.chessboard.figuresPlacement;
+ 
+-import java.util.Objects;
+-
+ import static org.xander.chessboard.figures.Figure.BISHOP;
+ import static org.xander.chessboard.figures.Figure.KING;
+ import static org.xander.chessboard.figures.Figure.KNIGHT;
+@@ -12,7 +10,7 @@
+ 
+ public class BoardUtils {
+     public static void isBoardLegal(String board, int dimension) {
+-        if (Objects.isNull(board) || board.isEmpty() || board.length() % dimension != 0) {
++        if (board == null || board.isEmpty() || board.length() % dimension != 0) {
+             throw new IllegalStateException("There is something wrong with your board");
+         }
+     }
+Index: src/main/java/org/xander/chessboard/figuresPlacement/FiguresPlacement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/xander/chessboard/figuresPlacement/FiguresPlacement.java b/src/main/java/org/xander/chessboard/figuresPlacement/FiguresPlacement.java
+--- a/src/main/java/org/xander/chessboard/figuresPlacement/FiguresPlacement.java	(revision 84e16ab7e76f6622930c6e23b5b77c87ad4b8855)
++++ b/src/main/java/org/xander/chessboard/figuresPlacement/FiguresPlacement.java	(date 1685715823926)
+@@ -1,10 +1,8 @@
+ package org.xander.chessboard.figuresPlacement;
+ 
+ import java.util.HashSet;
+-import java.util.Objects;
+ import java.util.Set;
+ import java.util.stream.Collectors;
+-import java.util.stream.IntStream;
+ import java.util.stream.Stream;
+ 
+ import static org.xander.chessboard.figures.Figure.BISHOP;
+@@ -51,7 +49,7 @@
+ 
+     @Override
+     public String calculateAttackPlaces(String board) {
+-        if (Objects.isNull(board)) {
++        if (board == null) {
+             throw new IllegalStateException("board is null");
+         }
+         //mind the '\n' character
+@@ -64,9 +62,11 @@
+     }
+ 
+     private void calculateAttackPlaces(int dimension, char[] boardElements) {
+-        IntStream.range(0, boardElements.length)
+-                .filter(e -> boardElements[e] == getFigure())
+-                .forEach(position -> attackPlaceForPosition(position, boardElements, dimension));
++        for (int i = 0; i < boardElements.length; i++) {
++            if (boardElements[i] == getFigure()) {
++                attackPlaceForPosition(i, boardElements, dimension);
++            }
++        }
+     }
+ 
+     private boolean isFigurePlacementOnPositionPossible(int position, char[] boardElements, int dimension) {
+@@ -94,11 +94,13 @@
+         int dimension = (int) Math.sqrt(board.length()) + 1;
+         isBoardLegal(board, dimension);
+ 
+-        Set<String> setOfPossibleBoards = new HashSet<>((int) IntStream
+-                                                        .range(0, board.length())
+-                                                        .filter(i -> board.charAt(i) == EMPTY_FIELD_CHAR)
+-                                                        .boxed()
+-                                                        .count());
++        long count = 0L;
++        for (int i = 0; i < board.length(); i++) {
++            if (board.charAt(i) == EMPTY_FIELD_CHAR) {
++                count++;
++            }
++        }
++        Set<String> setOfPossibleBoards = new HashSet<>((int) count);
+         char[] boardArray = board.toCharArray();
+         if (boardArray[position] == EMPTY_FIELD_CHAR) {
+             if (isFigurePlacementOnPositionPossible(position, boardArray, dimension)) {
